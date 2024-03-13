@@ -503,6 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23078333}
   - component: {fileID: 23078332}
+  - component: {fileID: 23078334}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -522,7 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5947adc98b16fa34d9b2b8a9685bf8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
 --- !u!4 &23078333
 Transform:
   m_ObjectHideFlags: 0
@@ -532,12 +532,29 @@ Transform:
   m_GameObject: {fileID: 23078331}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8752333, y: 0.55240554, z: -3.4859846}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &23078334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23078331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de9c69ddd2119a499f357843ab6a4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 10
+  width: 10
+  totalGridHeight: 1
+  gridCellPrefab: {fileID: 5181763258308965734, guid: 38fb5d82fa8fb7c489fc2b7845a46a16,
+    type: 3}
 --- !u!1001 &27053214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17638,7 +17655,7 @@ GameObject:
   - component: {fileID: 1449999204}
   - component: {fileID: 1449999203}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Visual Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19682,6 +19699,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Teste cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 2902903935459357403, guid: 46d05c2c2070cd849b937464a28caf13,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5277781647303825495, guid: 46d05c2c2070cd849b937464a28caf13,
         type: 3}

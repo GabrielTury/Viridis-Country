@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 é a layer das construções
             {
                 Debug.Log(hit.collider.gameObject.name);
                 StartCoroutine(Drag(hit.collider.gameObject));
