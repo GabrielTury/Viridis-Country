@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/MainMenu.unity
+    guid: 9a9a6d620fdf1fe4fb0899c771bc5da6
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Gameplay_Test.unity
+    guid: ad3d50c4538c05e45ad3828075c20d13
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ad2cd6d5cb95be24b9a206f64c76cdac,
       type: 2}
