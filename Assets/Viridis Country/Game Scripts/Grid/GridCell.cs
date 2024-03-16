@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class GridCell : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float simplePosX { get; private set; }
+
+    public float simplePosZ { get; private set; }
+
+    public float resource { get; private set; }
+
+    [SerializeField]
+    private string _tileType;
+    public string tileType 
     {
-        
+        get { return tileType; }
+        private set { tileType = _tileType; }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        simplePosX = transform.position.x;
+        simplePosZ = transform.position.z;
+    }
+
+    private void SetResource()
+    {
+
     }
 }

@@ -4,47 +4,67 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("X is Width, Z is height")]
-    private int height, width;
+    public static GridManager Instance { get; private set; }
 
-    [SerializeField]
-    private int totalGridHeight;
-
-    private float gridGapSize = 1f;
-
-    private GameObject[,] grid;
-
-    [SerializeField]
-    private GameObject gridCellPrefab;
-
+    private GridCell[] gridCells;
     private void Awake()
     {
-        grid = new GameObject[width, height];
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     private void Start()
     {
-        CreateGrid();
+        gridCells = FindObjectsOfType<GridCell>();
     }
 
-    //Cria a Grid
-    private void CreateGrid()
+    public Vector3 NearestCellPosition(Vector3 currentPosition)
     {
-        if(gridCellPrefab == null)
+        Vector3 nearestCellPosition = new Vector3();
+        float distance = 0;
+        foreach(GridCell cell in gridCells)
         {
-            Debug.LogError("No Grid Cell Prefab");
-            return;
+            float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
+            if (distance == 0)
+            {
+                nearestCellPosition = cell.transform.position;
+                distance = cellDistance;
+            }
+            else if (cellDistance < distance) 
+            {
+                nearestCellPosition = cell.transform.position;
+                distance = cellDistance;
+            }
+            
         }
 
-        for(int x = 0;x < width;x++)
-        {
-            for(int z = 0;z < height;z++)
-            {
-                grid[x, z] = Instantiate(gridCellPrefab, new Vector3(x * gridGapSize, totalGridHeight, z * gridGapSize), Quaternion.identity,transform);
-#if UNITY_EDITOR
-                grid[x,z].name = "Grid Space( X: " + x.ToString() + ", Z: " + z.ToString() + ")";
-#endif
-            }
-        }
+        return nearestCellPosition;
     }
 
+    public GridCell[] GetCellFromRadius(Vector3 position, int radius)
+    {
+        List<GridCell> cellsInRadius = new List<GridCell>();
+        foreach(GridCell cell in gridCells)
+        {
+            for (int i = radius; i > 0; i--)
+            {
+                for(int j = radius; j > 0; j--)
+                {
+                    if (cell.simplePosX == position.x + i && cell.simplePosZ == position.z + j)
+                    {
+                        cellsInRadius.Add(cell);
+                    }
+                }
+
+            }
+           
+        }
+
+        return cellsInRadius.ToArray();
+    }
 }

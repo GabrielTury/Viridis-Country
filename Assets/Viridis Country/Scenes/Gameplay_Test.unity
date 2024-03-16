@@ -550,11 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de9c69ddd2119a499f357843ab6a4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 10
-  width: 10
-  totalGridHeight: 1
-  gridCellPrefab: {fileID: 5181763258308965734, guid: 38fb5d82fa8fb7c489fc2b7845a46a16,
-    type: 3}
 --- !u!1001 &27053214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17682,7 +17677,7 @@ Transform:
   m_GameObject: {fileID: 1449999202}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19758,8 +19753,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2902903935459357403, guid: 46d05c2c2070cd849b937464a28caf13,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1572984450}
   m_SourcePrefab: {fileID: 100100000, guid: 46d05c2c2070cd849b937464a28caf13, type: 3}
+--- !u!1 &1572984449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2902903935459357403, guid: 46d05c2c2070cd849b937464a28caf13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1572984448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1572984450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572984449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cffe8d23f12e61e449e55bc603e0ca3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1580573207
 PrefabInstance:
   m_ObjectHideFlags: 0

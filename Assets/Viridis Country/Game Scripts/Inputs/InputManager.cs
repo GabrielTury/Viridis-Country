@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
             {
                 Debug.Log(hit.collider.gameObject.name);
                 StartCoroutine(Drag(hit.collider.gameObject));
-
+                hit.collider.gameObject.SendMessage("SetDragging", true);
             }
 
         }
@@ -66,6 +66,7 @@ public class InputManager : MonoBehaviour
             yield return null;
         }
 
+        obj.SendMessage("SetDragging", false);
     }
 
     private void OnEnable()
