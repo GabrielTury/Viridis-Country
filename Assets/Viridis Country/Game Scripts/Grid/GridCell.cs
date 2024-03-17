@@ -8,14 +8,21 @@ public class GridCell : MonoBehaviour
 
     public float simplePosZ { get; private set; }
 
-    public float resource { get; private set; }
+    [SerializeField]
+    private string _resource;
+    public string resource
+    {
+        get { return _resource; }
+        private set { resource = value; }
+    }
+        
 
     [SerializeField]
     private string _tileType;
     public string tileType 
     {
-        get { return tileType; }
-        private set { tileType = _tileType; }
+        get { return _tileType; }
+        private set { tileType = value; }
     }
 
     private void Awake()

@@ -51,9 +51,9 @@ public class GridManager : MonoBehaviour
         List<GridCell> cellsInRadius = new List<GridCell>();
         foreach(GridCell cell in gridCells)
         {
-            for (int i = radius; i > 0; i--)
+            for (int i = radius; i >= -radius; i--)
             {
-                for(int j = radius; j > 0; j--)
+                for(int j = radius; j >= -radius; j--)
                 {
                     if (cell.simplePosX == position.x + i && cell.simplePosZ == position.z + j)
                     {

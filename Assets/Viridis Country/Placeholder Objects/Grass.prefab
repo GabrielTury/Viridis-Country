@@ -118,3 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d971c315b76567342ab472887d3ac9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resource: Wood
+  _tileType: 
