@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }

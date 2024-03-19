@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,10 @@ public class GridCell : MonoBehaviour
 
     public float simplePosZ { get; private set; }
 
-    [SerializeField]
-    private string _resource;
-    public string resource
+    public GameManager.GameResources resource
     {
-        get { return _resource; }
-        private set { resource = value; }
+        get;
+        private set;
     }
         
 
@@ -26,6 +25,10 @@ public class GridCell : MonoBehaviour
         get { return _tileType; }
         private set { tileType = value; }
     }
+    GridCell()
+    {
+        resource = GameManager.GameResources.None;
+    }
 
     private void Awake()
     {
@@ -35,13 +38,15 @@ public class GridCell : MonoBehaviour
         simplePosZ = transform.position.z;
     }
 
-    private void SetResource()
+    public void SetResource(GameManager.GameResources newResource)
     {
-
+        resource = newResource;
     }
 
     public void SetAvailability(bool newValue)
     {
         isAvailable = newValue;
     }
+
+
 }

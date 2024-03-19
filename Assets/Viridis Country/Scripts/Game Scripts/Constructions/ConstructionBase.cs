@@ -1,27 +1,42 @@
+
+using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ConstructionBase : MonoBehaviour
+public class ConstructionBase : MonoBehaviour
 {
-    protected bool isBeingDragged;
+    private bool isBeingDragged;
 
-    [SerializeField,Tooltip("Range from which it can gather resources")]
-    protected int gatherRadius;
+    [SerializeField]
+    private ConstructionTemplate construcion;
 
-    protected int resourcesInRange;
+    private int gatherRadius;
 
-    protected GridCell currentCell;
+    private int resourcesInRange;
+
+    private GameManager.GameResources resourceToGather;
+
+    private GridCell currentCell;
+
+    private void OnEnable()
+    {
+        GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
+        gatherRadius = construcion.gatherRadius;
+        resourceToGather = construcion.resourceToGather;
+    }
 
     public void SetDragging(bool newValue)
     {
         isBeingDragged = newValue;
-        
-        if(!isBeingDragged)
+
+        if (!isBeingDragged)
         {
             SnapToGrid();
+            GetResourcesInRange(out resourcesInRange);
+            //GameEvents.OnResourceGathered(resourceToGather, resourcesInRange);
         }
-        else if(currentCell != null && isBeingDragged != currentCell.isAvailable)
+        else if (currentCell != null && isBeingDragged != currentCell.isAvailable)
         {
             currentCell.SetAvailability(true);
         }
@@ -29,10 +44,10 @@ public abstract class ConstructionBase : MonoBehaviour
     /// <summary>
     /// Set Object X and Z position to the nearest Cell
     /// </summary>
-    protected void SnapToGrid()
+    private void SnapToGrid()
     {
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell);
-        
+
         currentCell.SetAvailability(false);
 
         transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
@@ -41,29 +56,21 @@ public abstract class ConstructionBase : MonoBehaviour
     /// <summary>
     /// Iterate through all blocks in range and see how many resources there are
     /// </summary>
-    /// <param name="resourceToGather"></param>
     /// <param name="resourceAmount">out the amount fo resources in range</param>
-    protected void GetResourcesInRange(string resourceToGather, out int resourceAmount)
+    private void GetResourcesInRange(out int resourceAmount)
     {
         resourceAmount = 0;
         GridCell[] cellsInRadius = GridManager.Instance.GetCellFromRadius(transform.position, gatherRadius);
-        
-        
-        foreach(GridCell cell in cellsInRadius) 
+
+
+        foreach (GridCell cell in cellsInRadius)
         {
-           if(cell.resource == resourceToGather)
+            if (cell.resource == resourceToGather)
             {
+                Debug.Log(cell.resource);
                 resourceAmount++;
             }
         }
-        
-    }
 
-
-    [ContextMenu("Teste")] //Método a ser removido
-    protected void Teste()
-    {
-        GetResourcesInRange("Wood",out resourcesInRange);
-        Debug.Log(resourcesInRange);
     }
 }
