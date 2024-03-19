@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridCell : MonoBehaviour
 {
+
+    public bool isAvailable {  get; private set; }
     public float simplePosX { get; private set; }
 
     public float simplePosZ { get; private set; }
@@ -27,6 +29,8 @@ public class GridCell : MonoBehaviour
 
     private void Awake()
     {
+        isAvailable = true;
+
         simplePosX = transform.position.x;
         simplePosZ = transform.position.z;
     }
@@ -34,5 +38,10 @@ public class GridCell : MonoBehaviour
     private void SetResource()
     {
 
+    }
+
+    public void SetAvailability(bool newValue)
+    {
+        isAvailable = newValue;
     }
 }

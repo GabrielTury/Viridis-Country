@@ -23,10 +23,18 @@ public class GridManager : MonoBehaviour
         gridCells = FindObjectsOfType<GridCell>();
     }
 
-    public Vector3 NearestCellPosition(Vector3 currentPosition)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="currentPosition"></param>
+    /// <param name="closestCell">out the nearest available GridCell</param>
+    /// <returns>Returns the Position of the nearest available gridCell</returns>
+    public Vector3 NearestCellPosition(Vector3 currentPosition, out GridCell closestCell)
     {
         Vector3 nearestCellPosition = new Vector3();
         float distance = 0;
+
+        closestCell = null;
         foreach(GridCell cell in gridCells)
         {
             float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
@@ -35,10 +43,12 @@ public class GridManager : MonoBehaviour
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;
             }
-            else if (cellDistance < distance) 
+            else if (cellDistance < distance && cell.isAvailable) 
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;
+
+                closestCell = cell;
             }
             
         }
@@ -46,6 +56,12 @@ public class GridManager : MonoBehaviour
         return nearestCellPosition;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="radius">How many blocks will it search in X and Z axis</param>
+    /// <returns>Returns an array with all cells in radius</returns>
     public GridCell[] GetCellFromRadius(Vector3 position, int radius)
     {
         List<GridCell> cellsInRadius = new List<GridCell>();

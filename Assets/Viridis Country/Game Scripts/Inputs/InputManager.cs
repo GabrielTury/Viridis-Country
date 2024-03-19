@@ -6,6 +6,9 @@ using UnityEngine.Windows;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField]
+    private float dragObjectHeight;
+
     private Inputs inputs;
 
     private bool isDragging;
@@ -59,7 +62,7 @@ public class InputManager : MonoBehaviour
             Vector3 position = new Vector3(currentTouchPosition.x, currentTouchPosition.y, mainCamera.WorldToScreenPoint(obj.transform.position).z); //transforma o z do objeto em um ponto na tela
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(position); //transforma os pontos na tela em coordenadas                                                                        
 
-            worldPosition.y = 1f; //sobrescreve altura do objeto que está sen arrastado
+            worldPosition.y = dragObjectHeight; //sobrescreve altura do objeto que está sen arrastado
 
             obj.transform.position = worldPosition;
 
