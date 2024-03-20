@@ -9,9 +9,17 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private float dragObjectHeight;
 
+    [SerializeField, Range(1f, 30f)]
+    private float cameraMoveSpeed;
+
+    [SerializeField]
+    private Vector2 maxCameraPosition;
+
     private Inputs inputs;
 
     private bool isDragging;
+
+    private bool isMovingCamera;
 
     private Camera mainCamera;
 
@@ -36,16 +44,42 @@ public class InputManager : MonoBehaviour
                 StartCoroutine(Drag(hit.collider.gameObject));
                 hit.collider.gameObject.SendMessage("SetDragging", true);
             }
-
+            else if(hit.collider != null)
+            {
+                StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
+            }
         }
     }
 
     private void Touch_canceled(InputAction.CallbackContext obj)
     {
         isDragging = false;
+        isMovingCamera = false;
     }
     #endregion
+    private IEnumerator MoveCamera(Vector2 startTouchPosition)
+    {
+        isMovingCamera = true;  
+        while(isMovingCamera)
+        {
+            Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            Vector2 touchDelta = currentTouchPosition - startTouchPosition;
 
+            Vector3 moveDirection = mainCamera.transform.TransformDirection(new Vector3(touchDelta.x, 0, touchDelta.y));
+
+            moveDirection.Normalize();
+
+            Vector3 newPosition = mainCamera.transform.position + new Vector3(-moveDirection.x, 0, -moveDirection.z) * cameraMoveSpeed * Time.deltaTime;
+
+            newPosition.x = Mathf.Clamp(newPosition.x, -maxCameraPosition.x, maxCameraPosition.x);
+            newPosition.z = Mathf.Clamp(newPosition.z, -maxCameraPosition.y, maxCameraPosition.y);
+
+            mainCamera.transform.position = newPosition;
+
+            yield return null;
+        }
+        
+    }
     private IEnumerator Drag(GameObject obj)
     {
         float dist = Vector3.Distance(obj.transform.position, mainCamera.transform.position);
