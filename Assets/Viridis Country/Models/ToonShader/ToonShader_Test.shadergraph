@@ -889,7 +889,7 @@
     "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
-        "y": 2.0399999618530275
+        "y": 1.4700000286102296
     },
     "m_DefaultValue": {
         "x": 0.0,
@@ -1446,7 +1446,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 2
+    "m_Space": 0
 }
 
 {
@@ -2266,7 +2266,7 @@
     "m_ShaderOutputName": "OutMinMax",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 1.0,
+        "x": 1.5800000429153443,
         "y": 0.0
     },
     "m_DefaultValue": {
