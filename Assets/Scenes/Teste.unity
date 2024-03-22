@@ -220,11 +220,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[6]
       value: 
-      objectReference: {fileID: 2100000, guid: bf6c592c109e65c4fb3b5001aefee0eb, type: 2}
+      objectReference: {fileID: -876546973899608171, guid: d4c88889569a28143b7ed4a82f23e346,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 7c50b912ec1bbda47b70dd380b30d9aa,
         type: 3}
       propertyPath: m_Name
       value: Madeireira
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c50b912ec1bbda47b70dd380b30d9aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -556,11 +562,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: bf6c592c109e65c4fb3b5001aefee0eb, type: 2}
+      objectReference: {fileID: -876546973899608171, guid: d4c88889569a28143b7ed4a82f23e346,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 63687e42a63beb44fa6cac1e791e5676,
         type: 3}
       propertyPath: m_Name
       value: Pedreira
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 63687e42a63beb44fa6cac1e791e5676,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -869,6 +881,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "Po\xE7o"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7c7a1d508f84a7949886d383b149d54a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
