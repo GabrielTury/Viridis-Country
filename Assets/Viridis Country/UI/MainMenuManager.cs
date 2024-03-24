@@ -52,6 +52,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private Image levelSelectBGImage;
 
+    [SerializeField]
+    private Image tooltipImage;
+
+    private bool showInputTooltip;
+
     void Start()
     {
         planetTransform = planet.transform;
@@ -67,6 +72,8 @@ public class MainMenuManager : MonoBehaviour
         blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 0), 1));
 
         levelSelectBGImage.gameObject.SetActive(false);
+
+        tooltipImage.color = new Color(255, 255, 255, 0);
     }
 
     void Update()
@@ -76,6 +83,12 @@ public class MainMenuManager : MonoBehaviour
         galaxyTransform.eulerAngles = new Vector3(-90, galaxyRotationSpeed * Time.deltaTime, 0);
 
         gameLogoRTransform.anchoredPosition = new Vector3(0, (Mathf.Sin(Time.time) * 10) - 320.0f, 0.0f);
+
+        if (showInputTooltip == false && Time.time > 3)
+        {
+            StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 255), 60));
+            showInputTooltip = true;
+        }
     }
 
     public void GoToLevelSelect()
@@ -87,16 +100,14 @@ public class MainMenuManager : MonoBehaviour
         transitionCamera.transform.rotation = mainCamera.transform.rotation;
         StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
         blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 56));
+        StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 60));
         StartCoroutine(FadeAfterSeconds(4));
         Destroy(mainCamera);
     }
 
     public void EnterLevel(int levelID)
     {
-        if (levelID == 1)
-        {
-            SceneManager.LoadScene("Gameplay_Test");//
-        }
+        StartCoroutine(FadeToLevel(1, 1));
     }
 
     private IEnumerator SmoothStepToTarget(Transform objTransform, Vector3 targetPosition, float duration, Vector3 targetRotation = default)
@@ -149,5 +160,17 @@ public class MainMenuManager : MonoBehaviour
         StopCoroutine(blackoutImageCoroutine);
         StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 0), 1));
         levelSelectBGImage.gameObject.SetActive(true);
+    }
+
+    private IEnumerator FadeToLevel(float seconds, int levelID)
+    {
+        StopCoroutine(blackoutImageCoroutine);
+        StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 10 * seconds));
+        yield return new WaitForSeconds(seconds);
+
+        if (levelID == 1)
+        {
+            SceneManager.LoadScene("Gameplay_Test");
+        }
     }
 }
