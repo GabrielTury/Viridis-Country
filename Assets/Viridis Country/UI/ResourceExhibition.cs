@@ -43,9 +43,9 @@ public class ResourceExhibition : MonoBehaviour
     {
         new int[] { 0, 0 },
         new int[] { 0, 0 },
-        new int[] { -150, 0, 150, 0},
-        new int[] { -300, 0, 0, 0, 300, 0},
-        new int[] { -450, 0, -150, 0, 150, 0, 450, 0}
+        new int[] { -120, 0, 120, 0},
+        new int[] { -240, 0, 0, 0, 240, 0},
+        new int[] { -360, 0, -120, 0, 120, 0, 360, 0}
     };
 
     // Start is called before the first frame update
