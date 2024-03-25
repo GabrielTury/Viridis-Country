@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
             Water
         }
     #endregion
-    
-    private int woodAmount, waterAmount, stoneAmount;
+
+    public int waterAmount { get; private set; }
+    public int woodAmount { get; private set; }
+    public int stoneAmount { get; private set; }
 
     private void Awake()
     {
@@ -67,5 +69,7 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.Resource_Gathered -= GetGatheredResources;
     }
+
+
 }
 

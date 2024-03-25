@@ -1,8 +1,10 @@
+using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameManager;
 using static UnityEngine.Rendering.DebugUI;
 
 public class ResourceExhibition : MonoBehaviour
@@ -10,13 +12,13 @@ public class ResourceExhibition : MonoBehaviour
     // precisa de uma lista de recursos que o player tem que pegar, provavelmente vindo do game manager
     // mas por enquanto deixa isso de exemplo
 
-    private int[] GameResourcesToGather = { 0, 1, 0, 0 }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
+    private int[] GameResourcesToGather = { 0, 4, 2, 2 }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
 
     [SerializeField]
     private Image resourceBackground;
 
     [SerializeField]
-    private GameObject gameManager;
+    private GameManager gameManager;
 
     [SerializeField]
     private Sprite[] resourceIcons;
@@ -32,50 +34,50 @@ public class ResourceExhibition : MonoBehaviour
 
     private string[] resourceNamesText = { "None", "Water", "Wood", "Stone" };
 
-    private List<Image> resourceBoxIcon;
-    private List<TextMeshProUGUI> resourceBoxText;
+    private List<Image> resourceBoxIcon = new List<Image>();
+    private List<TextMeshProUGUI> resourceBoxText = new List<TextMeshProUGUI>();
 
     private int resourceBarSize = 0;
 
     private List<int[]> resourceBoxPositions = new List<int[]>
     {
         new int[] { 0, 0 },
-        new int[] { -40, 0, 40, 0},
-        new int[] { -80, 0, 0, 0, 80, 0},
-        new int[] { -120, 0, -40, 0, 40, 0, 120, 0}
+        new int[] { 0, 0 },
+        new int[] { -150, 0, 150, 0},
+        new int[] { -300, 0, 0, 0, 300, 0},
+        new int[] { -450, 0, -150, 0, 150, 0, 450, 0}
     };
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameManager.Instance.gameObject;
+        gameManager = GameManager.Instance;
 
         for (int i = 0; i < GameResourcesToGather.Length; i++)
         {
             if (GameResourcesToGather[i] > 0) {
                 resourceBarSize += 1;
-                var clone = Instantiate(resourceBoxTemplate);
+                var clone = Instantiate(resourceBoxTemplate, this.transform);
                 clone.name = "ResourceBox" + i;
                 resourceBoxes.Add(clone);
                 resourceNames.Add(i);
             }
         }
 
-        //Destroy(resourceBoxes[0]);
-
         var j = 0;
         for (int i = 0; i < resourceBarSize; i++)
         {
             resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(resourceBoxPositions[resourceBarSize][i + j], resourceBoxPositions[resourceBarSize][i + 1 + j]);
 
+            Debug.Log(GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>());
             resourceBoxIcon.Add(GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>());
             resourceBoxText.Add(GetChildWithName(resourceBoxes[i], "ResourceNumber").GetComponent<TextMeshProUGUI>());
-            resourceBoxIcon[i].sprite = resourceIcons[resourceNames[i]];
+            resourceBoxIcon[i].sprite = resourceIcons[resourceNames[i]-1];
             resourceBoxText[i].text = resourceNamesText[resourceNames[i]];
             j++;
         }
 
-        resourceBackground.rectTransform.sizeDelta = new Vector2(80 * resourceBarSize, 40);
+        resourceBackground.rectTransform.sizeDelta = new Vector2(280 * resourceBarSize, 130);
 
     }
 
@@ -85,12 +87,36 @@ public class ResourceExhibition : MonoBehaviour
         
     }
 
-    private GameObject getChildGameObject(GameObject fromGameObject, string withName)
+    private void UpdateUIInfo(GameResources resource, int amount)
     {
-        //Author: Isaac Dart, June-13.
-        Transform[] ts = fromGameObject.transform.GetComponentsInChildren<Transform>(true);
-        foreach (Transform t in ts) if (t.gameObject.name == withName) return t.gameObject;
-        return null;
+        for (int i = 0; i < resourceBarSize; i++)
+        {
+            switch (resourceNamesText[resourceNames[i]])
+            {
+                case "Water":
+                    resourceBoxText[i].text = gameManager.waterAmount + "/" + GameResourcesToGather[1];
+                    break;
+
+                case "Wood":
+                    resourceBoxText[i].text = gameManager.woodAmount + "/" + GameResourcesToGather[2];
+                    break;
+
+                case "Stone":
+                    resourceBoxText[i].text = gameManager.stoneAmount + "/" + GameResourcesToGather[3];
+                    break;
+
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.Resource_Gathered += UpdateUIInfo;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.Resource_Gathered -= UpdateUIInfo;
     }
 
     GameObject GetChildWithName(GameObject obj, string name)
