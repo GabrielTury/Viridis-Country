@@ -22,8 +22,10 @@ public class ConstructionBase : MonoBehaviour
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
+        GetComponent<MeshRenderer>().material = construcion.material;   
         gatherRadius = construcion.gatherRadius;
         resourceToGather = construcion.resourceToGather;
+
     }
 
     public void SetDragging(bool newValue)
@@ -33,7 +35,7 @@ public class ConstructionBase : MonoBehaviour
         if (!isBeingDragged)
         {
             SnapToGrid();
-            GetResourcesInRange(out resourcesInRange);
+            resourcesInRange = GetResourcesInRange(resourcesInRange);
             //GameEvents.OnResourceGathered(resourceToGather, resourcesInRange);
         }
         else if (currentCell != null && isBeingDragged != currentCell.isAvailable)
@@ -57,9 +59,11 @@ public class ConstructionBase : MonoBehaviour
     /// Iterate through all blocks in range and see how many resources there are
     /// </summary>
     /// <param name="resourceAmount">out the amount fo resources in range</param>
-    private void GetResourcesInRange(out int resourceAmount)
+    private int GetResourcesInRange(int resourceAmount)
     {
         resourceAmount = 0;
+        //Debug.Log(resourcesInRange + "Resources In Range");
+
         GridCell[] cellsInRadius = GridManager.Instance.GetCellFromRadius(transform.position, gatherRadius);
 
 
@@ -72,5 +76,10 @@ public class ConstructionBase : MonoBehaviour
             }
         }
 
+        int diff = resourceAmount - resourcesInRange;
+
+        GameEvents.OnResourceGathered(resourceToGather, diff);
+
+        return resourceAmount;
     }
 }

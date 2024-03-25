@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragObjectHeight: 0.5
   cameraMoveSpeed: 30
-  maxCameraPosition: {x: 15, y: 15}
+  maxCameraPosition: {x: 10, y: 10}
 --- !u!4 &23078333
 Transform:
   m_ObjectHideFlags: 0
@@ -8329,7 +8329,7 @@ PrefabInstance:
     - target: {fileID: 2889193816710799733, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27962,11 +27962,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8610527652912770766, guid: 2b850c22593b3b14183827966cdf6564,
+        type: 3}
+      propertyPath: construcion
+      value: 
+      objectReference: {fileID: 11400000, guid: 62b76af5bbb4cc443a400f0307f33cd5,
+        type: 2}
     - target: {fileID: 8995607253922278024, guid: 2b850c22593b3b14183827966cdf6564,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 8552134717624371188, guid: 3dfcf8ea5fa9c824ebc514be99ffdb87,
+      objectReference: {fileID: 8467973019869391972, guid: 7c50b912ec1bbda47b70dd380b30d9aa,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

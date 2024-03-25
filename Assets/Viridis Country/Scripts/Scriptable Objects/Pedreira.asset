@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pedreira
   m_EditorClassIdentifier: 
   gatherRadius: 1
-  constructionMesh: {fileID: 8552134717624371188, guid: 5aaf8e063021e8a42843f8846f6abd1a,
+  constructionMesh: {fileID: -6657180443270484345, guid: 63687e42a63beb44fa6cac1e791e5676,
     type: 3}
   resourceToGather: 1

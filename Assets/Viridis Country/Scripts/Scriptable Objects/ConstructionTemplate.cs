@@ -11,5 +11,7 @@ public class ConstructionTemplate : ScriptableObject
 
     public Mesh constructionMesh;
 
+    public Material material;
+
     public GameManager.GameResources resourceToGather;
 }
