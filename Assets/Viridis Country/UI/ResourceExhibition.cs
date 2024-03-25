@@ -34,6 +34,15 @@ public class ResourceExhibition : MonoBehaviour
 
     private string[] resourceNamesText = { "None", "Water", "Wood", "Stone" };
 
+    [SerializeField]
+    private Color[] resourceForegroundColors =
+    {
+        //new Color(255, 255, 255, 255), // None
+        //new Color(148, 227, 255, 255), // Water
+        //new Color(255, 187, 147, 255), // Wood
+        //new Color(153, 167, 180, 255), // Stone
+    };
+
     private List<Image> resourceBoxIcon = new List<Image>();
     private List<TextMeshProUGUI> resourceBoxText = new List<TextMeshProUGUI>();
 
@@ -74,6 +83,7 @@ public class ResourceExhibition : MonoBehaviour
             resourceBoxText.Add(GetChildWithName(resourceBoxes[i], "ResourceNumber").GetComponent<TextMeshProUGUI>());
             resourceBoxIcon[i].sprite = resourceIcons[resourceNames[i]-1];
             resourceBoxText[i].text = resourceNamesText[resourceNames[i]];
+            
             j++;
         }
 
@@ -95,14 +105,17 @@ public class ResourceExhibition : MonoBehaviour
             {
                 case "Water":
                     resourceBoxText[i].text = gameManager.waterAmount + "/" + GameResourcesToGather[1];
+                    GetChildWithName(resourceBoxes[i], "ResourceForeground").GetComponent<Image>().color = resourceForegroundColors[resourceNames[i]];
                     break;
 
                 case "Wood":
                     resourceBoxText[i].text = gameManager.woodAmount + "/" + GameResourcesToGather[2];
+                    GetChildWithName(resourceBoxes[i], "ResourceForeground").GetComponent<Image>().color = resourceForegroundColors[resourceNames[i]];
                     break;
 
                 case "Stone":
                     resourceBoxText[i].text = gameManager.stoneAmount + "/" + GameResourcesToGather[3];
+                    GetChildWithName(resourceBoxes[i], "ResourceForeground").GetComponent<Image>().color = resourceForegroundColors[resourceNames[i]];
                     break;
 
             }
