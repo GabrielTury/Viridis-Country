@@ -566,6 +566,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ea3f64c7805914cbb6c9a3fb2833fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zeroAmount: 0
+  waterAmount: 0
+  woodAmount: 0
+  stoneAmount: 0
 --- !u!1001 &27053214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8223,6 +8227,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
+      propertyPath: resourceBoxHighlight
+      value: 
+      objectReference: {fileID: 6617235706964028952, guid: 41579d014b96b8c4bb1bc1ecceb4d4a9,
+        type: 3}
+    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
+        type: 3}
       propertyPath: resourceForegroundColors.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -8290,8 +8300,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8f31f80e265cc0646b0d2d8528c845cd,
+      objectReference: {fileID: 0}
+    - target: {fileID: 2002741494928780526, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2574820109539967508, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
       propertyPath: m_Pivot.x

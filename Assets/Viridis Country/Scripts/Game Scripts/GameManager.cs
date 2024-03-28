@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
         }
     #endregion
 
-    public int waterAmount { get; private set; }
-    public int woodAmount { get; private set; }
-    public int stoneAmount { get; private set; }
+    public int zeroAmount;
+    public int waterAmount;
+    public int woodAmount;
+    public int stoneAmount;
 
     private void Awake()
     {
