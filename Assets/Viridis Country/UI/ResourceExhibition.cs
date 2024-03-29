@@ -26,10 +26,15 @@ class VariableContainer
 
 public class ResourceExhibition : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager gameManager;
+
     // precisa de uma lista de recursos que o player tem que pegar, provavelmente vindo do game manager
     // mas por enquanto deixa isso de exemplo
+    // edit: ja tem no gamamanager, mas preferi deixar aqui por motivos de organização
 
-    private int[] GameResourcesToGather = { 0, 4, 2, 2 }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
+    private int[] GameResourcesToGather = { 0, 0, 0, 0 }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
+    // atualiza no start
 
     private VariableContainer[] resourceRedirector;
 
@@ -39,14 +44,10 @@ public class ResourceExhibition : MonoBehaviour
     private Image resourceBackground;
 
     [SerializeField]
-    private GameManager gameManager;
-
-    [SerializeField]
     private Sprite[] resourceIcons;
 
     [SerializeField]
     private List<GameObject> resourceBoxes;
-    private Coroutine resourceBoxInflation;
 
     [SerializeField]
     private GameObject resourceBoxHighlight;
@@ -58,7 +59,6 @@ public class ResourceExhibition : MonoBehaviour
     private List<int> resourceNames;
 
     private string[] resourceNamesText = { "None", "Water", "Wood", "Stone" };
-    private int prevWater = 0, prevWood = 0, prevStone = 0;
 
     [SerializeField]
     private Color[] resourceForegroundColors =
@@ -74,21 +74,15 @@ public class ResourceExhibition : MonoBehaviour
 
     private int resourceBarSize = 0;
 
-    private List<int[]> resourceBoxPositions = new List<int[]>
-    {
-        new int[] { 0, 0 },
-        new int[] { 0, 0 },
-        new int[] { -120, 0, 120, 0},
-        new int[] { -240, 0, 0, 0, 240, 0},
-        new int[] { -360, 0, -120, 0, 120, 0, 360, 0}
-    };
-
     // Start is called before the first frame update
     void Start()
     {
-        resourceBoxInflation = StartCoroutine(EmptyCoroutine());
-
         gameManager = GameManager.Instance;
+
+        GameResourcesToGather[0] = 0;
+        GameResourcesToGather[1] = gameManager.objectiveWater;
+        GameResourcesToGather[2] = gameManager.objectiveWood;
+        GameResourcesToGather[3] = gameManager.objectiveStone;
 
         resourceRedirector = new VariableContainer[]
         {
@@ -117,7 +111,7 @@ public class ResourceExhibition : MonoBehaviour
         var j = 0;
         for (int i = 0; i < resourceBarSize; i++)
         {
-            resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(resourceBoxPositions[resourceBarSize][i + j], resourceBoxPositions[resourceBarSize][i + 1 + j]);
+            resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (resourceBarSize - 1)) / 2 + (240 * (i - 1)), 0);
 
             resourceBoxIcon.Add(GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>());
             resourceBoxText.Add(GetChildWithName(resourceBoxes[i], "ResourceNumber").GetComponent<TextMeshProUGUI>());
@@ -134,7 +128,7 @@ public class ResourceExhibition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private int RedirectResourceGatherList(GameResources resource)
@@ -183,9 +177,9 @@ public class ResourceExhibition : MonoBehaviour
 
         GetChildWithName(resourceBoxes[boxIndex], "ResourceForeground").GetComponent<Image>().color = resourceForegroundColors[resourceNames[boxIndex]];
 
-        if (resourceDict[resource] > prevResource)
+        if (resourceDict[resource] > prevResource || resourceDict[resource] < prevResource)
         {
-            BoxUpdate(boxIndex, resourceChange, true);
+            BoxUpdate(boxIndex, resourceChange, resourceDict[resource] > prevResource ? true : false);
         }
 
         /*
@@ -255,12 +249,23 @@ public class ResourceExhibition : MonoBehaviour
 
         GetChildWithName(boxHighlight, "ResourceNumber").GetComponent<TextMeshProUGUI>().text = resourceChange != "+0" || resourceChange != "0" ? resourceChange : "";
 
-        StartCoroutine(HighlightBox(GetChildWithName(boxHighlight, "ResourceForeground").GetComponent<Image>(), 0.31f, boxHighlight));
-
         StartCoroutine(FadeText(GetChildWithName(boxHighlight, "ResourceNumber").GetComponent<TextMeshProUGUI>(), 0.3f));
 
-        StartCoroutine(InflateBoxXY(boxHighlight.GetComponent<Image>(), new Vector2(1.05f, 1.05f), 0.15f));
-        StartCoroutine(InflateBoxXY(resourceBoxes[index].GetComponent<Image>(), new Vector2(1.05f, 1.05f), 0.15f));
+        if (positive)
+        {
+            StartCoroutine(HighlightBox(GetChildWithName(boxHighlight, "ResourceForeground").GetComponent<Image>(), 0.31f, boxHighlight, new Color32(255, 255, 255, 0)));
+            StartCoroutine(InflateBoxXY(boxHighlight.GetComponent<Image>(), new Vector2(1.05f, 1.05f), 0.15f));
+            StartCoroutine(InflateBoxXY(resourceBoxes[index].GetComponent<Image>(), new Vector2(1.05f, 1.05f), 0.15f));
+        }
+        else
+        {
+            GetChildWithName(boxHighlight, "ResourceForeground").GetComponent<Image>().color = new Color32(0, 0, 0, 100);
+
+            StartCoroutine(HighlightBox(GetChildWithName(boxHighlight, "ResourceForeground").GetComponent<Image>(), 0.31f, boxHighlight, new Color32(150, 20, 20, 0)));
+            StartCoroutine(InflateBoxXY(boxHighlight.GetComponent<Image>(), new Vector2(0.98f, 0.98f), 0.15f));
+            StartCoroutine(InflateBoxXY(resourceBoxes[index].GetComponent<Image>(), new Vector2(0.98f, 0.98f), 0.15f));
+        }
+        
     }
 
     private IEnumerator InflateBoxXY(Image image, Vector2 targetSize, float time)
@@ -291,16 +296,16 @@ public class ResourceExhibition : MonoBehaviour
         image.rectTransform.localScale = new Vector2(1, 1);
     }
 
-    private IEnumerator HighlightBox(Image image, float time, GameObject clone)
+    private IEnumerator HighlightBox(Image image, float time, GameObject clone, Color32 targetColor)
     {
         float lerp = 0;
         float smoothLerp = 0;
-        Color32 prevColor = new Color32(255, 255, 255, 255);
+        Color32 prevColor = image.color;
         while (lerp < 1 && time > 0)
         {
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / time);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-            image.color = Color.Lerp(prevColor, new Color32(255, 255, 255, 0), smoothLerp);
+            image.color = Color.Lerp(prevColor, targetColor, smoothLerp);
             yield return null;
         }
 

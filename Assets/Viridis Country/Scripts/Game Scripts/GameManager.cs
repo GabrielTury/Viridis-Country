@@ -30,9 +30,9 @@ public class GameManager : MonoBehaviour
     public int woodAmount;
     public int stoneAmount;
 
-    private int objectiveWater;
-    private int objectiveWood;
-    private int objectiveStone;
+    public int objectiveWater { get; private set; }
+    public int objectiveWood { get; private set; }
+    public int objectiveStone { get; private set; }
     #endregion
 
     private void Awake()
