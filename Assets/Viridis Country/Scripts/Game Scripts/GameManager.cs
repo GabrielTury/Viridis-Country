@@ -19,10 +19,21 @@ public class GameManager : MonoBehaviour
         }
     #endregion
 
+    [SerializeField] //Temp
+    private LevelObject levelVariables;
+
+    public int constructionsPlaced {  get; private set; }
+
+    #region Resource Amounts
     public int zeroAmount;
     public int waterAmount;
     public int woodAmount;
     public int stoneAmount;
+
+    private int objectiveWater;
+    private int objectiveWood;
+    private int objectiveStone;
+    #endregion
 
     private void Awake()
     {
@@ -34,6 +45,14 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        objectiveStone = levelVariables.goalStoneAmount;
+        objectiveWater = levelVariables.goalWaterAmount;
+        objectiveWood = levelVariables.goalWoodAmount;
+
     }
 
     private void GetGatheredResources(GameResources resource, int amount)
@@ -59,16 +78,37 @@ public class GameManager : MonoBehaviour
                 stoneAmount += amount;
                 break;
         }
+
+        if(stoneAmount == objectiveStone && waterAmount == objectiveWater && woodAmount == objectiveWood)
+        {
+            GameEvents.OnLevelEnd();
+        }
+
+        //Temp para achar as construções
+        constructionsPlaced = 0;
+        foreach(GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            if(obj.layer == 6)
+            {
+                constructionsPlaced++;
+            }
+        }
+    }
+    private void LevelEnd()
+    {
+        Debug.Log("Terminou o Level");
     }
 
     private void OnEnable()
     {
         GameEvents.Resource_Gathered += GetGatheredResources;
+        GameEvents.Level_End += LevelEnd;
     }
 
     private void OnDisable()
     {
         GameEvents.Resource_Gathered -= GetGatheredResources;
+        GameEvents.Level_End -= LevelEnd;
     }
 
 

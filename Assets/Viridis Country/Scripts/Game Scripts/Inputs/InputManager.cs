@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
     #region Input Delegates
     private void Touch_performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Touch perf");
+        //Debug.Log("Touch perf");
         
         Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
         RaycastHit hit;
@@ -84,7 +84,7 @@ public class InputManager : MonoBehaviour
     {
         float dist = Vector3.Distance(obj.transform.position, mainCamera.transform.position);
 
-        Debug.Log("Drag");
+        //Debug.Log("Drag");
         isDragging = true;
         //Vector3 offset = transform.position - worldPos;
 
