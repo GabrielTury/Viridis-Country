@@ -15,3 +15,6 @@ MonoBehaviour:
   goalWoodAmount: 1
   goalWaterAmount: 0
   goalStoneAmount: 0
+  threeStarsAmount: 1
+  twoStarsAmount: 2
+  oneStarAmount: 3

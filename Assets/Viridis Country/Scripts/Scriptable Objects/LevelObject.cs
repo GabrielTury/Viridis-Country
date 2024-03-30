@@ -10,4 +10,8 @@ public class LevelObject : ScriptableObject
     public int goalWaterAmount;
     public int goalStoneAmount;
 
+    public int threeStarsAmount;
+    public int twoStarsAmount;
+    public int oneStarAmount;
+
 }

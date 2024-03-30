@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -79,11 +80,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if(stoneAmount == objectiveStone && waterAmount == objectiveWater && woodAmount == objectiveWood)
-        {
-            GameEvents.OnLevelEnd();
-        }
-
         //Temp para achar as construções
         constructionsPlaced = 0;
         foreach(GameObject obj in FindObjectsOfType<GameObject>())
@@ -93,10 +89,29 @@ public class GameManager : MonoBehaviour
                 constructionsPlaced++;
             }
         }
+
+        if(stoneAmount == objectiveStone && waterAmount == objectiveWater && woodAmount == objectiveWood)
+        {
+            GameEvents.OnLevelEnd();
+        }
     }
     private void LevelEnd()
     {
-        Debug.Log("Terminou o Level");
+        if(constructionsPlaced <= levelVariables.threeStarsAmount)
+        {
+            Debug.Log("***");
+        }
+        else if( constructionsPlaced <= levelVariables.twoStarsAmount)
+        {
+            Debug.Log("**");
+        }
+        else if(constructionsPlaced >= levelVariables.oneStarAmount)
+        {
+            Debug.Log("*");
+        }
+        Debug.Log("Terminou o Level com: " + constructionsPlaced + " construcoes");
+
+       
     }
 
     private void OnEnable()
