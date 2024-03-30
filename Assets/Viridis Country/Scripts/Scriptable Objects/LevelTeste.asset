@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelTeste
   m_EditorClassIdentifier: 
   goalWoodAmount: 1
-  goalWaterAmount: 0
-  goalStoneAmount: 0
+  goalWaterAmount: 1
+  goalStoneAmount: 1

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public int constructionsPlaced {  get; private set; }
 
     #region Resource Amounts
+    [Header("Altere esses valores no level scriptable object!! \nEstao aqui somente para visualizacao")]
     public int zeroAmount;
     public int waterAmount;
     public int woodAmount;

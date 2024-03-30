@@ -69,7 +69,6 @@ public class ResourceExhibition : MonoBehaviour
         //new Color(153, 167, 180, 255), // Stone
     }; // Por algum motivo, definir as cores pelo codigo esta crashando a Unity. Definir as cores pelo inspetor
 
-    private List<Image> resourceBoxIcon = new List<Image>();
     private List<TextMeshProUGUI> resourceBoxText = new List<TextMeshProUGUI>();
 
     private int resourceBarSize = 0;
@@ -108,17 +107,15 @@ public class ResourceExhibition : MonoBehaviour
             }
         }
 
-        var j = 0;
         for (int i = 0; i < resourceBarSize; i++)
         {
             resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (resourceBarSize - 1)) / 2 + (240 * (i - 1)), 0);
 
-            resourceBoxIcon.Add(GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>());
+            GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>().sprite = resourceIcons[resourceNames[i] - 1];
+
             resourceBoxText.Add(GetChildWithName(resourceBoxes[i], "ResourceNumber").GetComponent<TextMeshProUGUI>());
-            resourceBoxIcon[i].sprite = resourceIcons[resourceNames[i]-1];
+
             resourceBoxText[i].text = resourceNamesText[resourceNames[i]];
-            
-            j++;
         }
 
         resourceBackground.rectTransform.sizeDelta = new Vector2(280 * resourceBarSize, 130);
@@ -324,11 +321,6 @@ public class ResourceExhibition : MonoBehaviour
             text.color = Color.Lerp(prevColor, new Color32(255, 255, 255, 0), smoothLerp);
             yield return null;
         }
-    }
-
-    private IEnumerator EmptyCoroutine()
-    {
-        yield return null;
     }
 
     GameObject GetChildWithName(GameObject obj, string name)
