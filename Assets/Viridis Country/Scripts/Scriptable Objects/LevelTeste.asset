@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: LevelTeste
   m_EditorClassIdentifier: 
   goalWoodAmount: 1
-  goalWaterAmount: 1
-  goalStoneAmount: 1
+  goalWaterAmount: 0
+  goalStoneAmount: 0
+  threeStarsAmount: 1
+  twoStarsAmount: 2
+  oneStarAmount: 3
