@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+    public GameObject cube;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +14,27 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int i = 0;
-        while(i < Input.touchCount)
+        Vector3 direction = new Vector3(Input.acceleration.x, Input.acceleration.y, -Input.acceleration.z);
+        cube.transform.position += direction * Time.deltaTime * 3;
+    }
+
+    /* public void OnGUI()
+     {
+         int i = 0;
+
+         while(i < Input.touchCount)
+         {
+             GUI.Label(new Rect(0,i *40,200,40), "Touch index" + i + ":" + Input.touchCount);
+             i++;
+         }
+     }*/
+
+    /*int i = 0;
+        while(i<Input.touchCount)
         {
             Touch touch = Input.GetTouch(i);
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-            RaycastHit hit;
+    Ray ray = Camera.main.ScreenPointToRay(touch.position);
+    RaycastHit hit;
             if(Physics.Raycast(ray, out hit))
             {
                 if(hit.collider != null)
@@ -27,17 +43,5 @@ public class InputController : MonoBehaviour
                     hit.collider.SendMessage("Touched", SendMessageOptions.DontRequireReceiver); //Executa a função que ta em string
                 }
             }
-        }
-    }
-
-   /* public void OnGUI()
-    {
-        int i = 0;
-
-        while(i < Input.touchCount)
-        {
-            GUI.Label(new Rect(0,i *40,200,40), "Touch index" + i + ":" + Input.touchCount);
-            i++;
-        }
-    }*/
+        }*/
 }

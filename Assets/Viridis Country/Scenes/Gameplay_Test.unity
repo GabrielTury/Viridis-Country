@@ -20110,6 +20110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: 1
+  tileType: 0
 --- !u!1001 &1580573207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28082,7 +28083,7 @@ PrefabInstance:
     - target: {fileID: 5438389809258816813, guid: 2b850c22593b3b14183827966cdf6564,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.21
+      value: 2.05
       objectReference: {fileID: 0}
     - target: {fileID: 5438389809258816813, guid: 2b850c22593b3b14183827966cdf6564,
         type: 3}
@@ -28092,7 +28093,7 @@ PrefabInstance:
     - target: {fileID: 5438389809258816813, guid: 2b850c22593b3b14183827966cdf6564,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.84
+      value: -6.04
       objectReference: {fileID: 0}
     - target: {fileID: 5438389809258816813, guid: 2b850c22593b3b14183827966cdf6564,
         type: 3}
