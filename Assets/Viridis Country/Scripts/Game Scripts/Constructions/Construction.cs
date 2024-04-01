@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConstructionBase : MonoBehaviour
+public class Construction : MonoBehaviour
 {
     private bool isBeingDragged;
 
@@ -19,12 +19,15 @@ public class ConstructionBase : MonoBehaviour
 
     private GridCell currentCell;
 
+    private GridCell.TileType tileType;
+
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
         GetComponent<MeshRenderer>().material = construcion.material;   
         gatherRadius = construcion.gatherRadius;
         resourceToGather = construcion.resourceToGather;
+        tileType = construcion.tileType;
 
     }
 
@@ -48,7 +51,7 @@ public class ConstructionBase : MonoBehaviour
     /// </summary>
     private void SnapToGrid()
     {
-        Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell);
+        Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
 
         currentCell.SetAvailability(false);
 

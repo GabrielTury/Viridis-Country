@@ -30,7 +30,7 @@ public class GridManager : MonoBehaviour
     /// <param name="currentPosition"></param>
     /// <param name="closestCell">out the nearest available GridCell</param>
     /// <returns>Returns the Position of the nearest available gridCell</returns>
-    public Vector3 NearestCellPosition(Vector3 currentPosition, out GridCell closestCell)
+    public Vector3 NearestCellPosition(Vector3 currentPosition, out GridCell closestCell, GridCell.TileType tileType)
     {
         Vector3 nearestCellPosition = new Vector3();
         float distance = 0;
@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;
             }
-            else if (cellDistance < distance && cell.isAvailable) 
+            else if (cellDistance < distance && cell.isAvailable && cell.tileType == tileType) 
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;

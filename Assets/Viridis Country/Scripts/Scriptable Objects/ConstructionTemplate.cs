@@ -14,4 +14,6 @@ public class ConstructionTemplate : ScriptableObject
     public Material material;
 
     public GameManager.GameResources resourceToGather;
+
+    public GridCell.TileType tileType;
 }

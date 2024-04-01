@@ -8,6 +8,9 @@ public class ResourceIndicator : MonoBehaviour
     [SerializeField]
     private GameManager.GameResources resource;
 
+    [SerializeField]
+    private GridCell.TileType tileType;
+
 
     private void Start()
     {
@@ -18,7 +21,7 @@ public class ResourceIndicator : MonoBehaviour
     {
         GridCell cell;
 
-        Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out cell);
+        Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out cell, tileType);
 
         cell.SetAvailability(false);
 

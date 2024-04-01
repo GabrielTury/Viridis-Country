@@ -16,11 +16,17 @@ public class GridCell : MonoBehaviour
         get;
         private set;
     }
+
+    public enum TileType
+    {
+        Normal,
+        Water
+    }
         
 
     [SerializeField]
-    private string _tileType;
-    public string tileType 
+    private TileType _tileType;
+    public TileType tileType 
     {
         get { return _tileType; }
         private set { tileType = value; }
