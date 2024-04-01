@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47037cdc0466d804385ed4b80beac321, type: 3}
   m_Name: LevelTeste
   m_EditorClassIdentifier: 
-  goalWoodAmount: 1
+  goalWoodAmount: 3
   goalWaterAmount: 0
   goalStoneAmount: 0
   threeStarsAmount: 1
