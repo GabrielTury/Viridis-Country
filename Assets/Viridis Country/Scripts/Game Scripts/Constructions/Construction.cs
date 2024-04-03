@@ -44,6 +44,7 @@ public class Construction : MonoBehaviour
         else if (currentCell != null && isBeingDragged != currentCell.isAvailable)
         {
             currentCell.SetAvailability(true);
+            currentCell.SetResource(GameManager.GameResources.None);
         }
     }
     /// <summary>
@@ -54,6 +55,7 @@ public class Construction : MonoBehaviour
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
 
         currentCell.SetAvailability(false);
+        currentCell.SetResource(resourceToGather);
 
         transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
     }
@@ -82,7 +84,7 @@ public class Construction : MonoBehaviour
         int diff = resourceAmount - resourcesInRange;
 
         if(diff != 0)
-            GameEvents.OnResourceGathered(resourceToGather, diff);
+            GameEvents.OnConstructionPlaced(resourceToGather, diff);
 
         return resourceAmount;
     }

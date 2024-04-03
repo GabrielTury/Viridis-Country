@@ -230,12 +230,12 @@ public class ResourceExhibition : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEvents.Resource_Gathered += UpdateUIInfo;
+        GameEvents.Construction_Placed += UpdateUIInfo;
     }
 
     private void OnDisable()
     {
-        GameEvents.Resource_Gathered -= UpdateUIInfo;
+        GameEvents.Construction_Placed -= UpdateUIInfo;
     }
 
     private void BoxUpdate(int index, string resourceChange, bool positive)

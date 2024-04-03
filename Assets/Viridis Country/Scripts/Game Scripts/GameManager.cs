@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] //Temp
     private LevelObject levelVariables;
 
-    public int constructionsPlaced {  get; private set; }
+    public int actionsMade {  get; private set; }
 
     #region Resource Amounts
     [Header("Altere esses valores no level scriptable object!! \nEstao aqui somente para visualizacao")]
@@ -81,15 +81,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        //Temp para achar as construções
-        constructionsPlaced = 0;
-        foreach(GameObject obj in FindObjectsOfType<GameObject>())
-        {
-            if(obj.layer == 6)
-            {
-                constructionsPlaced++;
-            }
-        }
+        //aumenta as ações em 1
+        actionsMade++;
 
         if(stoneAmount == objectiveStone && waterAmount == objectiveWater && woodAmount == objectiveWood)
         {
@@ -98,32 +91,32 @@ public class GameManager : MonoBehaviour
     }
     private void LevelEnd()
     {
-        if(constructionsPlaced <= levelVariables.threeStarsAmount)
+        if(actionsMade <= levelVariables.threeStarsAmount)
         {
             Debug.Log("***");
         }
-        else if( constructionsPlaced <= levelVariables.twoStarsAmount)
+        else if( actionsMade <= levelVariables.twoStarsAmount)
         {
             Debug.Log("**");
         }
-        else if(constructionsPlaced >= levelVariables.oneStarAmount)
+        else if(actionsMade >= levelVariables.oneStarAmount)
         {
             Debug.Log("*");
         }
-        Debug.Log("Terminou o Level com: " + constructionsPlaced + " construcoes");
+        Debug.Log("Terminou o Level com: " + actionsMade + " construcoes");
 
        
     }
 
     private void OnEnable()
     {
-        GameEvents.Resource_Gathered += GetGatheredResources;
+        GameEvents.Construction_Placed += GetGatheredResources;
         GameEvents.Level_End += LevelEnd;
     }
 
     private void OnDisable()
     {
-        GameEvents.Resource_Gathered -= GetGatheredResources;
+        GameEvents.Construction_Placed -= GetGatheredResources;
         GameEvents.Level_End -= LevelEnd;
     }
 
