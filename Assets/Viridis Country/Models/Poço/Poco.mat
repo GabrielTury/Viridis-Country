@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "Po\xE7o"
+  m_Name: Poco
   m_Shader: {fileID: -6465566751694194690, guid: 2c4beb707cfb3964ca95f640ebc24dfd,
     type: 3}
   m_Parent: {fileID: 0}
