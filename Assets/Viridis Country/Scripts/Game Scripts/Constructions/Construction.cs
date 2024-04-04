@@ -17,6 +17,8 @@ public class Construction : MonoBehaviour
 
     private GameManager.GameResources resourceToGather;
 
+    private GameManager.GameResources secondaryResource;
+
     private GridCell currentCell;
 
     private GridCell.TileType tileType;
@@ -28,6 +30,7 @@ public class Construction : MonoBehaviour
         gatherRadius = construcion.gatherRadius;
         resourceToGather = construcion.resourceToGather;
         tileType = construcion.tileType;
+        secondaryResource = construcion.secondaryResource;
 
     }
 
@@ -35,13 +38,13 @@ public class Construction : MonoBehaviour
     {
         isBeingDragged = newValue;
 
-        if (!isBeingDragged)
+        if (!isBeingDragged) //chama quando ele é largado
         {
             SnapToGrid();
             resourcesInRange = GetResourcesInRange(resourcesInRange);
             //GameEvents.OnResourceGathered(resourceToGather, resourcesInRange);
         }
-        else if (currentCell != null && isBeingDragged != currentCell.isAvailable)
+        else if (currentCell != null && isBeingDragged != currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
         {
             currentCell.SetAvailability(true);
             currentCell.SetResource(GameManager.GameResources.None);
@@ -55,7 +58,7 @@ public class Construction : MonoBehaviour
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
 
         currentCell.SetAvailability(false);
-        currentCell.SetResource(resourceToGather);
+        currentCell.SetResource(secondaryResource); //troca o recurso daquela celula para o recurso que produz para secundarias e terciarias
 
         transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
     }

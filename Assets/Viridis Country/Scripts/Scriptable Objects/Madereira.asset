@@ -17,3 +17,5 @@ MonoBehaviour:
     type: 3}
   material: {fileID: 2100000, guid: f2d957b3138ae7848b36a30cac0d22a5, type: 2}
   resourceToGather: 1
+  secondaryResource: 2
+  tileType: 0

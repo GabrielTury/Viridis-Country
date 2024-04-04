@@ -10,13 +10,16 @@ using UnityEngine.Tilemaps;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    #region Public
+    #region Game Resources
         public enum GameResources
         {
             None,
             Wood,
+            WoodSec,
             Stone,
-            Water
+            StoneSec,
+            Water,
+            WaterSec
         }
     #endregion
 

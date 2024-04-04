@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
             {
                 Debug.Log(hit.collider.gameObject.name);
                 StartCoroutine(Drag(hit.collider.gameObject));
-                hit.collider.gameObject.SendMessage("SetDragging", true);
+                hit.collider.gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
             }
             else
             {
@@ -101,7 +101,7 @@ public class InputManager : MonoBehaviour
             yield return null;
         }
 
-        obj.SendMessage("SetDragging", false);
+        obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
     }
 
     private void OnEnable()
