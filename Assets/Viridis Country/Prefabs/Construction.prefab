@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3002121583681139370}
   - component: {fileID: 8610527652912770766}
   m_Layer: 6
-  m_Name: Madeireira  1
+  m_Name: Construction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

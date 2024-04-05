@@ -91,4 +91,12 @@ public class Construction : MonoBehaviour
 
         return resourceAmount;
     }
+
+    public void RemoveConstruction()
+    {
+        currentCell.SetResource(GameManager.GameResources.None);
+        currentCell.SetAvailability(true);
+
+        Destroy(gameObject);
+    }
 }
