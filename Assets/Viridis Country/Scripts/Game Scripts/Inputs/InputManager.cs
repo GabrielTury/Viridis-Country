@@ -23,21 +23,19 @@ public class InputManager : MonoBehaviour
 
     private bool isDragging;
 
-
+    public bool canDrag = true;
 
 
 
     private void Awake()
     {
         inputs = new Inputs();
-        mainCamera = Camera.main;
+        mainCamera = Camera.main;      
     }
 
     #region Input Delegates
     private void Touch_performed(InputAction.CallbackContext obj)
     {
-        //Debug.Log("Touch perf");
-        
         Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -64,7 +62,7 @@ public class InputManager : MonoBehaviour
     private IEnumerator MoveCamera(Vector2 startTouchPosition)
     {
         isMovingCamera = true;  
-        while(isMovingCamera)
+        while(isMovingCamera && canDrag)
         {
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.delta.ReadValue();
             
@@ -86,7 +84,7 @@ public class InputManager : MonoBehaviour
         isDragging = true;
         //Vector3 offset = transform.position - worldPos;
 
-        while(isDragging)
+        while(isDragging && canDrag)
         {
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             Ray ray = mainCamera.ScreenPointToRay(currentTouchPosition);
