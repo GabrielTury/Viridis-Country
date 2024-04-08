@@ -72,7 +72,7 @@ public class InputManager : MonoBehaviour
             currentTouchPosition.y /= Screen.height;
 
             mainCamera.transform.position -= Quaternion.Euler(0,45,0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
-            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed;
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
 
             yield return null;
         }
