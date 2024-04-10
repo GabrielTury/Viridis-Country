@@ -431,6 +431,7 @@ GameObject:
   - component: {fileID: 23078332}
   - component: {fileID: 23078334}
   - component: {fileID: 23078335}
+  - component: {fileID: 23078336}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -497,6 +498,18 @@ MonoBehaviour:
   waterAmount: 0
   woodAmount: 0
   stoneAmount: 0
+--- !u!114 &23078336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23078331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b169b2509990f01428527cf11ac52e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &27053214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28412,6 +28425,11 @@ PrefabInstance:
       propertyPath: managerObject
       value: 
       objectReference: {fileID: 23078331}
+    - target: {fileID: 1225749107992227698, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0021972656
+      objectReference: {fileID: 0}
     - target: {fileID: 2995955920892753718, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: m_Color.a
