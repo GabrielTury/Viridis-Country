@@ -87,7 +87,9 @@ public class Construction : MonoBehaviour
         int diff = resourceAmount - resourcesInRange;
 
         if(diff != 0)
-            GameEvents.OnConstructionPlaced(resourceToGather, diff);
+            GameEvents.OnResourceGathered(resourceToGather, diff);
+
+        GameEvents.OnConstructionPlaced();
 
         return resourceAmount;
     }

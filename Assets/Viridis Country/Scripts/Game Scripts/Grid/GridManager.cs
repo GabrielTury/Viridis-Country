@@ -22,6 +22,14 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         gridCells = FindObjectsOfType<GridCell>();
+
+
+        for(int i = 0; i < gridCells.Length; i++)
+        {
+            gridCells[i].gameObject.name = "Cell " + i;
+
+        }
+
     }
 
     /// <summary>
@@ -43,6 +51,8 @@ public class GridManager : MonoBehaviour
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;
+
+                closestCell = cell;
             }
             else if (cellDistance < distance && cell.isAvailable && cell.tileType == tileType) 
             {

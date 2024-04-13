@@ -13,8 +13,23 @@ MonoBehaviour:
   m_Name: LevelTeste
   m_EditorClassIdentifier: 
   goalWoodAmount: 3
-  goalWaterAmount: 1
-  goalStoneAmount: 1
+  goalPlankAmount: 0
+  goalStoneAmount: 0
+  goalProcessedStoneAmount: 0
+  goalConstructionMaterialsAmount: 0
+  goalWaterAmount: 0
+  goalMilkAmount: 0
+  goalFermentedMilkAmount: 0
+  goalCheeseAmount: 0
+  goalSkinAmount: 0
+  goalLeatherAmount: 0
+  goalWoolAmount: 0
+  goalClothAmount: 0
+  goalClothesAmount: 0
+  goalWheatAmount: 0
+  goalFlourAmount: 0
+  goalBreadAmount: 0
+  goalGoldAmount: 0
   threeStarsAmount: 1
   twoStarsAmount: 2
   oneStarAmount: 3
