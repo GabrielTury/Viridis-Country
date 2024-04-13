@@ -73,6 +73,9 @@ public class ResourceExhibition : MonoBehaviour
 
     private int resourceBarSize = 0;
 
+    [SerializeField]
+    private GameObject pauseTemplate;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,7 +112,14 @@ public class ResourceExhibition : MonoBehaviour
 
         for (int i = 0; i < resourceBarSize; i++)
         {
-            resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (resourceBarSize - 1)) / 2 + (240 * (i - 1)), 0);
+            if (i < 3)
+            {
+                resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (Mathf.Min(resourceBarSize, 3) - 1)) / 2 + (240 * (i - 1)), 0);
+            } else
+            {
+                resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (resourceBarSize - 1)) / 2 + (240 * (i - 1)), -100);
+            }
+            
 
             GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>().sprite = resourceIcons[resourceNames[i] - 1];
 
@@ -263,6 +273,11 @@ public class ResourceExhibition : MonoBehaviour
             StartCoroutine(InflateBoxXY(resourceBoxes[index].GetComponent<Image>(), new Vector2(0.98f, 0.98f), 0.15f));
         }
         
+    }
+
+    public void PauseGame()
+    {
+        Instantiate(pauseTemplate);
     }
 
     private IEnumerator InflateBoxXY(Image image, Vector2 targetSize, float time)

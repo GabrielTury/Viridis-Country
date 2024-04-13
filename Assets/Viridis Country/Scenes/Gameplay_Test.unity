@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -510,6 +510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b169b2509990f01428527cf11ac52e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consoleOutput: {fileID: 0}
+  consoleScrollRect: {fileID: 0}
 --- !u!1001 &27053214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8424,87 +8426,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceBoxHighlight
-      value: 
-      objectReference: {fileID: 6617235706964028952, guid: 41579d014b96b8c4bb1bc1ecceb4d4a9,
-        type: 3}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[1].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[1].b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[1].g
-      value: 0.8901961
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[1].r
-      value: 0.5803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[2].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[2].b
-      value: 0.5764706
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[2].g
-      value: 0.73333335
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[2].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[3].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[3].b
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[3].g
-      value: 0.654902
-      objectReference: {fileID: 0}
-    - target: {fileID: 1522394783625113827, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: resourceForegroundColors.Array.data[3].r
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2002741494928780526, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2002741494928780526, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2574820109539967508, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8609,11 +8530,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResourceExhibitionCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2889193816710799733, guid: 443c0887f05bd3f429ea2d5ba13ed722,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
