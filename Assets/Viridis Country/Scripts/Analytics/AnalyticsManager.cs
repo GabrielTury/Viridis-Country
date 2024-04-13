@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Services.Core;
 using UnityEngine.UI;
 using Unity.Services.Analytics;
+using UnityEngine.SceneManagement;
 
 public class AnalyticsManager : MonoBehaviour
 {
@@ -51,9 +52,11 @@ public class AnalyticsManager : MonoBehaviour
     }
     public static void OnMove()
     {
+        string levelPlayed = SceneManager.GetActiveScene().name.ToString();
         MoveEvent moveEvent = new MoveEvent
         {
-            numberOfMoves = 1
+            numberOfMoves = GameManager.Instance.actionsMade,
+            level = levelPlayed
         };
 
         AnalyticsService.Instance.RecordEvent(moveEvent);
@@ -62,7 +65,7 @@ public class AnalyticsManager : MonoBehaviour
 
 namespace Unity.Services.Analytics
 {
-    public class MoveEvent : Event
+    public class MoveEvent : Event //Eh melhor fazer eventos que o proprio evento eh uma informacao com os parametros para ajudar a decidir o que eh util do que n
     {
         public MoveEvent() : base("moveEvent")
         {
@@ -70,6 +73,7 @@ namespace Unity.Services.Analytics
         }
 
         public int numberOfMoves { set { SetParameter("numberOfMoves", value); } }
+        public string level { set { SetParameter("level", value); } }
     }
 }
 
