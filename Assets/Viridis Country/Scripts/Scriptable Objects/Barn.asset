@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4106a840ad790045aa10405b59ab6a8, type: 3}
+  m_Name: Barn
+  m_EditorClassIdentifier: 
+  gatherRadius: 1
+  constructionMesh: {fileID: 4579454407841743219, guid: 1e564ede6a11b02408537944862e3f07,
+    type: 3}
+  material: {fileID: 2100000, guid: d6003ee90d5333849b2a29c136a8af7f, type: 2}
+  resourceToGather: 7
+  secondaryResource: 9
+  tileType: 0
