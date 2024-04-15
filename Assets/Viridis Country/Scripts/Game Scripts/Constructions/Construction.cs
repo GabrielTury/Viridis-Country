@@ -23,6 +23,8 @@ public class Construction : MonoBehaviour
 
     private GridCell.TileType tileType;
 
+    private AudioManager.ConstructionAudioTypes cType;
+
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
@@ -31,6 +33,7 @@ public class Construction : MonoBehaviour
         resourceToGather = construcion.resourceToGather;
         tileType = construcion.tileType;
         secondaryResource = construcion.secondaryResource;
+        cType = construcion.constructionType;
 
     }
 
@@ -89,7 +92,7 @@ public class Construction : MonoBehaviour
         if(diff != 0)
             GameEvents.OnResourceGathered(resourceToGather, diff);
 
-        GameEvents.OnConstructionPlaced();
+        GameEvents.OnConstructionPlaced(cType);
 
         return resourceAmount;
     }
@@ -98,6 +101,8 @@ public class Construction : MonoBehaviour
     {
         currentCell.SetResource(GameManager.GameResources.None);
         currentCell.SetAvailability(true);
+
+        GameEvents.OnConstructionRemoved(cType);
 
         Destroy(gameObject);
     }

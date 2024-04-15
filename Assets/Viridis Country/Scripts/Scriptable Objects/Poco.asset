@@ -19,3 +19,4 @@ MonoBehaviour:
   resourceToGather: 5
   secondaryResource: 6
   tileType: 0
+  constructionType: Metal

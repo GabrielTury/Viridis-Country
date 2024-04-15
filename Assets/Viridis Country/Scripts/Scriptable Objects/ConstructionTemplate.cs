@@ -18,4 +18,6 @@ public class ConstructionTemplate : ScriptableObject
     public GameManager.GameResources secondaryResource;
 
     public GridCell.TileType tileType;
+
+    public AudioManager.ConstructionAudioTypes constructionType;
 }

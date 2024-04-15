@@ -19,3 +19,4 @@ MonoBehaviour:
   resourceToGather: 1
   secondaryResource: 2
   tileType: 0
+  constructionType: Wood
