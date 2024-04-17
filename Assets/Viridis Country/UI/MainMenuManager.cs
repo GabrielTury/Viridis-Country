@@ -107,7 +107,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void EnterLevel(int levelID)
     {
-        StartCoroutine(FadeToLevel(1, 1));
+        PlayerPrefs.SetInt("LEVELID", levelID);
+        StartCoroutine(FadeToLevel(1, levelID));
     }
 
     private IEnumerator SmoothStepToTarget(Transform objTransform, Vector3 targetPosition, float duration, Vector3 targetRotation = default)
@@ -168,9 +169,6 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 10 * seconds));
         yield return new WaitForSeconds(seconds);
 
-        if (levelID == 1)
-        {
-            SceneManager.LoadScene("Gameplay_Test");
-        }
+        SceneManager.LoadScene("Gameplay_Test");
     }
 }

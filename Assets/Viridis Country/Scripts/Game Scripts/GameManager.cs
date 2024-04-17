@@ -35,8 +35,14 @@ public class GameManager : MonoBehaviour
         }
     #endregion
 
+    [SerializeField]
+    private LevelObject[] levelObjects;
+
     [SerializeField] //Temp
     private LevelObject levelVariables;
+
+    [SerializeField]
+    private ScriptableObject[] levelMaps; // mapas vao aqui
 
     public int actionsMade {  get; private set; }
 
@@ -101,6 +107,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        levelVariables = levelObjects[PlayerPrefs.GetInt("LEVELID")];
+
         objectiveStone = levelVariables.goalStoneAmount;
         objectiveWater = levelVariables.goalWaterAmount;
         objectiveWood = levelVariables.goalWoodAmount;
@@ -126,6 +134,8 @@ public class GameManager : MonoBehaviour
             amountArray[i] = GetAmountOnInt(i);
         }
 
+        // Crie o mapa usando o level scriptable object com
+        // PlayerPrefs.GetInt("LEVELID");
     }
 
     private void GetGatheredResources(GameResources resource, int amount)

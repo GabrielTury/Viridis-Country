@@ -33,7 +33,7 @@ public class ResourceExhibition : MonoBehaviour
     // mas por enquanto deixa isso de exemplo
     // edit: ja tem no gamamanager, mas preferi deixar aqui por motivos de organização
 
-    private int[] GameResourcesToGather = { 0, 0, 0, 0 }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
+    private int[] GameResourcesToGather = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // veja lista dos nomes abaixo
     // atualiza no start
 
     private VariableContainer[] resourceRedirector;
@@ -58,16 +58,10 @@ public class ResourceExhibition : MonoBehaviour
     [SerializeField]
     private List<int> resourceNames;
 
-    private string[] resourceNamesText = { "None", "Water", "Wood", "Stone" };
+    private string[] resourceNamesText = { "None", "Wood", "Plank", "Stone", "ProcessedStone", "ConstructionMaterials", "Water", "Milk", "FermentedMilk", "Cheese", "Skin", "Leather", "Wool", "Cloth", "Clothes", "Wheat", "Flour", "Bread", "Gold" };
 
     [SerializeField]
-    private Color[] resourceForegroundColors =
-    {
-        //new Color(255, 255, 255, 255), // None
-        //new Color(148, 227, 255, 255), // Water
-        //new Color(255, 187, 147, 255), // Wood
-        //new Color(153, 167, 180, 255), // Stone
-    }; // Por algum motivo, definir as cores pelo codigo esta crashando a Unity. Definir as cores pelo inspetor
+    private Color[] resourceForegroundColors = {}; // Por algum motivo, definir as cores pelo codigo esta crashando a Unity. Definir as cores pelo inspetor
 
     private List<TextMeshProUGUI> resourceBoxText = new List<TextMeshProUGUI>();
 
@@ -82,22 +76,67 @@ public class ResourceExhibition : MonoBehaviour
         gameManager = GameManager.Instance;
 
         GameResourcesToGather[0] = 0;
-        GameResourcesToGather[1] = gameManager.objectiveWater;
-        GameResourcesToGather[2] = gameManager.objectiveWood;
+        GameResourcesToGather[1] = gameManager.objectiveWood;
+        GameResourcesToGather[2] = gameManager.objectivePlank;
         GameResourcesToGather[3] = gameManager.objectiveStone;
+        GameResourcesToGather[4] = gameManager.objectiveProcessedStone;
+        GameResourcesToGather[5] = gameManager.objectiveConstructionMaterials;
+        GameResourcesToGather[6] = gameManager.objectiveWater;
+        GameResourcesToGather[7] = gameManager.objectiveMilk;
+        GameResourcesToGather[8] = gameManager.objectiveFermentedMilk;
+        GameResourcesToGather[9] = gameManager.objectiveCheese;
+        GameResourcesToGather[10] = gameManager.objectiveSkin;
+        GameResourcesToGather[11] = gameManager.objectiveLeather;
+        GameResourcesToGather[12] = gameManager.objectiveWool;
+        GameResourcesToGather[13] = gameManager.objectiveCloth;
+        GameResourcesToGather[14] = gameManager.objectiveClothes;
+        GameResourcesToGather[15] = gameManager.objectiveWheat;
+        GameResourcesToGather[16] = gameManager.objectiveFlour;
+        GameResourcesToGather[17] = gameManager.objectiveBread;
+        GameResourcesToGather[18] = gameManager.objectiveGold;
 
         resourceRedirector = new VariableContainer[]
         {
             new VariableContainer(() => gameManager.zeroAmount, value => gameManager.zeroAmount = value),
-            new VariableContainer(() => gameManager.waterAmount, value => gameManager.waterAmount = value),
             new VariableContainer(() => gameManager.woodAmount, value => gameManager.woodAmount = value),
+            new VariableContainer(() => gameManager.plankAmount, value => gameManager.plankAmount = value),
+            new VariableContainer(() => gameManager.stoneAmount, value => gameManager.stoneAmount = value),
+            new VariableContainer(() => gameManager.processedStoneAmount, value => gameManager.processedStoneAmount = value),
+            new VariableContainer(() => gameManager.constructionMaterialsAmount, value => gameManager.constructionMaterialsAmount = value),
             new VariableContainer(() => gameManager.waterAmount, value => gameManager.waterAmount = value),
+            new VariableContainer(() => gameManager.milkAmount, value => gameManager.milkAmount = value),
+            new VariableContainer(() => gameManager.fermentedMilkAmount, value => gameManager.fermentedMilkAmount = value),
+            new VariableContainer(() => gameManager.cheeseAmount, value => gameManager.cheeseAmount = value),
+            new VariableContainer(() => gameManager.skinAmount, value => gameManager.skinAmount = value),
+            new VariableContainer(() => gameManager.leatherAmount, value => gameManager.leatherAmount = value),
+            new VariableContainer(() => gameManager.woolAmount, value => gameManager.woolAmount = value),
+            new VariableContainer(() => gameManager.clothAmount, value => gameManager.clothAmount = value),
+            new VariableContainer(() => gameManager.clothesAmount, value => gameManager.clothesAmount = value),
+            new VariableContainer(() => gameManager.wheatAmount, value => gameManager.wheatAmount = value),
+            new VariableContainer(() => gameManager.flourAmount, value => gameManager.flourAmount = value),
+            new VariableContainer(() => gameManager.breadAmount, value => gameManager.breadAmount = value),
+            new VariableContainer(() => gameManager.goldAmount, value => gameManager.goldAmount = value),
         };
 
         resourceDict.Add(GameResources.None, 0);
-        resourceDict.Add(GameResources.Water, resourceRedirector[1].GetValue());
-        resourceDict.Add(GameResources.Wood, resourceRedirector[2].GetValue());
+        resourceDict.Add(GameResources.Wood, resourceRedirector[1].GetValue());
+        resourceDict.Add(GameResources.Plank, resourceRedirector[2].GetValue());
         resourceDict.Add(GameResources.Stone, resourceRedirector[3].GetValue());
+        resourceDict.Add(GameResources.ProcessedStone, resourceRedirector[4].GetValue());
+        resourceDict.Add(GameResources.ConstructionMaterials, resourceRedirector[5].GetValue());
+        resourceDict.Add(GameResources.Water, resourceRedirector[6].GetValue());
+        resourceDict.Add(GameResources.Milk, resourceRedirector[7].GetValue());
+        resourceDict.Add(GameResources.FermentedMilk, resourceRedirector[8].GetValue());
+        resourceDict.Add(GameResources.Cheese, resourceRedirector[9].GetValue());
+        resourceDict.Add(GameResources.Skin, resourceRedirector[10].GetValue());
+        resourceDict.Add(GameResources.Leather, resourceRedirector[11].GetValue());
+        resourceDict.Add(GameResources.Wool, resourceRedirector[12].GetValue());
+        resourceDict.Add(GameResources.Cloth, resourceRedirector[13].GetValue());
+        resourceDict.Add(GameResources.Clothes, resourceRedirector[14].GetValue());
+        resourceDict.Add(GameResources.Wheat, resourceRedirector[15].GetValue());
+        resourceDict.Add(GameResources.Flour, resourceRedirector[16].GetValue());
+        resourceDict.Add(GameResources.Bread, resourceRedirector[17].GetValue());
+        resourceDict.Add(GameResources.Gold, resourceRedirector[18].GetValue());
 
         for (int i = 0; i < GameResourcesToGather.Length; i++)
         {
@@ -143,9 +182,24 @@ public class ResourceExhibition : MonoBehaviour
         switch (resource)
         {
             case GameResources.None: return 0;
-            case GameResources.Water: return 1;
-            case GameResources.Wood: return 2;
+            case GameResources.Wood: return 1;
+            case GameResources.Plank: return 2;
             case GameResources.Stone: return 3;
+            case GameResources.ProcessedStone: return 4;
+            case GameResources.ConstructionMaterials: return 5;
+            case GameResources.Water: return 6;
+            case GameResources.Milk: return 7;
+            case GameResources.FermentedMilk: return 8;
+            case GameResources.Cheese: return 9;
+            case GameResources.Skin: return 10;
+            case GameResources.Leather: return 11;
+            case GameResources.Wool: return 12;
+            case GameResources.Cloth: return 13;
+            case GameResources.Clothes: return 14;
+            case GameResources.Wheat: return 15;
+            case GameResources.Flour: return 16;
+            case GameResources.Bread: return 17;
+            case GameResources.Gold: return 18;
             default: return 0;
         }
     }
@@ -165,9 +219,24 @@ public class ResourceExhibition : MonoBehaviour
     private void UpdateResourceDict()
     {
         resourceDict[GameResources.None] = 0;
-        resourceDict[GameResources.Water] = resourceRedirector[1].GetValue();
-        resourceDict[GameResources.Wood] = resourceRedirector[2].GetValue();
+        resourceDict[GameResources.Wood] = resourceRedirector[1].GetValue();
+        resourceDict[GameResources.Plank] = resourceRedirector[2].GetValue();
         resourceDict[GameResources.Stone] = resourceRedirector[3].GetValue();
+        resourceDict[GameResources.ProcessedStone] = resourceRedirector[4].GetValue();
+        resourceDict[GameResources.ConstructionMaterials] = resourceRedirector[5].GetValue();
+        resourceDict[GameResources.Water] = resourceRedirector[6].GetValue();
+        resourceDict[GameResources.Milk] = resourceRedirector[7].GetValue();
+        resourceDict[GameResources.FermentedMilk] = resourceRedirector[8].GetValue();
+        resourceDict[GameResources.Cheese] = resourceRedirector[9].GetValue();
+        resourceDict[GameResources.Skin] = resourceRedirector[10].GetValue();
+        resourceDict[GameResources.Leather] = resourceRedirector[11].GetValue();
+        resourceDict[GameResources.Wool] = resourceRedirector[12].GetValue();
+        resourceDict[GameResources.Cloth] = resourceRedirector[13].GetValue();
+        resourceDict[GameResources.Clothes] = resourceRedirector[14].GetValue();
+        resourceDict[GameResources.Wheat] = resourceRedirector[15].GetValue();
+        resourceDict[GameResources.Flour] = resourceRedirector[16].GetValue();
+        resourceDict[GameResources.Bread] = resourceRedirector[17].GetValue();
+        resourceDict[GameResources.Gold] = resourceRedirector[18].GetValue();
     }
 
     private void UpdateUIInfo(GameResources resource, int amount)

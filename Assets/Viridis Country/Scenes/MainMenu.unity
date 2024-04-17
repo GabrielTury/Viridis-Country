@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1813342, g: 0.22694923, b: 0.30736917, a: 1}
+  m_IndirectSpecularColor: {r: 0.18133385, g: 0.22694878, b: 0.30736873, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1014,7 +1014,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1903,6 +1903,17 @@ PrefabInstance:
       propertyPath: galaxyRotationSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8627934789756443590, guid: 27c30eb4574359d459cb09dcd8f543ab,
+        type: 3}
+      propertyPath: levelObj.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8627934789756443590, guid: 27c30eb4574359d459cb09dcd8f543ab,
+        type: 3}
+      propertyPath: levelObj.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: dbacbe84d2609f34f990c88d9fe0f35c,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

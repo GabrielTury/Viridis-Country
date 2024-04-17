@@ -95,13 +95,77 @@ MonoBehaviour:
     resourceIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     resourceColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0}
     resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17b0fda9a1769204681cc28e2a0985f5, type: 3}
+    resourceIcon: {fileID: 21300000, guid: b4512d9be70ce134098e0b6ec35724d1, type: 3}
+    resourceColor: {r: 1, g: 0.77254903, b: 0.5254902, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
   - buildingIcon: {fileID: 21300000, guid: a4d889beee2bdaf4cadf38c51b25bfe8, type: 3}
     resourceIcon: {fileID: 21300000, guid: 3712ae6de32efdc439f13273b955a23b, type: 3}
     resourceColor: {r: 0.5254902, g: 0.8392157, b: 1, a: 1}
     resourceMesh: {fileID: 0}
-  - buildingIcon: {fileID: 21300000, guid: 17b0fda9a1769204681cc28e2a0985f5, type: 3}
-    resourceIcon: {fileID: 21300000, guid: b4512d9be70ce134098e0b6ec35724d1, type: 3}
-    resourceColor: {r: 1, g: 0.77254903, b: 0.5254902, a: 1}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
+    resourceMesh: {fileID: 0}
+  - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
+    resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
+    resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
     resourceMesh: {fileID: 0}
   - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
     resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
