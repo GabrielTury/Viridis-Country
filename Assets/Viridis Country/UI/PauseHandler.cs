@@ -34,7 +34,7 @@ public class PauseHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FadeIn(0.75f));
+        StartCoroutine(FadeIn(0.4f));
     }
 
     // Update is called once per frame
@@ -61,17 +61,17 @@ public class PauseHandler : MonoBehaviour
 
     public void ResumeLevel()
     {
-        StartCoroutine(FadeOut(0.75f, 0));
+        StartCoroutine(FadeOut(0.4f, 0));
     }
 
     public void RestartLevel()
     {
-        StartCoroutine(FadeOut(0.75f, 1));
+        StartCoroutine(FadeOut(0.4f, 1));
     }
 
     public void GoToMainMenu()
     {
-        StartCoroutine(FadeOut(0.75f, 2));
+        StartCoroutine(FadeOut(0.4f, 2));
     }
 
 
@@ -132,6 +132,6 @@ public class PauseHandler : MonoBehaviour
                 break;
         }
         shadow.color = new Color(0, 0, 0, 0);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }

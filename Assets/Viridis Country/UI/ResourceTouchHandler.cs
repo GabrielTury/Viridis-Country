@@ -129,8 +129,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         StopCoroutine(blackoutCoroutine);
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
                         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
-                        // FADE TRANSPARENTE NO FUNDO
                         isFocused = false;
+                        managerObject.GetComponent<InputManager>().canDrag = true;
                         eventData.pointerDrag = null;
                     }
                     else
