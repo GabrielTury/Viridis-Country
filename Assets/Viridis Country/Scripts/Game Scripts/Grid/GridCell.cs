@@ -11,7 +11,7 @@ public class GridCell : MonoBehaviour
 
     public float simplePosZ { get; private set; }
 
-    public GameManager.GameResources resource
+    public GameManager.GameResources[] resource
     {
         get;
         private set;
@@ -33,7 +33,9 @@ public class GridCell : MonoBehaviour
     }
     GridCell()
     {
-        resource = GameManager.GameResources.None;
+        resource = new GameManager.GameResources[2];
+        for(int i = 0; i < resource.Length; i++)
+            resource[i] = GameManager.GameResources.None;
     }
 
     private void Awake()
@@ -44,9 +46,9 @@ public class GridCell : MonoBehaviour
         simplePosZ = transform.position.z;
     }
 
-    public void SetResource(GameManager.GameResources newResource)
+    public void SetResource(GameManager.GameResources newResource, int index)
     {
-        resource = newResource;
+        resource[index] = newResource;
     }
 
     public void SetAvailability(bool newValue)

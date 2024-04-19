@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-#if UNITY_ANDROID
-    public string GAME_ID = "5597982"; //replace with your gameID from dashboard. note: will be different for each platform. (ja esta com o do viridis)
-#elif UNITY_IOS
-    public string GAME_ID = "5597983"; 
-#endif
+
+    public string GAME_ID = "5597982"; //replace with your gameID from dashboard. note: will be different for each platform. (ja esta com o do viridis ANDROID)
+
 
     private const string BANNER_PLACEMENT = "banner";
     private const string VIDEO_PLACEMENT = "video";
@@ -26,6 +24,10 @@ public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, I
 
     public void Initialize()
     {
+
+#if UNITY_IOS
+    GAME_ID = "5597983"; 
+#endif
         if (Advertisement.isSupported)
         {
             DebugLog(Application.platform + " supported by Advertisement");

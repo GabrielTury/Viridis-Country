@@ -218,10 +218,8 @@ public class GameManager : MonoBehaviour
                 goldAmount += amount;
                 break;
         }
+        Debug.Log("Recurso Coletado");
 
-        //aumenta as ações em 1
-        actionsMade++;
-        Debug.Log("Acoes: "+actionsMade);
 
         bool objectivesMet = true;
         for(int i = 0; i < amountArray.Length; i++)
@@ -367,8 +365,16 @@ public class GameManager : MonoBehaviour
        
     }
 
+    private void ActionCounter(AudioManager.ConstructionAudioTypes a)
+    {
+        //aumenta as ações em 1
+        actionsMade++;
+        Debug.Log("Acoes: " + actionsMade);
+    }
+
     private void OnEnable()
     {
+        GameEvents.Construction_Placed += ActionCounter;
         GameEvents.Resource_Gathered += GetGatheredResources;
         GameEvents.Level_End += LevelEnd;
     }
@@ -377,6 +383,7 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.Resource_Gathered -= GetGatheredResources;
         GameEvents.Level_End -= LevelEnd;
+        GameEvents.Construction_Placed -= ActionCounter;
     }
 
 

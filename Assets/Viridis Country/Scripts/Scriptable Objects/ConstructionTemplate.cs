@@ -12,10 +12,11 @@ public class ConstructionTemplate : ScriptableObject
     public Mesh constructionMesh;
 
     public Material material;
-
-    public GameManager.GameResources resourceToGather;
-
-    public GameManager.GameResources secondaryResource;
+    
+    public GameManager.GameResources[] resourceToGather;
+    
+    [Tooltip("Atualmente tem o maximo de 2 recursos, tem que trocar no gridcell para alterar")]
+    public GameManager.GameResources[] secondaryResource;
 
     public GridCell.TileType tileType;
 

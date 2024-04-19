@@ -25,7 +25,8 @@ public class ResourceIndicator : MonoBehaviour
 
         cell.SetAvailability(false);
 
-        cell.SetResource(resource);
+        for(int i = 0; i < cell.resource.Length; i++)
+            cell.SetResource(resource, i);
 
         transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
     }
