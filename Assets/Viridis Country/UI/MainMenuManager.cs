@@ -23,6 +23,7 @@ public class MainMenuManager : MonoBehaviour
     private GameObject mainCamera;
     private Transform mainCameraTransform;
     private Vector3 mainCameraVelocity = Vector3.zero;
+    private Coroutine cameraBegin;
 
     [SerializeField]
     private GameObject galaxy;
@@ -66,7 +67,7 @@ public class MainMenuManager : MonoBehaviour
         mainCameraTransform = mainCamera.transform;
         mainCameraTransform.localPosition = new Vector3(0, 0.525f, -1.277f);
 
-        StartCoroutine(SmoothStepToTarget(mainCameraTransform, new Vector3(0, 1.48f, -4.87f), 2));
+        cameraBegin = StartCoroutine(SmoothStepToTarget(mainCameraTransform, new Vector3(0, 1.48f, -4.87f), 2));
 
         blackoutImage.gameObject.SetActive(true);
         blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 0), 1));
@@ -93,16 +94,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoToLevelSelect()
     {
-        transitionCamera.SetActive(true);
-        Vector3 cameraPositionTarget = transitionCamera.transform.position;
-        Vector3 cameraRotationTarget = transitionCamera.transform.eulerAngles;
-        transitionCamera.transform.position = mainCamera.transform.position;
-        transitionCamera.transform.rotation = mainCamera.transform.rotation;
-        StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
+        //transitionCamera.SetActive(true);
+        //Vector3 cameraPositionTarget = transitionCamera.transform.position;
+        //Vector3 cameraRotationTarget = transitionCamera.transform.eulerAngles;
+        //transitionCamera.transform.position = mainCamera.transform.position;
+        //transitionCamera.transform.rotation = mainCamera.transform.rotation;
+        //StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
+        StopCoroutine(cameraBegin);
+        StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2));
         blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 56));
         StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 60));
-        StartCoroutine(FadeAfterSeconds(4));
-        Destroy(mainCamera);
+        StartCoroutine(FadeAfterSeconds(3.75f));
+        //Destroy(mainCamera);
     }
 
     public void EnterLevel(int levelID)
@@ -135,6 +138,27 @@ public class MainMenuManager : MonoBehaviour
         {
             objTransform.eulerAngles = targetRotation;
         }
+    }
+
+    private IEnumerator ZoomToEarth(Transform objTransform, float duration)
+    {
+        float lerp = 0;
+        float smoothLerp = 0;
+        float distance = Vector3.Distance(objTransform.transform.position, transitionCamera.transform.position);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+
+            //float zPos = Mathf.Lerp(distance, 0, smoothLerp) * Mathf.Cos(Quaternion.FromToRotation(objTransform.transform.up, transitionCamera.transform.up));
+            float yPos = Mathf.Lerp(distance, 0, smoothLerp);
+
+            //objTransform.localPosition = Vector3.Lerp(startPosition, targetPosition, smoothLerp);
+            yield return null;
+        }
+
+        yield return null;
     }
 
     private IEnumerator FadeColor(Image image, Color targetColor, float duration)

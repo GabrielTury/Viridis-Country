@@ -37,6 +37,11 @@ public class Construction : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        SnapToGrid();
+    }
+
     public void SetDragging(bool newValue)
     {
         isBeingDragged = newValue;

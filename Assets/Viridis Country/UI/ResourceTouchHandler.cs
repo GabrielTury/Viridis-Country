@@ -10,18 +10,20 @@ using static GameManager;
 
 public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
     private GameManager gameManager;
 
     [SerializeField]
     private GameObject managerObject;
+
+    [SerializeField]
+    private Canvas resourcePanelCanvas;
 
     private Image plateImage;
 
     [SerializeField]
     private Image bgFader;
 
-    private bool[] GameResourcesToShow = { false, false, false, false }; // 0 = None, 1 = Water, 2 = Wood, 3 = Stone
+    private bool[] GameResourcesToShow = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
     [System.Serializable]
     public class ResourceModel
@@ -30,20 +32,27 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         public Sprite resourceIcon;
         public Color resourceColor;
         public Mesh resourceMesh; // ?
+        public GameObject resourcePrefab;
 
-        public ResourceModel(Sprite buildingIcon, Sprite resourceIcon, Color resourceColor, Mesh resourceMesh)
+        public ResourceModel(Sprite buildingIcon, Sprite resourceIcon, Color resourceColor, Mesh resourceMesh, GameObject resourcePrefab)
         {
             this.buildingIcon = buildingIcon;
             this.resourceIcon = resourceIcon;
             this.resourceColor = resourceColor;
             this.resourceMesh = resourceMesh;
+            this.resourcePrefab = resourcePrefab;
         }
     } // nao queria deixar tudo public mas nao consegui fazer funcionar no inspetor como private
 
     public ResourceModel[] resourceModel;
 
     [SerializeField]
+    private GameObject constructionPreview;
+
+    [SerializeField]
     private GameObject buildingBoxTemplate;
+
+    private Image constructionHeld;
 
     private List<GameObject> buildingBoxes = new List<GameObject>();
 
@@ -55,6 +64,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     Coroutine blackoutCoroutine;
     bool smoothReturnEnded = true;
     bool isFocused = false;
+    bool isHoldingBuilding = false;
 
     private Inputs input;
 
@@ -75,9 +85,24 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 1f));
 
         GameResourcesToShow[0] = false;
-        GameResourcesToShow[1] = gameManager.objectiveWater > 0 ? true : false;
-        GameResourcesToShow[2] = gameManager.objectiveWood > 0 ? true : false;
+        GameResourcesToShow[1] = gameManager.objectiveWood > 0 ? true : false;
+        GameResourcesToShow[2] = gameManager.objectivePlank > 0 ? true : false;
         GameResourcesToShow[3] = gameManager.objectiveStone > 0 ? true : false;
+        GameResourcesToShow[4] = gameManager.objectiveProcessedStone > 0 ? true : false;
+        GameResourcesToShow[5] = gameManager.objectiveConstructionMaterials > 0 ? true : false;
+        GameResourcesToShow[6] = gameManager.objectiveWater > 0 ? true : false;
+        GameResourcesToShow[7] = gameManager.objectiveMilk > 0 ? true : false;
+        GameResourcesToShow[8] = gameManager.objectiveFermentedMilk > 0 ? true : false;
+        GameResourcesToShow[9] = gameManager.objectiveCheese > 0 ? true : false;
+        GameResourcesToShow[10] = gameManager.objectiveSkin > 0 ? true : false;
+        GameResourcesToShow[11] = gameManager.objectiveLeather > 0 ? true : false;
+        GameResourcesToShow[12] = gameManager.objectiveWool > 0 ? true : false;
+        GameResourcesToShow[13] = gameManager.objectiveCloth > 0 ? true : false;
+        GameResourcesToShow[14] = gameManager.objectiveClothes > 0 ? true : false;
+        GameResourcesToShow[15] = gameManager.objectiveWheat > 0 ? true : false;
+        GameResourcesToShow[16] = gameManager.objectiveFlour > 0 ? true : false;
+        GameResourcesToShow[17] = gameManager.objectiveBread > 0 ? true : false;
+        GameResourcesToShow[18] = gameManager.objectiveGold > 0 ? true : false;
 
         for (int i = 0; i < GameResourcesToShow.Length; i++)
         {
@@ -101,7 +126,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             buildingBoxes[i].GetComponent<Image>().color = resourceModel[boxResourceType].resourceColor;
         }
     }
-    public void OnBeginDrag(PointerEventData eventData) 
+    public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
@@ -110,13 +135,25 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         {
             managerObject.GetComponent<InputManager>().canDrag = false;
             StopCoroutine(movementCoroutine);
-        }    
+        }
+        if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon"))
+        {
+            managerObject.GetComponent<InputManager>().canDrag = false;
+            StopCoroutine(movementCoroutine);
+            StopCoroutine(blackoutCoroutine);
+            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
+            blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+
+            constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
+            constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
+            isHoldingBuilding = true;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("Dragging: " + eventData.pointerCurrentRaycast.gameObject.name);
-        if(eventData.pointerCurrentRaycast.gameObject != null)
+        if (eventData.pointerCurrentRaycast.gameObject != null)
         {
             if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
             {
@@ -154,6 +191,12 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         plateImage.rectTransform.anchoredPosition = new Vector2(0, platePrevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1);
                     }
                 }
+            } else
+            {
+                if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
+                {
+                    constructionHeld.rectTransform.anchoredPosition = eventData.pointerCurrentRaycast.screenPosition;
+                }
             }
         }
         else
@@ -173,8 +216,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData) 
-    { 
+    public void OnEndDrag(PointerEventData eventData)
+    {
         Debug.Log("Drag Ended");
         managerObject.GetComponent<InputManager>().canDrag = true;
         if (smoothReturnEnded == true)
@@ -186,6 +229,15 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
             isFocused = false;
         }
+
+        if (isHoldingBuilding == true)
+        {
+            Vector3 position = new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, 0);
+            
+            Instantiate(resourceModel[1].resourcePrefab, position, Quaternion.identity);
+            Destroy(constructionHeld);
+        }
+    
     }
 
     public void OnPointerClick(PointerEventData eventData) 
