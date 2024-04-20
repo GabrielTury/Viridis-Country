@@ -51,7 +51,7 @@ public class Construction : MonoBehaviour
         {
             SnapToGrid();
 
-            resourcesInRange = GetResourcesInRange(resourcesInRange);//VER ERRO E ARRUMAR
+            resourcesInRange = GetResourcesInRange(resourcesInRange);//VER ERRO E ARRUMAR (resources inr range e o retorno da função soh funcionam pra 1, tem q adaptar pra funcionar com array)
 
             //GameEvents.OnResourceGathered(resourceToGather, resourcesInRange);
         }
@@ -95,12 +95,19 @@ public class Construction : MonoBehaviour
         GridCell[] cellsInRadius = GridManager.Instance.GetCellFromRadius(transform.position, gatherRadius);
 
 
+        List<GameManager.GameResources> list = new List<GameManager.GameResources>();
+
+
         foreach (GridCell cell in cellsInRadius)
         {
-            if (cell.resource == resourceToGather)
+            for (int i = 0; i < cell.resource.Length; i++)
             {
-                Debug.Log(cell.resource);
-                resourceAmount++;
+                if (i < resourceToGather.Length && cell.resource[i] == resourceToGather[i])
+                {
+                    Debug.Log(cell.resource[i]);
+                    list.Add(resourceToGather[i]);
+                    resourceAmount++;
+                }
             }
         }
 
@@ -108,10 +115,18 @@ public class Construction : MonoBehaviour
 
         if(diff != 0)
         {
+            
             for (int i = 0; i < currentCell.resource.Length; i++)
             {
-                if (i < resourceToGather.Length)
-                    GameEvents.OnResourceGathered(resourceToGather[i], diff);
+                
+                if (i < list.Count)
+                {
+                    foreach(GameManager.GameResources a in list)
+                    {
+                        GameEvents.OnResourceGathered(a, diff);
+                    }
+                    
+                }
             }
         }
 

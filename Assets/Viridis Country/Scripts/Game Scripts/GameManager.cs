@@ -41,8 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] //Temp
     private LevelObject levelVariables;
 
-    [SerializeField]
-    private ScriptableObject[] levelMaps; // mapas vao aqui
+    /*[SerializeField]
+    private ScriptableObject[] levelMaps; // mapas vao aqui*/
 
     public int actionsMade {  get; private set; }
 

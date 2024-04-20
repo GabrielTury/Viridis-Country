@@ -15,7 +15,7 @@ public class ConstructionTemplate : ScriptableObject
     
     public GameManager.GameResources[] resourceToGather;
     
-    [Tooltip("Atualmente tem o maximo de 2 recursos, tem que trocar no gridcell para alterar")]
+    [Tooltip("Atualmente tem o maximo de 2 recursos, tem que trocar o tamanho do array no gridcell para alterar")]
     public GameManager.GameResources[] secondaryResource;
 
     public GridCell.TileType tileType;
