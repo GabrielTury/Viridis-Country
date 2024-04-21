@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -496,6 +496,7 @@ MonoBehaviour:
   levelObjects:
   - {fileID: 11400000, guid: dbacbe84d2609f34f990c88d9fe0f35c, type: 2}
   levelVariables: {fileID: 0}
+  actionsMade: 0
   zeroAmount: 0
   woodAmount: 0
   plankAmount: 0
@@ -8611,6 +8612,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1011488113871554921, guid: 443c0887f05bd3f429ea2d5ba13ed722,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2574820109539967508, guid: 443c0887f05bd3f429ea2d5ba13ed722,
         type: 3}
       propertyPath: m_Pivot.x
@@ -23851,7 +23857,7 @@ GameObject:
   - component: {fileID: 1835044288}
   - component: {fileID: 1835044287}
   m_Layer: 5
-  m_Name: Movements
+  m_Name: ActionCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23896,7 +23902,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: acti.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d7cda35a85e3d3246b8ad826e32fe9f6, type: 2}
   m_sharedMaterial: {fileID: -263775177992007294, guid: d7cda35a85e3d3246b8ad826e32fe9f6,
@@ -28750,9 +28756,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
+      propertyPath: actionCounter
+      value: 
+      objectReference: {fileID: 1835044287}
+    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
       propertyPath: managerObject
       value: 
       objectReference: {fileID: 23078331}
+    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: constructionPrefab
+      value: 
+      objectReference: {fileID: 4625999577303596951, guid: 2b850c22593b3b14183827966cdf6564,
+        type: 3}
     - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: constructionPreview
@@ -28782,6 +28799,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3519212606350903974, guid: 306d6adbaadc5aa489f4630fefef31b3,
         type: 3}
+    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: resourceModel.Array.data[1].resourceScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 62b76af5bbb4cc443a400f0307f33cd5,
+        type: 2}
+    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: resourceModel.Array.data[3].resourceScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: c0a05273c5cf78749858e53fa70ef5e3,
+        type: 2}
+    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: resourceModel.Array.data[6].resourceScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ac627ff45dff96459c797648e76eaf0,
+        type: 2}
     - target: {fileID: 1225749107992227698, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -28934,8 +28969,8 @@ SceneRoots:
   - {fileID: 1925365156}
   - {fileID: 2535960330246220078}
   - {fileID: 829985456}
-  - {fileID: 759123028}
   - {fileID: 8751536649026773688}
+  - {fileID: 759123028}
   - {fileID: 519383544}
   - {fileID: 1410803750}
   - {fileID: 712781588}

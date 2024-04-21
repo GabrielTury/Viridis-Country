@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     /*[SerializeField]
     private ScriptableObject[] levelMaps; // mapas vao aqui*/
 
-    public int actionsMade {  get; private set; }
+    public int actionsMade;
 
     #region Resource Amounts
     [Header("Altere esses valores no level scriptable object!! \nEstao aqui somente para visualizacao")]

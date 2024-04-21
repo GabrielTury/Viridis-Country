@@ -1,3 +1,4 @@
+using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,15 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     private Image plateImage;
 
     [SerializeField]
+    private TextMeshProUGUI actionCounter;
+
+    [SerializeField]
     private Image bgFader;
 
     private bool[] GameResourcesToShow = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+
+    [SerializeField]
+    private GameObject constructionPrefab;
 
     [System.Serializable]
     public class ResourceModel
@@ -32,15 +39,15 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         public Sprite resourceIcon;
         public Color resourceColor;
         public Mesh resourceMesh; // ?
-        public GameObject resourcePrefab;
+        public ConstructionTemplate resourceScriptableObject;
 
-        public ResourceModel(Sprite buildingIcon, Sprite resourceIcon, Color resourceColor, Mesh resourceMesh, GameObject resourcePrefab)
+        public ResourceModel(Sprite buildingIcon, Sprite resourceIcon, Color resourceColor, Mesh resourceMesh, ConstructionTemplate resourceScriptableObject)
         {
             this.buildingIcon = buildingIcon;
             this.resourceIcon = resourceIcon;
             this.resourceColor = resourceColor;
             this.resourceMesh = resourceMesh;
-            this.resourcePrefab = resourcePrefab;
+            this.resourceScriptableObject = resourceScriptableObject;
         }
     } // nao queria deixar tudo public mas nao consegui fazer funcionar no inspetor como private
 
@@ -53,6 +60,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     private GameObject buildingBoxTemplate;
 
     private Image constructionHeld;
+
+    private ConstructionTemplate constructionHeldScriptableObject;
 
     private List<GameObject> buildingBoxes = new List<GameObject>();
 
@@ -67,6 +76,21 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     bool isHoldingBuilding = false;
 
     private Inputs input;
+
+    private void OnEnable()
+    {
+        GameEvents.Construction_Placed += UpdateActionText;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.Construction_Placed -= UpdateActionText;
+    }
+
+    private void UpdateActionText(AudioManager.ConstructionAudioTypes a)
+    {
+        actionCounter.text = GameManager.Instance.actionsMade.ToString();
+    }
 
     private void Awake()
     {
@@ -128,7 +152,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag Begin");
+        //Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
         platePrevPos = plateImage.rectTransform.anchoredPosition;
         if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
@@ -141,13 +165,30 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             managerObject.GetComponent<InputManager>().canDrag = false;
             StopCoroutine(movementCoroutine);
             StopCoroutine(blackoutCoroutine);
-            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
+            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.1f));
             blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+
+            constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
             constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
             constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
+            
             isHoldingBuilding = true;
         }
+    }
+
+    private int GetResourceIndex(string resourceName)
+    {
+        for (int i = 0; i < resourceModel.Length; i++)
+        {
+            if (resourceModel[i].resourceIcon.name.Contains(resourceName))
+            {
+                //Debug.LogWarning("found icon! name: " + resourceName + " index: " + i);
+                return i;
+            }
+        }
+        //Debug.LogWarning("Resource icon with name " + resourceName + " not found");
+        return 0;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -161,7 +202,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                 {
                     if (plateImage.rectTransform.anchoredPosition.y <= 200)
                     {
-                        Debug.Log("ABC");
+                        //Debug.Log("ABC");
                         StopCoroutine(movementCoroutine);
                         StopCoroutine(blackoutCoroutine);
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
@@ -178,7 +219,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                 {
                     if (plateImage.rectTransform.anchoredPosition.y >= -400)
                     {
-                        Debug.Log("CBA");
+                        //Debug.Log("CBA");
                         StopCoroutine(movementCoroutine);
                         StopCoroutine(blackoutCoroutine);
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, 800), 0.3f));
@@ -196,6 +237,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
                 {
                     constructionHeld.rectTransform.anchoredPosition = eventData.pointerCurrentRaycast.screenPosition;
+                    Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
+                    Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
                 }
             }
         }
@@ -218,11 +261,11 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag Ended");
+        //Debug.Log("Drag Ended");
         managerObject.GetComponent<InputManager>().canDrag = true;
         if (smoothReturnEnded == true)
         {
-            Debug.Log("DEF");
+            //Debug.Log("DEF");
             StopCoroutine(movementCoroutine);
             StopCoroutine(blackoutCoroutine);
             movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
@@ -232,22 +275,28 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
 
         if (isHoldingBuilding == true)
         {
-            Vector3 position = new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, 0);
+            Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
+
+            GameObject constructionPlaced = Instantiate(constructionPrefab, position, Quaternion.identity);
+            constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
+            Destroy(constructionHeld.gameObject);
             
-            Instantiate(resourceModel[1].resourcePrefab, position, Quaternion.identity);
-            Destroy(constructionHeld);
+            isHoldingBuilding = false;
+
+            GameManager.Instance.actionsMade++;
+            actionCounter.text = GameManager.Instance.actionsMade.ToString();
         }
     
     }
 
     public void OnPointerClick(PointerEventData eventData) 
     {
-        Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name); 
+        //Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name); 
     }
 
     public void OnPointerDown(PointerEventData eventData) 
     { 
-        Debug.Log("Mouse Down: " + eventData.pointerCurrentRaycast.gameObject.name);
+        //Debug.Log("Mouse Down: " + eventData.pointerCurrentRaycast.gameObject.name);
     }
 
     //public void OnPointerEnter(PointerEventData eventData) { Debug.Log("Mouse Enter"); }
@@ -256,7 +305,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("Mouse Up");
+        //Debug.Log("Mouse Up");
     }
 
     void Update()

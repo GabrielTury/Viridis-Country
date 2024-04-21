@@ -8,8 +8,7 @@ public class Construction : MonoBehaviour
 {
     private bool isBeingDragged;
 
-    [SerializeField]
-    private ConstructionTemplate construcion;
+    public ConstructionTemplate construcion;
 
     private int gatherRadius;
 
