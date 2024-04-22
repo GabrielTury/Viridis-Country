@@ -25,14 +25,14 @@ public class AnalyticsPopup : MonoBehaviour
     private Coroutine coloringCoroutine;
 
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
-        await UnityServices.InitializeAsync();
+        AnalyticsManager an = FindObjectOfType<AnalyticsManager>();
 
         if (PlayerPrefs.GetInt("ANALYTICSENABLED") == 1)
         {
-            AnalyticsService.Instance.StartDataCollection();
-            Destroy(this);
+            an.GiveConsent();
+            Destroy(this.gameObject);
         }
 
         background.rectTransform.localScale = new Vector2(0, 0);
