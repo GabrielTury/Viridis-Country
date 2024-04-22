@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17850,37 +17850,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Zoom SFX
+  - name: Zoom
     clip: {fileID: 8300000, guid: 3c788a3fe9dffcc4e84f1f4b53545531, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: Click SFX
+  - name: Click
     clip: {fileID: 8300000, guid: ceb514873325caa458937ec537e1d48f, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: Select SFX
+  - name: Select
     clip: {fileID: 8300000, guid: 0ee41b258f1c05340aab7a7f5d62d3a4, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: Demolish SFX
+  - name: Demolish
     clip: {fileID: 8300000, guid: 1cfe7c7da9045bf4e826c3b42b1b930f, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: 1 Star SFX
+  - name: OneStar
     clip: {fileID: 8300000, guid: b4c142dfc0a0667429627dff2231a749, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: 2 Star SFX
+  - name: TwoStar
     clip: {fileID: 8300000, guid: bb551f2c0d2d62e458d9823bb3132717, type: 3}
     volume: 0
     pitch: 0.1
     source: {fileID: 0}
-  - name: 3 Star SFX
+  - name: ThreeStar
     clip: {fileID: 8300000, guid: be7e4d1f889b0ed449c18e42dd8b5d6d, type: 3}
     volume: 0
     pitch: 0.1
