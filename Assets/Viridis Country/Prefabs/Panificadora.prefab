@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4378475286048098914
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.6112795
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.7559683
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.787788
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47f209c013b8dcb4eb3a4a6cc74180b6, type: 2}
+    - target: {fileID: 919132149155446097, guid: 75e9f15969f7e504a9d01085461c71da,
+        type: 3}
+      propertyPath: m_Name
+      value: Panificadora
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75e9f15969f7e504a9d01085461c71da, type: 3}
