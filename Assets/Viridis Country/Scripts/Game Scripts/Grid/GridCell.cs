@@ -45,7 +45,13 @@ public class GridCell : MonoBehaviour
         simplePosX = transform.position.x;
         simplePosZ = transform.position.z;
     }
-
+    private void Start()
+    {
+        if(tileType == TileType.Water)
+        {
+            resource[0] = GameManager.GameResources.Water;
+        }
+    }
     public void SetResource(GameManager.GameResources newResource, int index)
     {
         resource[index] = newResource;

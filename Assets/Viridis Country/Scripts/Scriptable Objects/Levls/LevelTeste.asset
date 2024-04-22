@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47037cdc0466d804385ed4b80beac321, type: 3}
+  m_Name: LevelTeste
+  m_EditorClassIdentifier: 
+  goalWoodAmount: 3
+  goalPlankAmount: 0
+  goalStoneAmount: 0
+  goalProcessedStoneAmount: 0
+  goalConstructionMaterialsAmount: 0
+  goalWaterAmount: 0
+  goalMilkAmount: 0
+  goalFermentedMilkAmount: 0
+  goalCheeseAmount: 0
+  goalSkinAmount: 0
+  goalLeatherAmount: 1
+  goalWoolAmount: 0
+  goalClothAmount: 0
+  goalClothesAmount: 0
+  goalWheatAmount: 0
+  goalFlourAmount: 0
+  goalBreadAmount: 0
+  goalGoldAmount: 0
+  threeStarsAmount: 1
+  twoStarsAmount: 2
+  oneStarAmount: 3

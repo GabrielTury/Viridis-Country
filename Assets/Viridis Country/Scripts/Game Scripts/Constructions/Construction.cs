@@ -104,10 +104,10 @@ public class Construction : MonoBehaviour
 
         foreach (GridCell cell in cellsInRadius)
         {
-            Debug.Log("FOREACH: " + cell.resource);
+            //Debug.Log("FOREACH: " + cell.resource);
             for (int i = 0; i < cell.resource.Length; i++)
             {
-                Debug.Log("FOR: "+cell.resource[i]);
+                //Debug.Log("FOR: "+cell.resource[i]);
                 if (cell.resource[i] == resourceToCheck)
                 {
                     //Debug.Log("RESOURCE CHECK: "+cell.resource[i]);                   
