@@ -12,7 +12,7 @@ public class Construction : MonoBehaviour
 
     private int gatherRadius;
 
-    private int resourcesInRange;
+    private int[] resourcesInRange;
 
     private GameManager.GameResources[] resourceToGather;
 
@@ -34,6 +34,7 @@ public class Construction : MonoBehaviour
         tileType = construcion.tileType;
         secondaryResource = construcion.secondaryResource;
         cType = construcion.constructionType;
+        resourcesInRange = new int[resourceToGather.Length];
 
     }
 
@@ -50,9 +51,16 @@ public class Construction : MonoBehaviour
         {
             SnapToGrid();
 
-            resourcesInRange = GetResourcesInRange(resourcesInRange);//VER ERRO E ARRUMAR (resources inr range e o retorno da função soh funcionam pra 1, tem q adaptar pra funcionar com array)
+            for(int i = 0; i < resourceToGather.Length; i++)
+            {
+                resourcesInRange[i] = GetResourcesInRange(resourceToGather[i], i);
+                //Debug.Log("Chamou com: " + resourceToGather[i]);
+            }
 
-            //GameEvents.OnResourceGathered(resourceToGather, resourcesInRange);
+            GameEvents.OnConstructionPlaced(cType);
+
+            if(isBeingDragged)
+                SetDragging(false);
         }
         else if (currentCell != null && isBeingDragged != currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
         {
@@ -67,7 +75,7 @@ public class Construction : MonoBehaviour
     /// <summary>
     /// Set Object X and Z position to the nearest Cell
     /// </summary>
-    private void SnapToGrid()
+    public void SnapToGrid()
     {
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
 
@@ -86,51 +94,37 @@ public class Construction : MonoBehaviour
     /// Iterate through all blocks in range and see how many resources there are
     /// </summary>
     /// <param name="resourceAmount">out the amount fo resources in range</param>
-    private int GetResourcesInRange(int resourceAmount) //VER E ARRUMAR
+    private int GetResourcesInRange(GameManager.GameResources resourceToCheck, int index) //VER E ARRUMAR
     {
-        resourceAmount = 0;
+        int resourceAmount = 0;
         //Debug.Log(resourcesInRange + "Resources In Range");
 
         GridCell[] cellsInRadius = GridManager.Instance.GetCellFromRadius(transform.position, gatherRadius);
 
 
-        List<GameManager.GameResources> list = new List<GameManager.GameResources>();
-
-
         foreach (GridCell cell in cellsInRadius)
         {
-            for (int i = 0; i < cell.resource.Length; i++)
+            for(int i = 0; i < cell.resource.Length; i++)
             {
-                if (i < resourceToGather.Length && cell.resource[i] == resourceToGather[i])
+                Debug.Log(cell.resource[i]);
+                if (cell.resource[i] == resourceToCheck)
                 {
-                    Debug.Log(cell.resource[i]);
-                    list.Add(resourceToGather[i]);
+                    Debug.Log("RESOURCE CHECK: "+cell.resource[i]);                   
                     resourceAmount++;
                 }
             }
+
         }
 
-        int diff = resourceAmount - resourcesInRange;
+        int diff = resourceAmount - resourcesInRange[index];
 
         if(diff != 0)
         {
-            
-            for (int i = 0; i < currentCell.resource.Length; i++)
-            {
-                
-                if (i < list.Count)
-                {
-                    foreach(GameManager.GameResources a in list)
-                    {
-                        GameEvents.OnResourceGathered(a, diff);
-                    }
-                    
-                }
-            }
+            Debug.Log("Diff: "+ diff);
+            GameEvents.OnResourceGathered(resourceToCheck, diff);          
         }
 
-        GameEvents.OnConstructionPlaced(cType);
-
+       
         return resourceAmount;
     }
 
