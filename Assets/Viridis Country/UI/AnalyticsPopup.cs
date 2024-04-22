@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Analytics;
+using Unity.Services.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,8 +25,10 @@ public class AnalyticsPopup : MonoBehaviour
     private Coroutine coloringCoroutine;
 
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
+        await UnityServices.InitializeAsync();
+
         if (PlayerPrefs.GetInt("ANALYTICSENABLED") == 1)
         {
             AnalyticsService.Instance.StartDataCollection();
