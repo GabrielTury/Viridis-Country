@@ -104,12 +104,13 @@ public class Construction : MonoBehaviour
 
         foreach (GridCell cell in cellsInRadius)
         {
-            for(int i = 0; i < cell.resource.Length; i++)
+            Debug.Log("FOREACH: " + cell.resource);
+            for (int i = 0; i < cell.resource.Length; i++)
             {
-                Debug.Log(cell.resource[i]);
+                Debug.Log("FOR: "+cell.resource[i]);
                 if (cell.resource[i] == resourceToCheck)
                 {
-                    Debug.Log("RESOURCE CHECK: "+cell.resource[i]);                   
+                    //Debug.Log("RESOURCE CHECK: "+cell.resource[i]);                   
                     resourceAmount++;
                 }
             }
@@ -120,7 +121,7 @@ public class Construction : MonoBehaviour
 
         if(diff != 0)
         {
-            Debug.Log("Diff: "+ diff);
+            //Debug.Log("Diff: "+ diff);
             GameEvents.OnResourceGathered(resourceToCheck, diff);          
         }
 
