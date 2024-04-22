@@ -811,7 +811,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &8874953048600596678
 MonoBehaviour:
@@ -865,6 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6ceb1469d7e0348ad6db37972764d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AudioMixer: {fileID: 24100000, guid: 20532947e93129b47b97020e47a2f687, type: 2}
   soundIcon: {fileID: 3305708870032008905}
   soundIconImages:
   - {fileID: 21300000, guid: e283009643aaca943822f761853d1f13, type: 3}

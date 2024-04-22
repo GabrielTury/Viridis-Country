@@ -99,7 +99,8 @@ public class InputManager : MonoBehaviour
             yield return null;
         }
 
-        obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
+        if(canDrag)
+            obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
     }
 
     private void OnEnable()

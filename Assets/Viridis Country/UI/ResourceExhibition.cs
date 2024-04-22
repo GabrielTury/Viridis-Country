@@ -149,16 +149,33 @@ public class ResourceExhibition : MonoBehaviour
             }
         }
 
+        int maxBoxesPerLine = 3;
+        int numRows = (int)Mathf.Ceil((float)resourceBarSize / maxBoxesPerLine);
+        int totalBoxes = Mathf.Min(resourceBarSize, maxBoxesPerLine * numRows);
+
+        float totalWidth = maxBoxesPerLine * 240;
+        float totalHeight = numRows * 100;
+
+        float startX = -totalWidth / 2 + 120; // Meio da primeira caixa
+
         for (int i = 0; i < resourceBarSize; i++)
         {
-            if (i < 3)
+            int row = i / maxBoxesPerLine;
+            int col = i % maxBoxesPerLine;
+
+            float xOffset = startX + (240 * col);
+            float yOffset = -((totalHeight / 2) - (100 * numRows / 2) + (100 * row));
+
+            resourceBoxes[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xOffset, yOffset);
+
+            /*if (i < 3)
             {
                 resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (Mathf.Min(resourceBarSize, 3) - 1)) / 2 + (240 * (i - 1)), 0);
             } else
             {
                 resourceBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2(240 - (240 * (resourceBarSize - 1)) / 2 + (240 * (i - 1)), -100);
-            }
-            
+            }*/
+
 
             GetChildWithName(resourceBoxes[i], "ResourceIcon").GetComponent<Image>().sprite = resourceIcons[resourceNames[i] - 1];
 
@@ -166,6 +183,8 @@ public class ResourceExhibition : MonoBehaviour
 
             resourceBoxText[i].text = resourceNamesText[resourceNames[i]];
         }
+
+        
 
         resourceBackground.rectTransform.sizeDelta = new Vector2(280 * resourceBarSize, 130);
 

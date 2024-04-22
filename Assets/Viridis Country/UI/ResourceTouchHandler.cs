@@ -145,7 +145,16 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         {
             int boxResourceType = int.Parse(new string(buildingBoxes[i].name.Where(char.IsDigit).ToArray()));
 
-            buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 2) * 420 - 210, -(i / 2) * 440 + 466);
+            if (buildingBoxCount > 6)
+            {
+                buildingBoxes[i].GetComponent<Image>().rectTransform.localScale = new Vector2(0.75f, 0.75f);
+                buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 3) * 275 - 275, -(i / 3) * 275 + 466);
+            }
+            else
+            {
+                buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 2) * 420 - 210, -(i / 2) * 440 + 466);
+            }
+            
 
             GetChildWithName(buildingBoxes[i], "BuildingIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].buildingIcon;
             GetChildWithName(buildingBoxes[i], "BuildingResourceIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].resourceIcon;
@@ -247,9 +256,9 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
                 {
                     constructionHeld.rectTransform.anchoredPosition = eventData.position;
-                    Debug.Log("Position x: " + eventData.position.x + " Position y: " + eventData.position.y);
-                    Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
-                    Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
+                    //Debug.Log("Position x: " + eventData.position.x + " Position y: " + eventData.position.y);
+                    //Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
+                    //Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
                 }
             }
         }

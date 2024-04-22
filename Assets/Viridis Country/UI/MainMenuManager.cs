@@ -58,6 +58,9 @@ public class MainMenuManager : MonoBehaviour
 
     private bool showInputTooltip;
 
+    [SerializeField]
+    private GameObject analyticsPopup;
+
     void Start()
     {
         planetTransform = planet.transform;
