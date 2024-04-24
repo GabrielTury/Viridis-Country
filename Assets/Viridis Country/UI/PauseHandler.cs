@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class PauseHandler : MonoBehaviour
 {
+    [SerializeField]
     private AudioMixer AudioMixer;
 
     [SerializeField]
@@ -29,12 +30,18 @@ public class PauseHandler : MonoBehaviour
     [SerializeField]
     private Image background;
 
+    private GameObject managerObject;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(FadeIn(0.4f));
+
+        managerObject = GameManager.Instance.gameObject;
+
+        managerObject.GetComponent<InputManager>().canDrag = false;
     }
 
     // Update is called once per frame
@@ -45,16 +52,16 @@ public class PauseHandler : MonoBehaviour
 
     public void SwitchSound()
     {
-        AudioMixer.GetFloat("", out float volume);
-        AudioMixer.SetFloat("", volume == 1 ? 0 : 1);
+        AudioMixer.GetFloat("SEVOLUME", out float volume);
+        AudioMixer.SetFloat("SEVOLUME", volume == 1 ? 0 : 1);
         PlayerPrefs.SetFloat("SOUNDVOLUME", volume == 1 ? 0 : 1);
         soundIcon.sprite = soundIconImages[(int)volume];
     }
 
     public void SwitchMusic()
     {
-        AudioMixer.GetFloat("", out float volume);
-        AudioMixer.SetFloat("", volume == 1 ? 0 : 1);
+        AudioMixer.GetFloat("BGMVOLUME", out float volume);
+        AudioMixer.SetFloat("BGMVOLUME", volume == 1 ? 0 : 1);
         PlayerPrefs.SetFloat("MUSICVOLUME", volume == 1 ? 0 : 1);
         musicIcon.sprite = musicIconImages[(int)volume];
     }
@@ -62,6 +69,7 @@ public class PauseHandler : MonoBehaviour
     public void ResumeLevel()
     {
         StartCoroutine(FadeOut(0.4f, 0));
+        managerObject.GetComponent<InputManager>().canDrag = true;
     }
 
     public void RestartLevel()
@@ -118,13 +126,13 @@ public class PauseHandler : MonoBehaviour
             yield return null;
         }
 
-        switch (type)
+        switch (type) // polir
         {
             case 0:
                 break;
 
             case 1:
-                // reiniciar o level
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 break;
 
             case 2:

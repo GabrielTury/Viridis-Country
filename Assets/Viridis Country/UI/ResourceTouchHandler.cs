@@ -75,6 +75,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     bool isFocused = false;
     bool isHoldingBuilding = false;
 
+    GameObject lastSelected;
+
     private Inputs input;
 
     private void OnEnable()
@@ -143,7 +145,16 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         {
             int boxResourceType = int.Parse(new string(buildingBoxes[i].name.Where(char.IsDigit).ToArray()));
 
-            buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 2) * 420 - 210, -(i / 2) * 440 + 466);
+            if (buildingBoxCount > 6)
+            {
+                buildingBoxes[i].GetComponent<Image>().rectTransform.localScale = new Vector2(0.75f, 0.75f);
+                buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 3) * 275 - 275, -(i / 3) * 275 + 466);
+            }
+            else
+            {
+                buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 2) * 420 - 210, -(i / 2) * 440 + 466);
+            }
+            
 
             GetChildWithName(buildingBoxes[i], "BuildingIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].buildingIcon;
             GetChildWithName(buildingBoxes[i], "BuildingResourceIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].resourceIcon;
@@ -159,6 +170,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         {
             managerObject.GetComponent<InputManager>().canDrag = false;
             StopCoroutine(movementCoroutine);
+            lastSelected = eventData.pointerCurrentRaycast.gameObject;
         }
         if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon"))
         {
@@ -194,9 +206,13 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("Dragging: " + eventData.pointerCurrentRaycast.gameObject.name);
+        if(eventData.pointerCurrentRaycast.gameObject == null)
+        {
+            return;
+        }
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
+            if (lastSelected != null)
             {
                 if (isFocused)
                 {
@@ -209,6 +225,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
                         isFocused = false;
                         managerObject.GetComponent<InputManager>().canDrag = true;
+                        lastSelected = null;
                         eventData.pointerDrag = null;
                     }
                     else
@@ -225,6 +242,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, 800), 0.3f));
                         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 120), 0.6f));
                         isFocused = true;
+                        lastSelected = null;
                         eventData.pointerDrag = null;
                     }
                     else
@@ -234,11 +252,13 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                 }
             } else
             {
+                
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
                 {
-                    constructionHeld.rectTransform.anchoredPosition = eventData.pointerCurrentRaycast.screenPosition;
-                    Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
-                    Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
+                    constructionHeld.rectTransform.anchoredPosition = eventData.position;
+                    //Debug.Log("Position x: " + eventData.position.x + " Position y: " + eventData.position.y);
+                    //Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
+                    //Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
                 }
             }
         }
@@ -270,15 +290,29 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             StopCoroutine(blackoutCoroutine);
             movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
             blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+            lastSelected = null;
             isFocused = false;
         }
 
         if (isHoldingBuilding == true)
         {
-            Vector3 position = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
+            lastSelected = null;
+            Vector3 buildPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
 
-            GameObject constructionPlaced = Instantiate(constructionPrefab, position, Quaternion.identity);
+            Transform transformCam = Camera.main.transform;
+
+            for (float i = 0; buildPosition.y > 0.5f; i = i + 0.1f)
+            {
+                buildPosition += transformCam.forward * Time.deltaTime * i;
+            }
+
+            Debug.Log(buildPosition);
+
+            GameObject constructionPlaced = Instantiate(constructionPrefab, buildPosition, Quaternion.identity);
+            constructionPlaced.SetActive(false);
             constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
+            constructionPlaced.SetActive(true);
+            constructionPlaced.GetComponent<Construction>().SetDragging(true);
             Destroy(constructionHeld.gameObject);
             
             isHoldingBuilding = false;

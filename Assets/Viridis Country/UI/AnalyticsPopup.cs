@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Analytics;
+using Unity.Services.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,10 +27,12 @@ public class AnalyticsPopup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AnalyticsManager an = FindObjectOfType<AnalyticsManager>();
+
         if (PlayerPrefs.GetInt("ANALYTICSENABLED") == 1)
         {
-            AnalyticsService.Instance.StartDataCollection();
-            Destroy(this);
+            an.GiveConsent();
+            Destroy(this.gameObject);
         }
 
         background.rectTransform.localScale = new Vector2(0, 0);

@@ -35,9 +35,6 @@ public class GameManager : MonoBehaviour
         }
     #endregion
 
-    [SerializeField]
-    private LevelObject[] levelObjects;
-
     [SerializeField] //Temp
     private LevelObject levelVariables;
 
@@ -107,8 +104,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        levelVariables = levelObjects[PlayerPrefs.GetInt("LEVELID")];
-
         objectiveStone = levelVariables.goalStoneAmount;
         objectiveWater = levelVariables.goalWaterAmount;
         objectiveWood = levelVariables.goalWoodAmount;
