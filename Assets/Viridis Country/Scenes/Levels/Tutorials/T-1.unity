@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ea3f64c7805914cbb6c9a3fb2833fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelVariables: {fileID: 11400000, guid: 3072311391e9b13488787feef07b08d5, type: 2}
+  levelVariables: {fileID: 11400000, guid: 0b32cafd55cb5514da0299a5065b1bb1, type: 2}
   actionsMade: 0
   zeroAmount: 0
   woodAmount: 0
@@ -1824,89 +1824,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dba6173e48363224482ddb4f438a5ebb, type: 3}
---- !u!1001 &1886004041
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5036502917686829503, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_Name
-      value: Madeireira
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.83598804
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.56167376
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.16387
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669627398832880389, guid: 2df7b98f74069a74fa77d3108bc4f008,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2df7b98f74069a74fa77d3108bc4f008, type: 3}
 --- !u!1 &2019731929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,4 +1991,3 @@ SceneRoots:
   - {fileID: 2019731932}
   - {fileID: 1286385625}
   - {fileID: 799941607}
-  - {fileID: 1886004041}
