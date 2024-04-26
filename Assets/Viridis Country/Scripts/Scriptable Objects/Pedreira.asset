@@ -16,7 +16,7 @@ MonoBehaviour:
   constructionMesh: {fileID: -6657180443270484345, guid: b76d9b06eb7965147adaec0737275eac,
     type: 3}
   material: {fileID: 2100000, guid: d294beac9cf038f4d807997df090821d, type: 2}
-  resourceToGather: 03000000
-  secondaryResource: 
+  resourceToGather: 0300000012000000
+  secondaryResource: 04000000
   tileType: 0
   constructionType: 0
