@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: LevelTeste
   m_EditorClassIdentifier: 
   goalWoodAmount: 3
-  goalPlankAmount: 0
-  goalStoneAmount: 0
-  goalProcessedStoneAmount: 0
+  goalPlankAmount: 1
+  goalStoneAmount: 6
+  goalProcessedStoneAmount: 4
   goalConstructionMaterialsAmount: 0
-  goalWaterAmount: 0
-  goalMilkAmount: 0
-  goalFermentedMilkAmount: 0
+  goalWaterAmount: 5
+  goalMilkAmount: 7
+  goalFermentedMilkAmount: 5
   goalCheeseAmount: 0
   goalSkinAmount: 0
   goalLeatherAmount: 1

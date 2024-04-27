@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static GameManager;
 
-public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private GameManager gameManager;
 
@@ -67,31 +67,58 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
 
     private int buildingBoxCount = 0;
 
-    Vector2 touchPos;
-    Vector2 platePrevPos;
-    Coroutine movementCoroutine;
-    Coroutine blackoutCoroutine;
+    private Vector2 touchPos;
+    private Vector2 platePrevPos;
+    private Coroutine movementCoroutine;
+    private Coroutine blackoutCoroutine;
+    private Coroutine handCoroutine;
+    private Coroutine plateColorCoroutine;
     bool smoothReturnEnded = true;
     bool isFocused = false;
     bool isHoldingBuilding = false;
 
-    GameObject lastSelected;
+    private GameObject lastSelected;
+    private GameObject lastBuildingBox;
+
+    [SerializeField]
+    private Image handObj;
+
+    [SerializeField]
+    private Sprite[] buildingBoxSprites;
+
+    [SerializeField]
+    private GameObject clearLevelTemplate;
 
     private Inputs input;
 
     private void OnEnable()
     {
         GameEvents.Construction_Placed += UpdateActionText;
+        GameEvents.Construction_Placed += UpdateHandAnim;
+        GameEvents.Level_End += ClearLevel;
     }
 
     private void OnDisable()
     {
         GameEvents.Construction_Placed -= UpdateActionText;
+        GameEvents.Construction_Placed -= UpdateHandAnim;
+        GameEvents.Level_End -= ClearLevel;
+    }
+
+    private void ClearLevel()
+    {
+        Instantiate(clearLevelTemplate);
     }
 
     private void UpdateActionText(AudioManager.ConstructionAudioTypes a)
     {
         actionCounter.text = GameManager.Instance.actionsMade.ToString();
+    }
+
+    private void UpdateHandAnim(AudioManager.ConstructionAudioTypes a)
+    {
+        StopCoroutine(handCoroutine);
+        handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
     }
 
     private void Awake()
@@ -103,12 +130,16 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
     {
         gameManager = GameManager.Instance;
 
+        actionCounter.text = gameManager.actionsMade.ToString();
+
         managerObject.GetComponent<InputManager>().canDrag = true;
 
         plateImage = GetComponent<Image>();
 
         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 1f));
+        handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
+        plateColorCoroutine = StartCoroutine(FadeColor(plateImage, new Color32(255, 255, 255, 200), 1f));
 
         GameResourcesToShow[0] = false;
         GameResourcesToShow[1] = gameManager.objectiveWood > 0 ? true : false;
@@ -166,26 +197,37 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
         //Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
         platePrevPos = plateImage.rectTransform.anchoredPosition;
-        if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
+        if (eventData.pointerCurrentRaycast.gameObject != null)
         {
-            managerObject.GetComponent<InputManager>().canDrag = false;
-            StopCoroutine(movementCoroutine);
-            lastSelected = eventData.pointerCurrentRaycast.gameObject;
-        }
-        if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon"))
-        {
-            managerObject.GetComponent<InputManager>().canDrag = false;
-            StopCoroutine(movementCoroutine);
-            StopCoroutine(blackoutCoroutine);
-            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.1f));
-            blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+            if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
+            {
+                managerObject.GetComponent<InputManager>().canDrag = false;
+                StopCoroutine(movementCoroutine);
+                lastSelected = eventData.pointerCurrentRaycast.gameObject;
+            }
+            if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon"))
+            {
+                managerObject.GetComponent<InputManager>().canDrag = false;
+                StopCoroutine(movementCoroutine);
+                StopCoroutine(blackoutCoroutine);
+                movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.1f));
+                blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
 
-            constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
+                constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
-            constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
-            constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
-            
-            isHoldingBuilding = true;
+                lastBuildingBox = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
+                lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
+
+                constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
+                constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
+
+                isHoldingBuilding = true;
+
+                StopCoroutine(handCoroutine);
+                handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(1.2f, 1.2f), new Color32(255, 255, 255, 255), 0.3f));
+                StopCoroutine(plateColorCoroutine);
+                plateColorCoroutine = StartCoroutine(FadeColor(plateImage, resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceColor, 1f));
+            }
         }
     }
 
@@ -222,7 +264,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         StopCoroutine(movementCoroutine);
                         StopCoroutine(blackoutCoroutine);
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
-                        blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+                        blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.4f));
                         isFocused = false;
                         managerObject.GetComponent<InputManager>().canDrag = true;
                         lastSelected = null;
@@ -240,7 +282,7 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
                         StopCoroutine(movementCoroutine);
                         StopCoroutine(blackoutCoroutine);
                         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, 800), 0.3f));
-                        blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 120), 0.6f));
+                        blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 180), 0.4f));
                         isFocused = true;
                         lastSelected = null;
                         eventData.pointerDrag = null;
@@ -288,8 +330,8 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             //Debug.Log("DEF");
             StopCoroutine(movementCoroutine);
             StopCoroutine(blackoutCoroutine);
-            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
-            blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.4f));
+            blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.4f));
             lastSelected = null;
             isFocused = false;
         }
@@ -312,39 +354,48 @@ public class ResourceTouchHandler : MonoBehaviour, IPointerDownHandler, IPointer
             constructionPlaced.SetActive(false);
             constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
             constructionPlaced.SetActive(true);
+            constructionPlaced.GetComponent<Construction>().SetDragging(false);
             constructionPlaced.GetComponent<Construction>().SetDragging(true);
+
+            //constructionPlaced.GetComponent<Construction>().GetResourcesInRange
             Destroy(constructionHeld.gameObject);
             
             isHoldingBuilding = false;
 
-            GameManager.Instance.actionsMade++;
+            //GameManager.Instance.actionsMade++;
             actionCounter.text = GameManager.Instance.actionsMade.ToString();
+
+            StopCoroutine(handCoroutine);
+            handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
         }
-    
-    }
 
-    public void OnPointerClick(PointerEventData eventData) 
-    {
-        //Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name); 
-    }
-
-    public void OnPointerDown(PointerEventData eventData) 
-    { 
-        //Debug.Log("Mouse Down: " + eventData.pointerCurrentRaycast.gameObject.name);
-    }
-
-    //public void OnPointerEnter(PointerEventData eventData) { Debug.Log("Mouse Enter"); }
-
-    //public void OnPointerExit(PointerEventData eventData) { Debug.Log("Mouse Exit"); }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //Debug.Log("Mouse Up");
+        lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
     }
 
     void Update()
     {
         
+    }
+
+    private IEnumerator HandInflate(Image hand, Vector2 scale, Color32 color, float duration)
+    {
+        Vector2 startScale = hand.rectTransform.localScale;
+        Color32 startColor = hand.color;
+        float lerp = 0;
+        float smoothLerp = 0;
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            hand.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            hand.color = Color32.Lerp(startColor, color, smoothLerp);
+            yield return null;
+        }
+
+        hand.rectTransform.localScale = scale;
+        hand.color = color;
+        yield return null;
     }
 
     private IEnumerator SmoothReturn(Image objTransform, Vector2 targetPosition, float duration)

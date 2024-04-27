@@ -94,7 +94,7 @@ public class Construction : MonoBehaviour
     /// Iterate through all blocks in range and see how many resources there are
     /// </summary>
     /// <param name="resourceAmount">out the amount fo resources in range</param>
-    private int GetResourcesInRange(GameManager.GameResources resourceToCheck, int index) //VER E ARRUMAR
+    public int GetResourcesInRange(GameManager.GameResources resourceToCheck, int index) //VER E ARRUMAR
     {
         int resourceAmount = 0;
         //Debug.Log(resourcesInRange + "Resources In Range");

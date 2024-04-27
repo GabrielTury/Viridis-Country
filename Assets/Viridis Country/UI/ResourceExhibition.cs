@@ -70,9 +70,16 @@ public class ResourceExhibition : MonoBehaviour
     [SerializeField]
     private GameObject pauseTemplate;
 
+    [SerializeField]
+    private Image pauseIcon;
+
     // Start is called before the first frame update
     void Start()
     {
+        resourceBackground.rectTransform.anchoredPosition = new Vector2(0, 500);
+
+        StartCoroutine(SmoothMove(resourceBackground, new Vector2(0, 0), 0.4f));
+
         gameManager = GameManager.Instance;
 
         GameResourcesToGather[0] = 0;
@@ -142,7 +149,7 @@ public class ResourceExhibition : MonoBehaviour
         {
             if (GameResourcesToGather[i] > 0) {
                 resourceBarSize += 1;
-                var clone = Instantiate(resourceBoxTemplate, this.transform);
+                var clone = Instantiate(resourceBoxTemplate, resourceBackground.gameObject.transform);
                 clone.name = "ResourceBox" + i;
                 resourceBoxes.Add(clone);
                 resourceNames.Add(i);
@@ -154,7 +161,7 @@ public class ResourceExhibition : MonoBehaviour
         int totalBoxes = Mathf.Min(resourceBarSize, maxBoxesPerLine * numRows);
 
         float totalWidth = maxBoxesPerLine * 240;
-        float totalHeight = numRows * 100;
+        float totalHeight = numRows * 120;
 
         float startX = -totalWidth / 2 + 120; // Meio da primeira caixa
 
@@ -164,7 +171,7 @@ public class ResourceExhibition : MonoBehaviour
             int col = i % maxBoxesPerLine;
 
             float xOffset = startX + (240 * col);
-            float yOffset = -((totalHeight / 2) - (100 * numRows / 2) + (100 * row));
+            float yOffset = -((totalHeight / 2) - (120 * numRows / 2) + (120 * row));
 
             resourceBoxes[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xOffset, yOffset);
 
@@ -181,12 +188,16 @@ public class ResourceExhibition : MonoBehaviour
 
             resourceBoxText.Add(GetChildWithName(resourceBoxes[i], "ResourceNumber").GetComponent<TextMeshProUGUI>());
 
-            resourceBoxText[i].text = resourceNamesText[resourceNames[i]];
+            resourceBoxText[i].text = "0/" + GameResourcesToGather[resourceNames[i]];
+
+            GetChildWithName(resourceBoxes[i], "ResourceForeground").GetComponent<Image>().color = resourceForegroundColors[resourceNames[i]];
         }
 
-        
+        pauseIcon.rectTransform.anchoredPosition = new Vector2(280, 796 - ((resourceBarSize / 3) * 130));
 
-        resourceBackground.rectTransform.sizeDelta = new Vector2(280 * resourceBarSize, 130);
+
+
+        //resourceBackground.rectTransform.sizeDelta = new Vector2(280 * resourceBarSize, 130);
 
     }
 
@@ -393,7 +404,10 @@ public class ResourceExhibition : MonoBehaviour
             yield return null;
         }
 
-        image.rectTransform.localScale = new Vector2(1, 1);
+        if (image != null)
+        {
+            image.rectTransform.localScale = new Vector2(1, 1);
+        }
     }
 
     private IEnumerator HighlightBox(Image image, float time, GameObject clone, Color32 targetColor)
@@ -424,6 +438,23 @@ public class ResourceExhibition : MonoBehaviour
             text.color = Color.Lerp(prevColor, new Color32(255, 255, 255, 0), smoothLerp);
             yield return null;
         }
+    }
+
+    private IEnumerator SmoothMove(Image objTransform, Vector2 targetPosition, float duration)
+    {
+        Vector3 startPosition = objTransform.rectTransform.anchoredPosition;
+        float lerp = 0;
+        float smoothLerp = 0;
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            objTransform.rectTransform.anchoredPosition = Vector3.Lerp(startPosition, targetPosition, smoothLerp);
+            yield return null;
+        }
+
+        objTransform.rectTransform.anchoredPosition = targetPosition;
     }
 
     GameObject GetChildWithName(GameObject obj, string name)
