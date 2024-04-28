@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47037cdc0466d804385ed4b80beac321, type: 3}
   m_Name: 1-7
   m_EditorClassIdentifier: 
-  goalWoodAmount: 2
+  goalWoodAmount: 4
   goalPlankAmount: 0
-  goalStoneAmount: 3
+  goalStoneAmount: 5
   goalProcessedStoneAmount: 0
   goalConstructionMaterialsAmount: 0
-  goalWaterAmount: 0
+  goalWaterAmount: 5
   goalMilkAmount: 0
   goalFermentedMilkAmount: 0
   goalCheeseAmount: 0
@@ -26,10 +26,10 @@ MonoBehaviour:
   goalWoolAmount: 0
   goalClothAmount: 0
   goalClothesAmount: 0
-  goalWheatAmount: 5
+  goalWheatAmount: 0
   goalFlourAmount: 0
   goalBreadAmount: 0
   goalGoldAmount: 0
-  threeStarsAmount: 7
-  twoStarsAmount: 8
-  oneStarAmount: 9
+  threeStarsAmount: 0
+  twoStarsAmount: 0
+  oneStarAmount: 0

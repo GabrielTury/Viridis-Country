@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47037cdc0466d804385ed4b80beac321, type: 3}
   m_Name: 1-4
   m_EditorClassIdentifier: 
-  goalWoodAmount: 4
+  goalWoodAmount: 6
   goalPlankAmount: 0
-  goalStoneAmount: 2
+  goalStoneAmount: 6
   goalProcessedStoneAmount: 0
   goalConstructionMaterialsAmount: 0
-  goalWaterAmount: 2
+  goalWaterAmount: 0
   goalMilkAmount: 0
   goalFermentedMilkAmount: 0
   goalCheeseAmount: 0

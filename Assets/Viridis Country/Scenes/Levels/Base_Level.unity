@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ea3f64c7805914cbb6c9a3fb2833fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelVariables: {fileID: 11400000, guid: 0b32cafd55cb5514da0299a5065b1bb1, type: 2}
+  levelVariables: {fileID: 11400000, guid: 577510861bdd8c44ab47865fc73a785b, type: 2}
   actionsMade: 0
   zeroAmount: 0
   woodAmount: 0
