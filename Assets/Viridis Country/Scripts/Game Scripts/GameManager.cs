@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] //Temp
-    private LevelObject levelVariables;
+    public LevelObject levelVariables;
 
     /*[SerializeField]
     private ScriptableObject[] levelMaps; // mapas vao aqui*/

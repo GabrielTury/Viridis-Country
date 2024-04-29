@@ -1,3 +1,4 @@
+using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,9 @@ public class FinishLevelHandler : MonoBehaviour
 {
     [SerializeField]
     private Image[] stars;
+
+    [SerializeField]
+    private Sprite[] starSprites;
 
     [SerializeField]
     private Image[] buttonImages;
@@ -25,16 +29,27 @@ public class FinishLevelHandler : MonoBehaviour
     [SerializeField]
     private Image foreground;
 
-    [SerializeField]
-    private Scene[] sceneIDs;
-
-    [SerializeField]
-    private Dictionary<int, Scene> gameLevels = new Dictionary<int, Scene>();
-
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Set amount of stars
+
+        if (GameManager.Instance.actionsMade <= GameManager.Instance.levelVariables.threeStarsAmount)
+        {
+            // keep
+        }
+        else if (GameManager.Instance.actionsMade <= GameManager.Instance.levelVariables.twoStarsAmount)
+        {
+            stars[2].sprite = starSprites[1];
+        }
+        else if (GameManager.Instance.actionsMade >= GameManager.Instance.levelVariables.oneStarAmount)
+        {
+            stars[2].sprite = starSprites[1];
+            stars[1].sprite = starSprites[1];
+        }
+
+        //
+
         foreground.gameObject.SetActive(false);
 
         // Positioning
@@ -194,7 +209,7 @@ public class FinishLevelHandler : MonoBehaviour
         switch (type) // polir
         {
             case 0:
-                SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(PlayerPrefs.GetInt("LEVELID") + 3).name);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 break;
 
             case 1:
