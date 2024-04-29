@@ -61,6 +61,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject analyticsPopup;
 
+
+
     void Start()
     {
         planetTransform = planet.transform;

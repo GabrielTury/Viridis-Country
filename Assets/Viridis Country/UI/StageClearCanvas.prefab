@@ -402,6 +402,7 @@ MonoBehaviour:
   background: {fileID: 2309559299793193882}
   shadow: {fileID: 9016023609932307948}
   foreground: {fileID: 4664873345217404869}
+  sceneIDs: []
 --- !u!1 &3793766508968830187
 GameObject:
   m_ObjectHideFlags: 0

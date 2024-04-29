@@ -25,9 +25,16 @@ public class FinishLevelHandler : MonoBehaviour
     [SerializeField]
     private Image foreground;
 
+    [SerializeField]
+    private Scene[] sceneIDs;
+
+    [SerializeField]
+    private Dictionary<int, Scene> gameLevels = new Dictionary<int, Scene>();
+
     // Start is called before the first frame update
     void Start()
     {
+        
         foreground.gameObject.SetActive(false);
 
         // Positioning
@@ -99,7 +106,7 @@ public class FinishLevelHandler : MonoBehaviour
 
     public void NextLevel()
     {
-
+        StartCoroutine(FadeOut(0.4f, 0));
     }
 
     public void RestartLevel()
@@ -162,7 +169,7 @@ public class FinishLevelHandler : MonoBehaviour
 
     private IEnumerator FadeOut(float duration, int type)
     {
-        foreground.gameObject.SetActive(false);
+        foreground.gameObject.SetActive(true);
 
         Color startColor = shadow.color;
         Color startColor2 = foreground.color;
@@ -187,6 +194,7 @@ public class FinishLevelHandler : MonoBehaviour
         switch (type) // polir
         {
             case 0:
+                SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(PlayerPrefs.GetInt("LEVELID") + 3).name);
                 break;
 
             case 1:
