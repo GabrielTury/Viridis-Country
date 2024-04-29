@@ -73,7 +73,7 @@ public class MainMenuManager : MonoBehaviour
         cameraBegin = StartCoroutine(SmoothStepToTarget(mainCameraTransform, new Vector3(0, 1.48f, -4.87f), 2));
 
         blackoutImage.gameObject.SetActive(true);
-        blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 0), 1));
+        blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 0), 1));
 
         levelSelectBGImage.gameObject.SetActive(false);
 
@@ -90,7 +90,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (showInputTooltip == false && Time.time > 3)
         {
-            StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 255), 60));
+            StartCoroutine(FadeColor(tooltipImage, new Color32(255, 255, 255, 255), 1));
             showInputTooltip = true;
         }
     }
@@ -105,16 +105,16 @@ public class MainMenuManager : MonoBehaviour
         //StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
         StopCoroutine(cameraBegin);
         StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2));
-        blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 56));
-        StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 60));
-        StartCoroutine(FadeAfterSeconds(3.75f));
+        blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), 2));
+        StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 1));
+        StartCoroutine(FadeAfterSeconds(2.5f));
         //Destroy(mainCamera);
     }
 
     public void EnterLevel(int levelID)
     {
         PlayerPrefs.SetInt("LEVELID", levelID);
-        StartCoroutine(FadeToLevel(1, levelID));
+        StartCoroutine(FadeToLevel(0.75f, levelID));
     }
 
     private IEnumerator SmoothStepToTarget(Transform objTransform, Vector3 targetPosition, float duration, Vector3 targetRotation = default)
@@ -143,30 +143,9 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ZoomToEarth(Transform objTransform, float duration)
+    private IEnumerator FadeColor(Image image, Color32 targetColor, float duration)
     {
-        float lerp = 0;
-        float smoothLerp = 0;
-        float distance = Vector3.Distance(objTransform.transform.position, transitionCamera.transform.position);
-
-        while (lerp < 1 && duration > 0)
-        {
-            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
-            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-
-            //float zPos = Mathf.Lerp(distance, 0, smoothLerp) * Mathf.Cos(Quaternion.FromToRotation(objTransform.transform.up, transitionCamera.transform.up));
-            float yPos = Mathf.Lerp(distance, 0, smoothLerp);
-
-            //objTransform.localPosition = Vector3.Lerp(startPosition, targetPosition, smoothLerp);
-            yield return null;
-        }
-
-        yield return null;
-    }
-
-    private IEnumerator FadeColor(Image image, Color targetColor, float duration)
-    {
-        Color startColor = image.color;
+        Color32 startColor = image.color;
         float lerp = 0;
         float smoothLerp = 0;
 
@@ -174,7 +153,7 @@ public class MainMenuManager : MonoBehaviour
         {
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-            image.color = Color.Lerp(startColor, targetColor, smoothLerp);
+            image.color = Color32.Lerp(startColor, targetColor, smoothLerp);
             yield return null;
         }
 
@@ -186,14 +165,14 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
 
         StopCoroutine(blackoutImageCoroutine);
-        StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 0), 1));
+        StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 0), 1));
         levelSelectBGImage.gameObject.SetActive(true);
     }
 
     private IEnumerator FadeToLevel(float seconds, int levelID)
     {
         StopCoroutine(blackoutImageCoroutine);
-        StartCoroutine(FadeColor(blackoutImage, new Color(0, 0, 0, 255), 10 * seconds));
+        StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), seconds));
         yield return new WaitForSeconds(seconds);
 
         SceneManager.LoadScene("Gameplay_Test");

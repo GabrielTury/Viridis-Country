@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using static GameManager;
 
 public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -96,6 +97,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         GameEvents.Construction_Placed += UpdateActionText;
         GameEvents.Construction_Placed += UpdateHandAnim;
         GameEvents.Level_End += ClearLevel;
+        GameEvents.Select_Construction += UpdateHandAnimGrow;
     }
 
     private void OnDisable()
@@ -103,6 +105,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         GameEvents.Construction_Placed -= UpdateActionText;
         GameEvents.Construction_Placed -= UpdateHandAnim;
         GameEvents.Level_End -= ClearLevel;
+        GameEvents.Select_Construction -= UpdateHandAnimGrow;
     }
 
     private void ClearLevel()
@@ -120,6 +123,14 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         StopCoroutine(handCoroutine);
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
     }
+
+    private void UpdateHandAnimGrow(AudioManager.SoundEffects a)
+    {
+        StopCoroutine(handCoroutine);
+        handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(1.2f, 1.2f), new Color32(255, 255, 255, 255), 0.3f));
+    }
+
+
 
     private void Awake()
     {
@@ -205,7 +216,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 StopCoroutine(movementCoroutine);
                 lastSelected = eventData.pointerCurrentRaycast.gameObject;
             }
-            if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon"))
+            if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon") && isFocused)
             {
                 managerObject.GetComponent<InputManager>().canDrag = false;
                 StopCoroutine(movementCoroutine);
@@ -220,6 +231,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
                 constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
                 constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
+                constructionHeld.color = new Color32(255, 255, 255, 0);
+                StartCoroutine(ConstructionPreviewAnim(constructionHeld));
 
                 isHoldingBuilding = true;
 
@@ -350,12 +363,12 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
             Debug.Log(buildPosition);
 
-            GameObject constructionPlaced = Instantiate(constructionPrefab, buildPosition, Quaternion.identity);
+            GameObject constructionPlaced = Instantiate(constructionPrefab, buildPosition, Quaternion.Euler(new Vector3(0,-90,0)));
             constructionPlaced.SetActive(false);
             constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
             constructionPlaced.SetActive(true);
             constructionPlaced.GetComponent<Construction>().SetDragging(false);
-            constructionPlaced.GetComponent<Construction>().SetDragging(true);
+            //constructionPlaced.GetComponent<Construction>().SetDragging(true);
 
             //constructionPlaced.GetComponent<Construction>().GetResourcesInRange
             Destroy(constructionHeld.gameObject);
@@ -369,12 +382,56 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
         }
 
-        lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+        if (lastBuildingBox != null)
+        {
+            lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+        }
     }
 
     void Update()
     {
         
+    }
+
+    private IEnumerator ConstructionPreviewAnim(Image obj)
+    {
+        Vector2 startScale = obj.rectTransform.localScale;
+        Color32 startColor = obj.color;
+        float lerp = 0;
+        float smoothLerp = 0;
+        float duration = 0.2f;
+        Vector2 scale = new Vector2(2.2f, 2.2f);
+        Color32 color = new Color32(255, 255, 255, 200);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            obj.color = Color.Lerp(startColor, color, smoothLerp);
+            yield return null;
+        }
+
+        obj.rectTransform.localScale = scale;
+        obj.color = color;
+
+        startScale = obj.rectTransform.localScale;
+        lerp = 0;
+        smoothLerp = 0;
+        duration = 0.2f;
+        scale = new Vector2(1.4f, 1.4f);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            yield return null;
+        }
+
+        obj.rectTransform.localScale = scale;
+
+        yield return null;
     }
 
     private IEnumerator HandInflate(Image hand, Vector2 scale, Color32 color, float duration)
