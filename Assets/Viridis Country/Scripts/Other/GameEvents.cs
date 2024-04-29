@@ -20,22 +20,22 @@ namespace GameEventSystem
 
 
         public static event UnityAction<AudioManager.SoundEffects> Zoom;
-        public static void OnZoom(AudioManager.SoundEffects cType) => Zoom?.Invoke(cType);
+        public static void OnZoom(AudioManager.SoundEffects sfx) => Zoom?.Invoke(sfx);
 
         public static event UnityAction<AudioManager.SoundEffects> Click;
-        public static void OnClick(AudioManager.SoundEffects cType) => Click?.Invoke(cType);
+        public static void OnClick(AudioManager.SoundEffects sfx) => Click?.Invoke(sfx);
 
-        public static event UnityAction<AudioManager.SoundEffects> Select;
-        public static void OnSelect(AudioManager.SoundEffects cType) => Select?.Invoke(cType);
+        public static event UnityAction<AudioManager.SoundEffects> Select_Construction;
+        public static void OnSelectConstruction(AudioManager.SoundEffects sfx) => Select_Construction?.Invoke(sfx);
 
         public static event UnityAction<AudioManager.SoundEffects> OneStar;
-        public static void OnOneStar(AudioManager.SoundEffects cType) => OneStar?.Invoke(cType);
+        public static void OnOneStar(AudioManager.SoundEffects sfx) => OneStar?.Invoke(sfx);
 
         public static event UnityAction<AudioManager.SoundEffects> TwoStar;
-        public static void OnTwoStar(AudioManager.SoundEffects cType) => TwoStar?.Invoke(cType);
+        public static void OnTwoStar(AudioManager.SoundEffects sfx) => TwoStar?.Invoke(sfx);
 
         public static event UnityAction<AudioManager.SoundEffects> ThreeStar;
-        public static void OnThreeStar(AudioManager.SoundEffects cType) => ThreeStar?.Invoke(cType);
+        public static void OnThreeStar(AudioManager.SoundEffects sfx) => ThreeStar?.Invoke(sfx);
 
 
 

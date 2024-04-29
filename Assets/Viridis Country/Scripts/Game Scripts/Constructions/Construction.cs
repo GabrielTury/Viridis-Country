@@ -25,6 +25,8 @@ public class Construction : MonoBehaviour
 
     private AudioManager.ConstructionAudioTypes cType;
 
+    private List<GridCell> cellCollected = new List<GridCell>();
+
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
@@ -36,6 +38,11 @@ public class Construction : MonoBehaviour
         cType = construcion.constructionType;
         resourcesInRange = new int[resourceToGather.Length];
 
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     private void Start()
@@ -65,6 +72,17 @@ public class Construction : MonoBehaviour
         else if (currentCell != null && isBeingDragged != currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
         {
             currentCell.SetAvailability(true);
+            GameEvents.OnSelectConstruction(AudioManager.SoundEffects.Select);
+
+            if (cellCollected.Count > 0)
+            {
+                foreach (GridCell cell in cellCollected)
+                {
+                    cell.SetColectability(true);
+                }
+                cellCollected.Clear();
+            }
+
             for(int i = 0; i < currentCell.resource.Length; i++)
             {
                 currentCell.SetResource(GameManager.GameResources.None, i);
@@ -87,7 +105,7 @@ public class Construction : MonoBehaviour
 
         }
 
-        transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
+        transform.position = new Vector3(cellPos.x, 0.5f, cellPos.z);
     }
 
     /// <summary>
@@ -108,10 +126,12 @@ public class Construction : MonoBehaviour
             for (int i = 0; i < cell.resource.Length; i++)
             {
                 //Debug.Log("FOR: "+cell.resource[i]);
-                if (cell.resource[i] == resourceToCheck)
+                if (cell.resource[i] == resourceToCheck && cell.isColectible)
                 {
                     //Debug.Log("RESOURCE CHECK: "+cell.resource[i]);                   
                     resourceAmount++;
+                    cell.SetColectability(false);
+                    cellCollected.Add(cell);
                 }
             }
 

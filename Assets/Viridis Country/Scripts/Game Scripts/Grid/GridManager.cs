@@ -47,7 +47,8 @@ public class GridManager : MonoBehaviour
         foreach(GridCell cell in gridCells)
         {
             float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
-            if (distance == 0)
+
+            if (distance == 0 && cell.isAvailable)
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;

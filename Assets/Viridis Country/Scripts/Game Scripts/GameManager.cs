@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
                 goldAmount += amount;
                 break;
         }
-        Debug.Log("Recurso Coletado");
+        //Debug.Log("Recurso Coletado");
 
 
         bool objectivesMet = true;
@@ -364,7 +364,7 @@ public class GameManager : MonoBehaviour
     {
         //aumenta as ações em 1
         actionsMade++;
-        Debug.Log("Acoes: " + actionsMade);
+        //Debug.Log("Acoes: " + actionsMade);
     }
 
     private void OnEnable()

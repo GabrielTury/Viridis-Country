@@ -7,6 +7,7 @@ public class GridCell : MonoBehaviour
 {
 
     public bool isAvailable {  get; private set; }
+    public bool isColectible {  get; private set; }
     public float simplePosX { get; private set; }
 
     public float simplePosZ { get; private set; }
@@ -60,6 +61,11 @@ public class GridCell : MonoBehaviour
     public void SetAvailability(bool newValue)
     {
         isAvailable = newValue;
+    }
+
+    public void SetColectability(bool newValue)
+    {
+        isColectible = newValue;
     }
 
 
