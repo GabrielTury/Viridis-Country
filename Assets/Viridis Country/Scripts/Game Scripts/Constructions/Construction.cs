@@ -1,5 +1,6 @@
 
 using GameEventSystem;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +49,7 @@ public class Construction : MonoBehaviour
 
     private void Start()
     {
-        SnapToGrid();
+        //SetDragging(false);
     }
 
     public void SetDragging(bool newValue)
@@ -63,6 +64,7 @@ public class Construction : MonoBehaviour
             {
                 resourcesInRange[i] = GetResourcesInRange(resourceToGather[i], i);
                 //Debug.Log("Chamou com: " + resourceToGather[i]);
+
             }
 
             GameEvents.OnConstructionPlaced(cType);
@@ -70,10 +72,10 @@ public class Construction : MonoBehaviour
             if(isBeingDragged)
                 SetDragging(false);
         }
-        else if (currentCell != null && isBeingDragged != currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
+        else if (currentCell != null && isBeingDragged && !currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
         {
             currentCell.SetAvailability(true);
-            GameEvents.OnSelectConstruction(AudioManager.SoundEffects.Select);
+            Debug.Log("Levantou");
 
             if (cellCollected.Count > 0)
             {
@@ -84,7 +86,21 @@ public class Construction : MonoBehaviour
                 cellCollected.Clear();
             }
 
-            for(int i = 0; i < currentCell.resource.Length; i++)
+            GameEvents.OnSelectConstruction(AudioManager.SoundEffects.Select);
+
+            for (int i = 0; i < resourceToGather.Length; i++)
+            {
+                int subtractAmount = -resourcesInRange[i];
+
+                if (subtractAmount != 0)
+                {
+                    //Debug.Log("Diff: "+ diff);
+                    GameEvents.OnResourceGathered(resourceToGather[i], subtractAmount);
+                }
+                resourcesInRange[i] = 0;
+            }
+
+            for (int i = 0; i < currentCell.resource.Length; i++)
             {
                 currentCell.SetResource(GameManager.GameResources.None, i);
 
@@ -154,6 +170,11 @@ public class Construction : MonoBehaviour
     {
         if (!isBeingDragged)
         {
+            foreach(GridCell cell in cellCollected)
+            {
+                cell.SetColectability(true);
+            }
+            Debug.Log(gameObject.name + " Recheck");
             for (int i = 0; i < resourceToGather.Length; i++)
             {
                 resourcesInRange[i] = GetResourcesInRange(resourceToGather[i], i);
@@ -168,6 +189,32 @@ public class Construction : MonoBehaviour
             currentCell.SetResource(GameManager.GameResources.None, i);
 
         currentCell.SetAvailability(true);
+        if (cellCollected.Count > 0)
+        {
+            foreach (GridCell cell in cellCollected)
+            {
+                cell.SetColectability(true);
+            }
+
+            cellCollected.Clear();
+        }
+
+        for (int i = 0; i < resourceToGather.Length; i++)
+        {
+            int subtractAmount = -resourcesInRange[i];
+
+            if (subtractAmount != 0)
+            {
+                //Debug.Log("Diff: "+ diff);
+                GameEvents.OnResourceGathered(resourceToGather[i], subtractAmount);
+            }
+            resourcesInRange[i] = 0;
+        }
+
+        for (int i = 0; i < currentCell.resource.Length; i++)
+        {
+            currentCell.SetResource(GameManager.GameResources.None, i);
+        }
 
         GameEvents.OnConstructionRemoved(cType);
 
