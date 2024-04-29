@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4106a840ad790045aa10405b59ab6a8, type: 3}
-  m_Name: Madereira
+  m_Name: $$$$DressMaker
   m_EditorClassIdentifier: 
-  gatherRadius: 1
-  constructionMesh: {fileID: -7387706064836869012, guid: 974c1056b7a22bc42af20bf727dd45ed,
-    type: 3}
-  material: {fileID: 2100000, guid: bebaddec11ef9e1478f82f877731e70f, type: 2}
-  resourceToGather: 01000000
-  secondaryResource: 02000000
+  gatherRadius: 0
+  constructionMesh: {fileID: 0}
+  material: {fileID: 0}
+  resourceToGather: 0e000000
+  secondaryResource: 
   tileType: 0
   constructionType: 0

@@ -188,7 +188,8 @@ MonoBehaviour:
     resourceIcon: {fileID: 21300000, guid: 29744582dfb1a0d40be77b52d1fe65e6, type: 3}
     resourceColor: {r: 1, g: 0.8627451, b: 0.72156864, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: ebeaf41a685f1e040a7c6a0bb1ca2ab5,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
     resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
     resourceColor: {r: 0.6, g: 0.654902, b: 0.7058824, a: 1}
@@ -199,12 +200,14 @@ MonoBehaviour:
     resourceIcon: {fileID: 21300000, guid: a94661de3e8fb8244ac5544f6d08957e, type: 3}
     resourceColor: {r: 0.8117647, g: 0.8117647, b: 0.8117647, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 4fee5f9b6692a2e43acbbe01a3ad8692,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 71132fb8020cc5940bcf975e56fde5e6, type: 3}
     resourceIcon: {fileID: 21300000, guid: 0ef7aed9e6919f84f8eb3b3703f6c062, type: 3}
     resourceColor: {r: 0.8392157, g: 0.58431375, b: 0.49411765, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 746ddbc353e2b7249af964ee8c438cb1,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: a4d889beee2bdaf4cadf38c51b25bfe8, type: 3}
     resourceIcon: {fileID: 21300000, guid: 3712ae6de32efdc439f13273b955a23b, type: 3}
     resourceColor: {r: 0.5254902, g: 0.8392157, b: 1, a: 1}
@@ -215,62 +218,74 @@ MonoBehaviour:
     resourceIcon: {fileID: 21300000, guid: 5f8f6822bebe4714881b53021400d3f1, type: 3}
     resourceColor: {r: 0.79607844, g: 0.79607844, b: 0.79607844, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 3c7b1a4ecc083f143bbd667060aade85,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 6f6848cb268371045a096d30b3246eca, type: 3}
     resourceIcon: {fileID: 21300000, guid: bd5783bcdb35d5e47beafd84409a31d2, type: 3}
     resourceColor: {r: 1, g: 0.9098039, b: 0.8235294, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: d039575f977a2524799fc88a379f7a3c,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 69211eb60ffc98146a7a91af461d4e59, type: 3}
     resourceIcon: {fileID: 21300000, guid: 02f0246f17c5b0f45890b540a124be90, type: 3}
     resourceColor: {r: 0.9607843, g: 0.80784315, b: 0.4509804, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: d039575f977a2524799fc88a379f7a3c,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 39c1ab908f25f674fa07010071ae59ab, type: 3}
     resourceIcon: {fileID: 21300000, guid: 6c4b98e85d63ec74b8b14c9631cb561f, type: 3}
     resourceColor: {r: 0.90588236, g: 0.62352943, b: 0.49019608, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 3c7b1a4ecc083f143bbd667060aade85,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: b3ea23a358beb3a44adb82ed80e8e031, type: 3}
     resourceIcon: {fileID: 21300000, guid: e856b8e1ddd583d489d970c7f5c64187, type: 3}
     resourceColor: {r: 0.7921569, g: 0.4627451, b: 0.34901962, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: aaba90929a159774b85a503fe6e3a8be,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: cb8fd092b9b4026429c16128273d5192, type: 3}
     resourceIcon: {fileID: 21300000, guid: 4a8bdf7d53f2a57428ff310b48f6da98, type: 3}
     resourceColor: {r: 0.627451, g: 0.54509807, b: 0.74509805, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 3c7b1a4ecc083f143bbd667060aade85,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: c9a4b2f2d8723d049b580e5cf1e6b53f, type: 3}
     resourceIcon: {fileID: 21300000, guid: 714c611057190e7428111816d08b8275, type: 3}
     resourceColor: {r: 0.54509807, g: 0.81960785, b: 0.7176471, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: aaba90929a159774b85a503fe6e3a8be,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: a6efa7704c03463488cf6c250bf4bc40, type: 3}
     resourceIcon: {fileID: 21300000, guid: 9f585f98e6fb9f643a60fd2c82960863, type: 3}
     resourceColor: {r: 0.54901963, g: 0.6117647, b: 0.8509804, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: c99d507dd8064184d893dc03302440d5,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 30e3ec67a9c0c0640b4f913b4a1dc6d4, type: 3}
     resourceIcon: {fileID: 21300000, guid: 61f31efc5b7451042aa774c9e1749838, type: 3}
     resourceColor: {r: 0.8980392, g: 0.8156863, b: 0.5882353, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: 4054f2fc7d4e318458a01cb30bbc24cf,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 20274f777502d5146a21cfd11cbec784, type: 3}
     resourceIcon: {fileID: 21300000, guid: 2422c00494046664aafb9cbea6b0d9cb, type: 3}
     resourceColor: {r: 0.9529412, g: 0.92941177, b: 0.7882353, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: be45cc2b229c89a48b7e1891c98f7a47,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 2cc61bb7cc8a63345b0e89a7620deab4, type: 3}
     resourceIcon: {fileID: 21300000, guid: 4403a5d415477ff47b5892307f25a977, type: 3}
     resourceColor: {r: 0.8117647, g: 0.50980395, b: 0.27058825, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: d039575f977a2524799fc88a379f7a3c,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: ee51d3b2f46d2354099d39cc9b102a31, type: 3}
     resourceIcon: {fileID: 21300000, guid: 1c00621910261d94aaba8786d7db432b, type: 3}
     resourceColor: {r: 0.94509804, g: 0.8392157, b: 0.5294118, a: 1}
     resourceMesh: {fileID: 0}
-    resourceScriptableObject: {fileID: 0}
+    resourceScriptableObject: {fileID: 11400000, guid: c0a05273c5cf78749858e53fa70ef5e3,
+      type: 2}
   - buildingIcon: {fileID: 21300000, guid: 17beffa9e22da1543a61f5ea552d3540, type: 3}
     resourceIcon: {fileID: 21300000, guid: f9171892d0f744f42981eef125ccd1de, type: 3}
     resourceColor: {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
