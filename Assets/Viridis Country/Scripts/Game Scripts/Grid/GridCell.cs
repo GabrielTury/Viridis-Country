@@ -42,6 +42,7 @@ public class GridCell : MonoBehaviour
     private void Awake()
     {
         isAvailable = true;
+        isColectible = true;
 
         simplePosX = transform.position.x;
         simplePosZ = transform.position.z;
