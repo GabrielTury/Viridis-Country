@@ -36,8 +36,9 @@ public class SessionManager : MonoBehaviour
 
         if( playerLoadedData != null )
         {
-        currentLevel = playerLoadedData.currentLevel;
-        currentStars = playerLoadedData.currentStars;
+            currentLevel = playerLoadedData.currentLevel;
+            currentStars = playerLoadedData.currentStars;
+            
         }
         else
         {

@@ -38,11 +38,12 @@ public class Construction : MonoBehaviour
         cType = construcion.constructionType;
         resourcesInRange = new int[resourceToGather.Length];
 
+        GameEvents.Select_Construction += ReCheckResources;
     }
 
     private void OnDisable()
     {
-        
+        GameEvents.Select_Construction -= ReCheckResources;
     }
 
     private void Start()
@@ -112,7 +113,7 @@ public class Construction : MonoBehaviour
     /// Iterate through all blocks in range and see how many resources there are
     /// </summary>
     /// <param name="resourceAmount">out the amount fo resources in range</param>
-    public int GetResourcesInRange(GameManager.GameResources resourceToCheck, int index) //VER E ARRUMAR
+    public int GetResourcesInRange(GameManager.GameResources resourceToCheck, int index)
     {
         int resourceAmount = 0;
         //Debug.Log(resourcesInRange + "Resources In Range");
@@ -147,6 +148,18 @@ public class Construction : MonoBehaviour
 
        
         return resourceAmount;
+    }
+
+    public void ReCheckResources(AudioManager.SoundEffects a)//FALTA TESTE
+    {
+        if (!isBeingDragged)
+        {
+            for (int i = 0; i < resourceToGather.Length; i++)
+            {
+                resourcesInRange[i] = GetResourcesInRange(resourceToGather[i], i);
+                //Debug.Log("Chamou com: " + resourceToGather[i]);
+            }
+        }
     }
 
     public void RemoveConstruction()

@@ -19,8 +19,8 @@ namespace GameEventSystem
 
 
 
-        public static event UnityAction<AudioManager.SoundEffects> Zoom;
-        public static void OnZoom(AudioManager.SoundEffects sfx) => Zoom?.Invoke(sfx);
+        public static event UnityAction<AudioManager.SoundEffects> Zoom_Planet;
+        public static void OnZoomPlanet(AudioManager.SoundEffects sfx) => Zoom_Planet?.Invoke(sfx);
 
         public static event UnityAction<AudioManager.SoundEffects> Click;
         public static void OnClick(AudioManager.SoundEffects sfx) => Click?.Invoke(sfx);

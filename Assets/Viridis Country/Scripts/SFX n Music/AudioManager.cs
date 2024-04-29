@@ -131,22 +131,22 @@ public class AudioManager : MonoBehaviour
     {
         GameEvents.Construction_Removed += PlayWhenConstructionRemoved;
         GameEvents.Click += PlayWhenClick;
-        GameEvents.Select += PlayWhenSelect;
+        GameEvents.Select_Construction += PlayWhenSelect;
         GameEvents.OneStar += PlayWhenOneStar;
         GameEvents.TwoStar += PlayWhenTwoStar;
         GameEvents.ThreeStar += PlayWhenThreeStar;
-        GameEvents.Zoom += PlayWhenZoom;
+        GameEvents.Zoom_Planet += PlayWhenZoom;
     }
 
     private void OnDisable()
     {
         GameEvents.Construction_Removed -= PlayWhenConstructionRemoved;
         GameEvents.Click -= PlayWhenClick;
-        GameEvents.Select -= PlayWhenSelect;
+        GameEvents.Select_Construction -= PlayWhenSelect;
         GameEvents.OneStar -= PlayWhenOneStar;
         GameEvents.TwoStar -= PlayWhenTwoStar;
         GameEvents.ThreeStar -= PlayWhenThreeStar;
-        GameEvents.Zoom -= PlayWhenZoom;
+        GameEvents.Zoom_Planet -= PlayWhenZoom;
     }
 
 }

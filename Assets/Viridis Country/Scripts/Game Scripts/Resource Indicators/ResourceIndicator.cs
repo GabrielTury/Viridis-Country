@@ -41,6 +41,6 @@ public class ResourceIndicator : MonoBehaviour
 
         transform.position = new Vector3(cellPos.x, transform.position.y, cellPos.z);
 
-        Debug.Log(gameObject.name + " Snap na cell: " + cell.name);
+        //Debug.Log(gameObject.name + " Snap na cell: " + cell.name);
     }
 }

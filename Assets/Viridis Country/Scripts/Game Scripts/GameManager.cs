@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < amountArray.Length; i++)
         {
             amountArray[i] = GetAmountOnInt(i);
-            if (amountArray[i] != objectiveArray[i])
+            if (amountArray[i] < objectiveArray[i])
             {
                 objectivesMet = false;
                 return;
@@ -345,15 +345,18 @@ public class GameManager : MonoBehaviour
     {
         if(actionsMade <= levelVariables.threeStarsAmount)
         {
-            Debug.Log("***");
+            //Debug.Log("***");
+            GameEvents.OnThreeStar(AudioManager.SoundEffects.ThreeStar);
         }
         else if( actionsMade <= levelVariables.twoStarsAmount)
         {
-            Debug.Log("**");
+            GameEvents.OnTwoStar(AudioManager.SoundEffects.TwoStar);
+            //Debug.Log("**");
         }
         else if(actionsMade >= levelVariables.oneStarAmount)
         {
-            Debug.Log("*");
+            GameEvents.OnOneStar(AudioManager.SoundEffects.OneStar);
+            //Debug.Log("*");
         }
         Debug.Log("Terminou o Level com: " + actionsMade + " acoes");
 
