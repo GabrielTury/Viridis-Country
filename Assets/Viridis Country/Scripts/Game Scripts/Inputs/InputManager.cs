@@ -44,7 +44,8 @@ public class InputManager : MonoBehaviour
             {
                 Debug.Log(hit.collider.gameObject.name);
                 StartCoroutine(Drag(hit.collider.gameObject));
-                hit.collider.gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
+                if(canDrag)
+                    hit.collider.gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
             }
             else
             {

@@ -40,16 +40,23 @@ public class Construction : MonoBehaviour
         resourcesInRange = new int[resourceToGather.Length];
 
         GameEvents.Select_Construction += ReCheckResources;
+        GameEvents.Level_Start += PlacedOnStart;
     }
 
     private void OnDisable()
     {
         GameEvents.Select_Construction -= ReCheckResources;
+        GameEvents.Level_Start -= PlacedOnStart;
     }
 
     private void Start()
     {
         //SetDragging(false);
+    }
+
+    private void PlacedOnStart()
+    {
+        SetDragging(false);
     }
 
     public void SetDragging(bool newValue)
@@ -85,9 +92,7 @@ public class Construction : MonoBehaviour
                 }
                 cellCollected.Clear();
             }
-
-            GameEvents.OnSelectConstruction(AudioManager.SoundEffects.Select);
-
+         
             for (int i = 0; i < resourceToGather.Length; i++)
             {
                 int subtractAmount = -resourcesInRange[i];
@@ -105,6 +110,8 @@ public class Construction : MonoBehaviour
                 currentCell.SetResource(GameManager.GameResources.None, i);
 
             }
+
+            GameEvents.OnSelectConstruction(AudioManager.SoundEffects.Select);
         }
     }
     /// <summary>
