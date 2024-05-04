@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7863,6 +7863,7 @@ SceneRoots:
   - {fileID: 1775838469}
   - {fileID: 2019731932}
   - {fileID: 1286385625}
+  - {fileID: 804172785}
   - {fileID: 326654627}
   - {fileID: 1393044930}
   - {fileID: 491749946}
@@ -7885,5 +7886,4 @@ SceneRoots:
   - {fileID: 1661291336}
   - {fileID: 1865153498}
   - {fileID: 758164010}
-  - {fileID: 804172785}
   - {fileID: 1024326483}
