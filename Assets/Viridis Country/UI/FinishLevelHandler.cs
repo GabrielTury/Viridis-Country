@@ -111,6 +111,8 @@ public class FinishLevelHandler : MonoBehaviour
         trophy.rectTransform.localScale = new Vector2(0, 0);
 
         StartCoroutine(ScaleObject(trophy, new Vector2(1, 1), 1));
+
+        
     }
 
     // Update is called once per frame

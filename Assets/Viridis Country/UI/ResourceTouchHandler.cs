@@ -74,6 +74,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     private Coroutine blackoutCoroutine;
     private Coroutine handCoroutine;
     private Coroutine plateColorCoroutine;
+    private Coroutine trashCoroutine;
     bool smoothReturnEnded = true;
     bool isFocused = false;
     bool isHoldingBuilding = false;
@@ -91,6 +92,9 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     private GameObject clearLevelTemplate;
 
     private Inputs input;
+
+    [SerializeField]
+    private Image trash;
 
     private void OnEnable()
     {
@@ -151,6 +155,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 1f));
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
         plateColorCoroutine = StartCoroutine(FadeColor(plateImage, new Color32(255, 255, 255, 200), 1f));
+        trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
 
         GameResourcesToShow[0] = false;
         GameResourcesToShow[1] = gameManager.objectiveWood > 0 ? true : false;
@@ -221,8 +226,10 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 managerObject.GetComponent<InputManager>().canDrag = false;
                 StopCoroutine(movementCoroutine);
                 StopCoroutine(blackoutCoroutine);
-                movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.1f));
+                StopCoroutine(trashCoroutine);
+                movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -825), 0.1f));
                 blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+                trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -600), 0.1f));
 
                 constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
@@ -380,6 +387,12 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
             StopCoroutine(handCoroutine);
             handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
+
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.4f));
+
+            StopCoroutine(trashCoroutine);
+            trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
         }
 
         if (lastBuildingBox != null)
@@ -400,7 +413,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         float lerp = 0;
         float smoothLerp = 0;
         float duration = 0.2f;
-        Vector2 scale = new Vector2(2.2f, 2.2f);
+        Vector2 scale = new Vector2(2.5f, 2.5f);
         Color32 color = new Color32(255, 255, 255, 200);
 
         while (lerp < 1 && duration > 0)
@@ -419,7 +432,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         lerp = 0;
         smoothLerp = 0;
         duration = 0.2f;
-        scale = new Vector2(1.4f, 1.4f);
+        scale = new Vector2(1.8f, 1.8f);
 
         while (lerp < 1 && duration > 0)
         {
