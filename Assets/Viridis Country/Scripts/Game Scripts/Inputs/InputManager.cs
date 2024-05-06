@@ -52,6 +52,10 @@ public class InputManager : MonoBehaviour
                 StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
             }
         }
+        else
+        {
+            StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
+        }
     }
 
     private void Touch_canceled(InputAction.CallbackContext obj)

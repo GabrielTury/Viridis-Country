@@ -1360,6 +1360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2c0028eb118bc4685e101b61141eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  daysToRecharge: 0
+  hoursToRecharge: 0
+  minutesToRecharge: 7
+  secondsToRecharge: 30
+  maxEnergy: 10
 --- !u!4 &766150883
 Transform:
   m_ObjectHideFlags: 0

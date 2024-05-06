@@ -131,6 +131,8 @@ public class GameManager : MonoBehaviour
 
         // Crie o mapa usando o level scriptable object com
         // PlayerPrefs.GetInt("LEVELID");
+
+        GameEvents.OnLevelStart();
     }
 
     private void GetGatheredResources(GameResources resource, int amount)
