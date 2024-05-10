@@ -25,6 +25,9 @@ public class InputManager : MonoBehaviour
 
     public bool canDrag = true;
 
+    private Coroutine zoomCoroutine;
+    [SerializeField]
+    private float zoomSpeed;
 
 
     private void Awake()
@@ -108,16 +111,62 @@ public class InputManager : MonoBehaviour
             obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
     }
 
+    private void ZoomStart()
+    {
+        if(zoomCoroutine == null)
+            zoomCoroutine = StartCoroutine(ZoomLogic());
+    }
+    private void ZoomEnd()
+    {
+        StopCoroutine(zoomCoroutine);
+
+        zoomCoroutine = null;
+    }
+
+    private IEnumerator ZoomLogic()
+    {
+        float previousDistance = 0f;
+        float distance = 0f;
+        while(true)
+        {
+           
+
+            distance = Vector2.Distance(inputs.TouchInputs.PrimaryTouchPosition.ReadValue<Vector2>(),
+                                        inputs.TouchInputs.SecondaryTouchPosition.ReadValue<Vector2>());
+            //ZoomOut
+            if(distance < previousDistance)
+            {
+                float newSize = mainCamera.orthographicSize;
+                newSize += 0.5f;
+                mainCamera.orthographicSize = Mathf.Lerp( mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+            }
+            //Zoom In
+            else if(distance > previousDistance)
+            {
+                float newSize = mainCamera.orthographicSize;
+                newSize -= 0.5f;
+                mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+            }
+
+
+            previousDistance = distance;
+            yield return null;
+        }
+    }
     private void OnEnable()
     {
        inputs.Enable();
         inputs.TouchInputs.Touch.performed += Touch_performed; //se inscreve para o evento performed
         inputs.TouchInputs.Touch.canceled += Touch_canceled;  //se inscreve para o evento canceled
+        inputs.TouchInputs.SecondaryTouchContact.started += _ => ZoomStart(); //o _ indica que não precisa de receber o argumento que o evento passa (o contexto no caso)
+        inputs.TouchInputs.SecondaryTouchContact.canceled += _ => ZoomEnd();
     }
     private void OnDisable()
     {
         inputs.Disable();
         inputs.TouchInputs.Touch.performed -= Touch_performed; //se desinscreve para o evento performed
         inputs.TouchInputs.Touch.canceled -= Touch_canceled;  //se desinscreve para o evento canceled
+        inputs.TouchInputs.SecondaryTouchContact.started -= _ => ZoomStart();
+        inputs.TouchInputs.SecondaryTouchContact.canceled -= _ => ZoomEnd();
     }
 }

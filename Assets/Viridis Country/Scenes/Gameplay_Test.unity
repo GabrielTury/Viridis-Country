@@ -454,6 +454,7 @@ MonoBehaviour:
   dragObjectHeight: 0.5
   cameraMoveSpeed: 10
   canDrag: 0
+  zoomSpeed: 5
 --- !u!4 &23078333
 Transform:
   m_ObjectHideFlags: 0
