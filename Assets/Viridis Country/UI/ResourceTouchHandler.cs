@@ -78,6 +78,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     bool smoothReturnEnded = true;
     bool isFocused = false;
     bool isHoldingBuilding = false;
+    bool isOnTrash = false;
 
     private GameObject lastSelected;
     private GameObject lastBuildingBox;
@@ -318,6 +319,28 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
                 {
                     constructionHeld.rectTransform.anchoredPosition = eventData.position;
+
+                    //Debug.Log("constructionPos.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", \nconstruction.y = " + constructionHeld.rectTransform.anchoredPosition.y);
+
+                    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    var results = new List<RaycastResult>();
+                    EventSystem.current.RaycastAll(eventData, results);
+
+                    // For each object that the raycast hits.
+                    foreach (RaycastResult hit in results)
+                    {
+
+                        if (hit.gameObject.CompareTag("Trash"))
+                        {
+                            isOnTrash = true;
+                            trash.color = Color.Lerp(trash.color, new Color32(255, 55, 55, 215), 0.1f);
+                            return;
+                        }
+                    }
+
+                    trash.color = Color.Lerp(trash.color, new Color32(255, 255, 255, 100), 0.1f);
+                    isOnTrash = false;
+
                     //Debug.Log("Position x: " + eventData.position.x + " Position y: " + eventData.position.y);
                     //Debug.Log("constructionHeld.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", constructionHeld.y = " + constructionHeld.rectTransform.anchoredPosition.y);
                     //Debug.Log("touchPos.x = " + eventData.pointerCurrentRaycast.screenPosition.x + ", touchPos.y = " + eventData.pointerCurrentRaycast.screenPosition.y);
@@ -359,23 +382,29 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         if (isHoldingBuilding == true)
         {
             lastSelected = null;
-            Vector3 buildPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
 
-            Transform transformCam = Camera.main.transform;
-
-            for (float i = 0; buildPosition.y > 0.5f; i = i + 0.1f)
+            if (!isOnTrash)
             {
-                buildPosition += transformCam.forward * Time.deltaTime * i;
-            }
+                Vector3 buildPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
 
-            Debug.Log(buildPosition);
+                Transform transformCam = Camera.main.transform;
 
-            GameObject constructionPlaced = Instantiate(constructionPrefab, buildPosition, Quaternion.Euler(new Vector3(0,-90,0)));
-            constructionPlaced.SetActive(false);
-            constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
-            constructionPlaced.SetActive(true);
-            constructionPlaced.GetComponent<Construction>().SetDragging(false);
-            //constructionPlaced.GetComponent<Construction>().SetDragging(true);
+                for (float i = 0; buildPosition.y > 0.5f; i = i + 0.1f)
+                {
+                    buildPosition += transformCam.forward * Time.deltaTime * i;
+                }
+
+                Debug.Log(buildPosition);
+
+                GameObject constructionPlaced = Instantiate(constructionPrefab, buildPosition, Quaternion.Euler(new Vector3(0, -90, 0)));
+                constructionPlaced.SetActive(false);
+                constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
+                constructionPlaced.SetActive(true);
+                constructionPlaced.GetComponent<Construction>().SetDragging(false);
+                //constructionPlaced.GetComponent<Construction>().SetDragging(true);
+            } 
+
+            isOnTrash = false;
 
             //constructionPlaced.GetComponent<Construction>().GetResourcesInRange
             Destroy(constructionHeld.gameObject);
