@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Services.Analytics.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,9 +11,11 @@ using UnityEngine.UI;
 using UnityEngine.XR;
 using static GameManager;
 
-public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
     private GameManager gameManager;
+
+    public static ResourceTouchHandler Instance { get; private set; }
 
     [SerializeField]
     private GameObject managerObject;
@@ -79,9 +82,11 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     bool isFocused = false;
     bool isHoldingBuilding = false;
     bool isOnTrash = false;
+    bool priorityTrash = false;
 
     private GameObject lastSelected;
     private GameObject lastBuildingBox;
+    private GameObject buildingToTrash;
 
     [SerializeField]
     private Image handObj;
@@ -96,6 +101,12 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     [SerializeField]
     private Image trash;
+
+    [SerializeField]
+    private Image trashHelper;
+
+    private PointerEventData cachedPointer;
+    
 
     private void OnEnable()
     {
@@ -135,6 +146,24 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(1.2f, 1.2f), new Color32(255, 255, 255, 255), 0.3f));
     }
 
+    public void RaiseTrash(GameObject refObj)
+    {
+        StopCoroutine(movementCoroutine);
+        StopCoroutine(blackoutCoroutine);
+        StopCoroutine(trashCoroutine);
+        movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -825), 0.1f));
+        blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
+        trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -600), 0.1f));
+        buildingToTrash = refObj;
+        priorityTrash = true;
+        //trashHelper.gameObject.SetActive(true);
+        trashHelper.raycastTarget = true;
+    }
+
+    private void LowerTrash()
+    {
+        trashHelper.gameObject.SetActive(false);
+    }
 
 
     private void Awake()
@@ -144,6 +173,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     private void Start()
     {
+        Instance = this;
+
         gameManager = GameManager.Instance;
 
         actionCounter.text = gameManager.actionsMade.ToString();
@@ -152,11 +183,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
         plateImage = GetComponent<Image>();
 
+        trashHelper.raycastTarget = false;
+
         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 1f));
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
         plateColorCoroutine = StartCoroutine(FadeColor(plateImage, new Color32(255, 255, 255, 200), 1f));
         trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
+
+        //trashHelper.gameObject.SetActive(false);
 
         GameResourcesToShow[0] = false;
         GameResourcesToShow[1] = gameManager.objectiveWood > 0 ? true : false;
@@ -209,13 +244,48 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             buildingBoxes[i].GetComponent<Image>().color = resourceModel[boxResourceType].resourceColor;
         }
     }
+
+    private void Update()
+    {
+        trashHelper.rectTransform.anchoredPosition = Input.mousePosition;
+        if (priorityTrash)
+        {
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(cachedPointer, results);
+
+            // For each object that the raycast hits.
+            foreach (RaycastResult hit in results)
+            {
+                if (hit.gameObject.CompareTag("Trash"))
+                {
+                    isOnTrash = true;
+                    trash.color = Color.Lerp(trash.color, new Color32(255, 55, 55, 215), 0.1f);
+                    return;
+                }
+            }
+
+            trash.color = Color.Lerp(trash.color, new Color32(255, 255, 255, 100), 0.1f);
+            isOnTrash = false;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        cachedPointer = eventData;
+        Debug.Log("cached");
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //Debug.Log("Drag Begin");
+        Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
         platePrevPos = plateImage.rectTransform.anchoredPosition;
-        if (eventData.pointerCurrentRaycast.gameObject != null)
+        if (eventData.pointerCurrentRaycast.gameObject != null || priorityTrash)
         {
+            if (priorityTrash)
+            {
+                return;
+            }
             if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
             {
                 managerObject.GetComponent<InputManager>().canDrag = false;
@@ -315,10 +385,17 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 }
             } else
             {
-                
-                if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true)
+                if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true || priorityTrash == true)
                 {
-                    constructionHeld.rectTransform.anchoredPosition = eventData.position;
+                    if (constructionHeld)
+                    {
+                        constructionHeld.rectTransform.anchoredPosition = eventData.position;
+                    }
+                    if (priorityTrash)
+                    {
+                        trashHelper.rectTransform.anchoredPosition = eventData.position;
+                    }
+                    
 
                     //Debug.Log("constructionPos.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", \nconstruction.y = " + constructionHeld.rectTransform.anchoredPosition.y);
 
@@ -402,7 +479,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 constructionPlaced.SetActive(true);
                 constructionPlaced.GetComponent<Construction>().SetDragging(false);
                 //constructionPlaced.GetComponent<Construction>().SetDragging(true);
-            } 
+            } else
+            {
+                if (buildingToTrash)
+                {
+                    Destroy(buildingToTrash);
+                    trashHelper.raycastTarget = false;
+                    //trashHelper.gameObject.SetActive(false);
+                }
+            }
 
             isOnTrash = false;
 
@@ -428,11 +513,6 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         {
             lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
         }
-    }
-
-    void Update()
-    {
-        
     }
 
     private IEnumerator ConstructionPreviewAnim(Image obj)
