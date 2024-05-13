@@ -28,6 +28,8 @@ public class Construction : MonoBehaviour
 
     private List<GridCell> cellCollected = new List<GridCell>();
 
+    private bool isDestroying = false;
+
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
@@ -74,7 +76,8 @@ public class Construction : MonoBehaviour
 
             }
 
-            GameEvents.OnConstructionPlaced(cType);
+            if(!isDestroying)
+                GameEvents.OnConstructionPlaced(cType);
 
             if(isBeingDragged)
                 SetDragging(false);
@@ -120,6 +123,11 @@ public class Construction : MonoBehaviour
     public void SnapToGrid()
     {
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
+        if(Vector3.Distance(currentCell.transform.position, this.transform.position) > 2f && currentCell != null)
+        {
+            RemoveConstruction();
+            return;
+        }
 
         currentCell.SetAvailability(false);
         for (int i = 0; i < currentCell.resource.Length; i++)
@@ -192,6 +200,8 @@ public class Construction : MonoBehaviour
 
     public void RemoveConstruction()
     {
+        isDestroying = true;
+
         for (int i = 0; i < currentCell.resource.Length; i++)
             currentCell.SetResource(GameManager.GameResources.None, i);
 

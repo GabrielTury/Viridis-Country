@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.Windows;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class InputManager : MonoBehaviour
 
     [SerializeField, Range(1f, 30f)]
     private float cameraMoveSpeed;
+
+    [SerializeField]
+    private float minXPos, maxXPos, minZPos, maxZPos;
 
     #endregion
 
@@ -69,7 +73,9 @@ public class InputManager : MonoBehaviour
     #endregion
     private IEnumerator MoveCamera(Vector2 startTouchPosition)
     {
-        isMovingCamera = true;  
+        isMovingCamera = true;
+
+        int overDirection = 0;
         while(isMovingCamera && canDrag)
         {
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.delta.ReadValue();
@@ -77,12 +83,41 @@ public class InputManager : MonoBehaviour
             currentTouchPosition.x /= Screen.width;
             currentTouchPosition.y /= Screen.height;
 
-            mainCamera.transform.position -= Quaternion.Euler(0,45,0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
-            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
+            if(CheckCameraBoundaries(out overDirection))
+            {
+                mainCamera.transform.position -= Quaternion.Euler(0,45,0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
+                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
+            }
+            else
+            {
+                RepositionCamera(overDirection);
+            }
 
             yield return null;
         }
         
+    }
+
+    private void RepositionCamera(int dir)
+    {
+        switch (dir)
+        {
+            case 0:
+                break;
+            case 1:
+                mainCamera.transform.position = new Vector3(maxXPos, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case 2:
+                mainCamera.transform.position = new Vector3(minXPos, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case 3:
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, maxZPos);
+                break;
+            case 4:
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, minZPos);
+                break;
+
+        }
     }
     private IEnumerator Drag(GameObject obj)
     {
@@ -136,22 +171,81 @@ public class InputManager : MonoBehaviour
             //ZoomOut
             if(distance < previousDistance)
             {
-                float newSize = mainCamera.orthographicSize;
-                newSize += 0.5f;
-                mainCamera.orthographicSize = Mathf.Lerp( mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+                if(mainCamera.orthographicSize < 8)
+                {
+                    float newSize = mainCamera.orthographicSize;
+                    newSize += 0.5f;
+                    mainCamera.orthographicSize = Mathf.Lerp( mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    mainCamera.orthographicSize = 8;
+                }
             }
             //Zoom In
             else if(distance > previousDistance)
             {
-                float newSize = mainCamera.orthographicSize;
-                newSize -= 0.5f;
-                mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+                if(mainCamera.orthographicSize > 2)
+                {
+                    float newSize = mainCamera.orthographicSize;
+                    newSize -= 0.5f;
+                    mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, newSize, zoomSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    mainCamera.orthographicSize = 2;
+                }
             }
 
 
             previousDistance = distance;
             yield return null;
         }
+    }
+    /// <summary>
+    /// Check if the camera is inside preset boundaries
+    /// </summary>
+    /// <returns>True is inside boundaries False if outside boudaries</returns>
+    private bool CheckCameraBoundaries(out int direction)
+    {
+        direction = 0;
+        if(mainCamera.transform.position.x > maxXPos)//Check for X pos
+        {
+            direction = 1;
+            return false;
+        }
+        else if(mainCamera.transform.position.x < minXPos)
+        {
+            direction = 2;
+            return false;
+        }
+        else if(mainCamera.transform.position.z > maxZPos)//Check for Z pos
+        {
+            direction = 3;
+            return false;
+        }
+        else if(mainCamera.transform.position.z < minZPos)
+        {
+            direction = 4;
+            return false;
+        }
+        else//Return 
+        {
+            return true;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 lineVect;
+
+        Gizmos.DrawLine(lineVect = new Vector3(minXPos, 10, 0), (Vector3.down * 10) + lineVect);
+        Gizmos.DrawLine(lineVect = new Vector3(maxXPos, 10, 0), (Vector3.down * 10) + lineVect);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(lineVect = new Vector3(0, 10, minZPos), (Vector3.down * 10) + lineVect);
+        Gizmos.DrawLine(lineVect = new Vector3(0, 10, maxZPos), (Vector3.down * 10) + lineVect);
     }
     private void OnEnable()
     {
