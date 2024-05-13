@@ -156,6 +156,7 @@ public class Construction : MonoBehaviour
 
         GridCell[] cellsInRadius = GridManager.Instance.GetCellFromRadius(transform.position, gatherRadius);
 
+        //Debug.Log("Tamanho: " + cellsInRadius.Length);
 
         foreach (GridCell cell in cellsInRadius)
         {
@@ -169,6 +170,7 @@ public class Construction : MonoBehaviour
                     resourceAmount++;
                     cell.SetColectability(false);
                     cellCollected.Add(cell);
+                    //Debug.Log("Coletou: " + cell.resource[i]);
                 }
             }
 

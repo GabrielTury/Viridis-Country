@@ -132,9 +132,15 @@ public class GameManager : MonoBehaviour
         // Crie o mapa usando o level scriptable object com
         // PlayerPrefs.GetInt("LEVELID");
 
+        StartCoroutine(DelayToStart());
+    }
+    //Fix the problem that constructions already placed didnt have a resource to collect because indicators didnt set the resource yet
+    private IEnumerator DelayToStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+
         GameEvents.OnLevelStart();
     }
-
     private void GetGatheredResources(GameResources resource, int amount)
     {
         switch(resource)

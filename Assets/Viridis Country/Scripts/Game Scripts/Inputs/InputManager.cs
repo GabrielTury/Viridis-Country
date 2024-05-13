@@ -130,6 +130,7 @@ public class InputManager : MonoBehaviour
         while(isDragging && canDrag)
         {
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            //Debug.Log("Touch Pos:" + currentTouchPosition);
             Ray ray = mainCamera.ScreenPointToRay(currentTouchPosition);
 
             Vector3 position = new Vector3(currentTouchPosition.x, currentTouchPosition.y, mainCamera.WorldToScreenPoint(obj.transform.position).z); //transforma o z do objeto em um ponto na tela
@@ -138,7 +139,30 @@ public class InputManager : MonoBehaviour
             worldPosition.y = dragObjectHeight; //sobrescreve altura do objeto que está sen arrastado
 
             obj.transform.position = worldPosition;
+            //Debug.Log("Camera width" + mainCamera.pixelWidth);
+            //Debug.Log("Camera height" + mainCamera.pixelHeight);
+            //if(currentTouchPosition.x > mainCamera.Scree)
 
+            if(currentTouchPosition.x > mainCamera.pixelWidth - 50)
+            {
+                //Move Camera to the rights
+                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * -0.01f;
+            }
+            else if(currentTouchPosition.x < 50)
+            {
+                //Move Camera to the left
+                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * 0.01f;
+            }
+            else if (currentTouchPosition.y > mainCamera.pixelHeight - 50)
+            {
+                //Move Camera up
+                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * -0.01f;
+            }
+            else if(currentTouchPosition.y < 50)
+            {
+                //Move Camera Down
+                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * 0.01f;
+            }
             yield return null;
         }
 
