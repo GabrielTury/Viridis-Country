@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Construction : MonoBehaviour
 {
+    private ResourceTouchHandler touchHandler;
+
     private bool isBeingDragged;
 
     public ConstructionTemplate construcion;
@@ -52,6 +54,7 @@ public class Construction : MonoBehaviour
     private void Start()
     {
         //SetDragging(false);
+        touchHandler = ResourceTouchHandler.Instance;
     }
 
     private void PlacedOnStart()
@@ -83,6 +86,8 @@ public class Construction : MonoBehaviour
         {
             currentCell.SetAvailability(true);
             Debug.Log("Levantou");
+
+            touchHandler.RaiseTrash(this.gameObject);
 
             if (cellCollected.Count > 0)
             {
