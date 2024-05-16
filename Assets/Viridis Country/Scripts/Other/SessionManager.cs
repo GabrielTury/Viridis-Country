@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SessionManager : MonoBehaviour
 {
@@ -35,6 +36,14 @@ public class SessionManager : MonoBehaviour
     
 
     private PlayerData playerLoadedData;
+
+    [Header("Ads Area")]
+
+    [SerializeField]
+    private string mainMenuScene;
+
+    private bool isAdsInitialized = false;
+
     private void Awake()
     {
         #region Singleton
@@ -89,12 +98,24 @@ public class SessionManager : MonoBehaviour
     {
         GameEvents.Level_Start += LevelStarted;
         GameEvents.Level_End += LevelEndSession;
+
+        SceneManager.sceneLoaded += SceneLoad;
+        SceneManager.sceneUnloaded += SceneUnload;
+
+        AdEvents.Ad_Completed += AdReward;
+        AdEvents.Ads_Initialized += AdSystemInitialized;
     }
 
     private void OnDisable()
     {
         GameEvents.Level_Start -= LevelStarted;
         GameEvents.Level_End -= LevelEndSession;
+
+        SceneManager.sceneLoaded -= SceneLoad;
+        SceneManager.sceneUnloaded -= SceneUnload;
+
+        AdEvents.Ad_Completed -= AdReward;
+        AdEvents.Ads_Initialized -= AdSystemInitialized;
     }
     /*[ContextMenu("TESTESAVE")]
     public void Teste()
@@ -166,5 +187,41 @@ public class SessionManager : MonoBehaviour
     public void AddEnergy(int amount)
     {
         energyAmount += amount;
+    }
+
+    private void SceneLoad(Scene sceneLoaded, LoadSceneMode loadSceneMode)
+    {
+        if(sceneLoaded.name == mainMenuScene && energyAmount < maxEnergy)
+        {
+            if (isAdsInitialized)
+                AdEvents.OnEnergyDepleted();
+            else
+                StartCoroutine(WaitAndCheckAds());
+            
+        }
+
+        if (sceneLoaded.name == mainMenuScene)
+            Debug.Log("Menu Principal");
+    }
+
+    private IEnumerator WaitAndCheckAds()
+    {
+        yield return new WaitForSeconds(5);
+
+        SceneLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+    private void SceneUnload(Scene unloadedScene)
+    {
+
+    }
+
+    private void AdReward()
+    {
+        AddEnergy(1);
+    }
+
+    private void AdSystemInitialized()
+    {
+        isAdsInitialized = true;
     }
 }
