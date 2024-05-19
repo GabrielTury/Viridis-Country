@@ -28799,11 +28799,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
-      propertyPath: evSys
-      value: 
-      objectReference: {fileID: 829985455}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
       propertyPath: managerObject
       value: 
       objectReference: {fileID: 23078331}

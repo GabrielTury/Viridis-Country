@@ -295,6 +295,7 @@ MonoBehaviour:
     type: 3}
   buildingBoxTemplate: {fileID: 7554657698349130281, guid: c433269fb3046ad4f9de6c64c40bda73,
     type: 3}
+  isOnTrash: 0
   handObj: {fileID: 6399234688768593532}
   buildingBoxSprites:
   - {fileID: 21300000, guid: 556de1653cb1044469fd15886fb6c8c6, type: 3}
@@ -361,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.59607846}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
