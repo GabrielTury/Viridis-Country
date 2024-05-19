@@ -2158,6 +2158,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 725002759}
     m_Modifications:
+    - target: {fileID: 1830129328359110989, guid: dba6173e48363224482ddb4f438a5ebb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e49dbcdf0b5971c4fb1b93ebb69980b7, type: 2}
     - target: {fileID: 5309452097506603349, guid: dba6173e48363224482ddb4f438a5ebb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3811,7 +3816,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragObjectHeight: 0.5
   cameraMoveSpeed: 10
+  minXPos: 0
+  maxXPos: 0
+  minZPos: 0
+  maxZPos: 0
   canDrag: 0
+  zoomSpeed: 0
 --- !u!4 &1363584984
 Transform:
   m_ObjectHideFlags: 0
