@@ -400,7 +400,8 @@ public class ResourceExhibition : MonoBehaviour
         {
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / time);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-            image.rectTransform.localScale = Vector3.Lerp(targetSize, prevSize, smoothLerp);
+            if (image)
+                image.rectTransform.localScale = Vector3.Lerp(targetSize, prevSize, smoothLerp);
             yield return null;
         }
 

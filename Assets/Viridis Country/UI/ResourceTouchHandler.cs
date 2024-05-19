@@ -78,11 +78,11 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     private Coroutine handCoroutine;
     private Coroutine plateColorCoroutine;
     private Coroutine trashCoroutine;
-    bool smoothReturnEnded = true;
-    bool isFocused = false;
-    bool isHoldingBuilding = false;
-    bool isOnTrash = false;
-    bool priorityTrash = false;
+    private bool smoothReturnEnded = true;
+    private bool isFocused = false;
+    private bool isHoldingBuilding = false;
+    public bool isOnTrash = false;
+    private bool priorityTrash = false;
 
     private GameObject lastSelected;
     private GameObject lastBuildingBox;
@@ -160,9 +160,13 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         trashHelper.raycastTarget = true;
     }
 
-    private void LowerTrash()
+    public void LowerTrash()
     {
+        priorityTrash = false;
+        trashHelper.raycastTarget = false;
         trashHelper.gameObject.SetActive(false);
+        trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
+        movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
     }
 
 
@@ -250,10 +254,19 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         trashHelper.rectTransform.anchoredPosition = Input.mousePosition;
         if (priorityTrash)
         {
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(cachedPointer, results);
+            //Debug.Log("Mouse: " + Input.mousePosition +
+            //    "\nanchored: " + trash.rectTransform.anchoredPosition);
 
-            // For each object that the raycast hits.
+            //Debug.Log("local: " + trash.rectTransform.localPosition);
+
+            //Debug.Log(trash.rectTransform.anchoredPosition);
+
+            //Debug.Log(EventSystem.current);
+
+            var results = new List<RaycastResult>();
+            
+            EventSystem.current.RaycastAll(cachedPointer, results);
+            
             foreach (RaycastResult hit in results)
             {
                 if (hit.gameObject.CompareTag("Trash"))
@@ -277,6 +290,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        //cachedPointer = eventData;
         Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
         platePrevPos = plateImage.rectTransform.anchoredPosition;

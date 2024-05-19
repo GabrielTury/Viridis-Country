@@ -70,6 +70,11 @@ public class Construction : MonoBehaviour
 
         if (!isBeingDragged) //chama quando ele é largado
         {
+            if (ResourceTouchHandler.Instance.isOnTrash == true)
+            {
+                ResourceTouchHandler.Instance.LowerTrash();
+                Destroy(this.gameObject);
+            }
             SnapToGrid();
 
             for(int i = 0; i < resourceToGather.Length; i++)
