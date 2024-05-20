@@ -83,12 +83,20 @@ public class InputManager : MonoBehaviour
             currentTouchPosition.x /= Screen.width;
             currentTouchPosition.y /= Screen.height;
 
-            if(CheckCameraBoundaries(out overDirection))
-            {
-                mainCamera.transform.position -= Quaternion.Euler(0,45,0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
-                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
-            }
-            else
+            //if(CheckCameraBoundaries(out overDirection))
+            //{
+            //    mainCamera.transform.position -= Quaternion.Euler(0,45,0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
+            //    mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
+            //}
+            //else
+            //{
+            //    RepositionCamera(overDirection);
+            //}
+
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * currentTouchPosition.x * cameraMoveSpeed;
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * currentTouchPosition.y * cameraMoveSpeed * 1.4f;
+
+            if(!CheckCameraBoundaries(out overDirection))
             {
                 RepositionCamera(overDirection);
             }
@@ -259,7 +267,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Vector3 lineVect;
