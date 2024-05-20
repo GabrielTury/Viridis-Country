@@ -2,12 +2,13 @@ using GameEventSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SessionManager : MonoBehaviour
 {
-    public SessionManager Instance { get; private set; }
+    public static SessionManager Instance { get; private set; }
 
     private SaveManager saveManager;
 
@@ -33,6 +34,8 @@ public class SessionManager : MonoBehaviour
     public int currentLevel { get; private set; }
     public int currentStars { get; private set; }
 
+    [SerializeField]
+    private TextMeshProUGUI energyCounterText;
     
 
     private PlayerData playerLoadedData;
@@ -47,9 +50,9 @@ public class SessionManager : MonoBehaviour
     private void Awake()
     {
         #region Singleton
-        if (Instance != null && Instance != this)
+        if (Instance != null)
         {
-            Destroy(this);
+            DestroyImmediate(this);
         }
         else
         {
@@ -86,6 +89,9 @@ public class SessionManager : MonoBehaviour
             PlayerData newPlayerData = new PlayerData(0, 0, energyAmount, timerStart, timerEnd); //default data
             saveManager.SaveGame(newPlayerData);
         }
+
+        Debug.Log("Start");
+        energyCounterText.gameObject.SetActive(false);
     }
 
     private void OnApplicationQuit()
@@ -189,6 +195,7 @@ public class SessionManager : MonoBehaviour
     public void AddEnergy(int amount)
     {
         energyAmount += amount;
+        UpdateEnergyCounterUI();
     }
 
     private void SceneLoad(Scene sceneLoaded, LoadSceneMode loadSceneMode)
@@ -198,23 +205,47 @@ public class SessionManager : MonoBehaviour
             if (isAdsInitialized)
                 AdEvents.OnEnergyDepleted();
             else
+            {
                 StartCoroutine(WaitAndCheckAds());
+                Debug.Log(isAdsInitialized);
+            }
             
         }
 
         if (sceneLoaded.name == mainMenuScene)
-            Debug.Log("Menu Principal");
+        {
+            foreach(TextMeshProUGUI a in FindObjectsOfType<TextMeshProUGUI>())
+            {
+                if (a.gameObject.CompareTag("energyCounter"))
+                {
+                    energyCounterText = a;
+                }
+            }
+
+            if (energyCounterText != null)
+            {
+                energyCounterText.gameObject.SetActive(true);
+                UpdateEnergyCounterUI();
+                Debug.Log("Scene Load");
+            }
+        }
+        else
+        {
+            if(energyCounterText != null)
+                energyCounterText.gameObject.SetActive(false);
+        }
+            
     }
 
     private IEnumerator WaitAndCheckAds()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
 
         SceneLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
     private void SceneUnload(Scene unloadedScene)
     {
-
+        StopCoroutine(WaitAndCheckAds());
     }
 
     private void AdReward()
@@ -225,5 +256,11 @@ public class SessionManager : MonoBehaviour
     private void AdSystemInitialized()
     {
         isAdsInitialized = true;
+    }
+
+    private void UpdateEnergyCounterUI()
+    {
+        if (energyCounterText != null)
+            energyCounterText.text = energyAmount.ToString() + "/" + maxEnergy.ToString();
     }
 }
