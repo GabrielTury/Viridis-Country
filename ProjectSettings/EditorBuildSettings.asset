@@ -12,6 +12,18 @@ EditorBuildSettings:
     path: Assets/Viridis Country/Scenes/Gameplay_Test.unity
     guid: ad3d50c4538c05e45ad3828075c20d13
   - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-1.unity
+    guid: 64b5f521c5f17854196fa203298c83af
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-2.unity
+    guid: 4dab2bc27e13a9b4aa8855c19439f427
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-3.unity
+    guid: d9e295d19e286b248b268600157f58d6
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-4.unity
+    guid: 74d10d9c95ce309459658ea1df8b8ef6
+  - enabled: 1
     path: Assets/Viridis Country/Scenes/Levels/1-1.unity
     guid: c4fd2d22041402543a391a11bcbd095f
   - enabled: 1
@@ -42,20 +54,20 @@ EditorBuildSettings:
     path: Assets/Viridis Country/Scenes/Levels/1-10.unity
     guid: da0fbd5db6aade84d8a26c44e9102585
   - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/1-11.unity
+    guid: 37a6963dcef19e74fbd8bd3a213dd4c6
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/1-12.unity
+    guid: 2b6e005a3bd871d44907f9226baf9088
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/1-13.unity
+    guid: 7563161869e3b9f4ea9b5abd82cca5be
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Levels/1-14.unity
+    guid: 4cc4e5bcd752a6d449da295b0f6bfd37
+  - enabled: 1
     path: Assets/Viridis Country/Scenes/Levels/1-15.unity
     guid: 53a6971a5623bbc46b7e38b9b763b1f0
-  - enabled: 1
-    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-1.unity
-    guid: 64b5f521c5f17854196fa203298c83af
-  - enabled: 1
-    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-2.unity
-    guid: 4dab2bc27e13a9b4aa8855c19439f427
-  - enabled: 1
-    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-3.unity
-    guid: d9e295d19e286b248b268600157f58d6
-  - enabled: 1
-    path: Assets/Viridis Country/Scenes/Levels/Tutorials/T-4.unity
-    guid: 74d10d9c95ce309459658ea1df8b8ef6
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ad2cd6d5cb95be24b9a206f64c76cdac,
       type: 2}
