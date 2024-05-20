@@ -188,6 +188,6 @@ public class MainMenuManager : MonoBehaviour
         StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), seconds));
         yield return new WaitForSeconds(seconds);
 
-        SceneManager.LoadScene("Gameplay_Test");
+        SceneManager.LoadScene(levelID);
     }
 }
