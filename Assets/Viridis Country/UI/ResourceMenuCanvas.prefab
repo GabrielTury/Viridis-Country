@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   managerObject: {fileID: 0}
   resourcePanelCanvas: {fileID: 1556963065659828109}
-  actionCounter: {fileID: 0}
+  actionCounter: {fileID: 852233407943257516}
   bgFader: {fileID: 2995955920892753718}
   constructionPrefab: {fileID: 4625999577303596951, guid: 2b850c22593b3b14183827966cdf6564,
     type: 3}
