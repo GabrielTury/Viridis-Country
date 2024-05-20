@@ -70,11 +70,13 @@ public class Construction : MonoBehaviour
 
         if (!isBeingDragged) //chama quando ele é largado
         {
+            ResourceTouchHandler.Instance.LowerTrash();
+
             if (ResourceTouchHandler.Instance.isOnTrash == true)
             {
-                ResourceTouchHandler.Instance.LowerTrash();
-                Destroy(this.gameObject);
+                RemoveConstruction();
             }
+
             SnapToGrid();
 
             for(int i = 0; i < resourceToGather.Length; i++)
@@ -95,7 +97,15 @@ public class Construction : MonoBehaviour
             currentCell.SetAvailability(true);
             Debug.Log("Levantou");
 
-            touchHandler.RaiseTrash(this.gameObject);
+            if (touchHandler)
+            {
+                touchHandler.RaiseTrash(this.gameObject);
+            } else
+            {
+                touchHandler = ResourceTouchHandler.Instance;
+                touchHandler.RaiseTrash(this.gameObject);
+            }
+            
 
             if (cellCollected.Count > 0)
             {

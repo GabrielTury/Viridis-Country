@@ -264,7 +264,11 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             //Debug.Log(EventSystem.current);
 
             var results = new List<RaycastResult>();
-            
+            if (cachedPointer == null)
+            {
+                ExecuteEvents.Execute(trash.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+                cachedPointer = new PointerEventData(EventSystem.current);
+            }
             EventSystem.current.RaycastAll(cachedPointer, results);
             
             foreach (RaycastResult hit in results)
@@ -561,11 +565,13 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         {
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            if (obj)
+                obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
             yield return null;
         }
 
-        obj.rectTransform.localScale = scale;
+        if (obj)
+            obj.rectTransform.localScale = scale;
 
         yield return null;
     }

@@ -32,6 +32,8 @@ public class FinishLevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.GetComponent<InputManager>().canDrag = false;
+
         // Set amount of stars
 
         if (GameManager.Instance.actionsMade <= GameManager.Instance.levelVariables.threeStarsAmount)

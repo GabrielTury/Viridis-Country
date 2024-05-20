@@ -59,6 +59,8 @@ public class SessionManager : MonoBehaviour
         #endregion
 
         rechargeTime = new TimeSpan(daysToRecharge, hoursToRecharge, minutesToRecharge, secondsToRecharge);
+
+        Application.targetFrameRate = 60;
     }
 
     private void Start()

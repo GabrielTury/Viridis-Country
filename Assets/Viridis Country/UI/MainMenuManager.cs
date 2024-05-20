@@ -61,7 +61,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject analyticsPopup;
 
-
+    private bool hasGoneToLevelSel = false;
+    private bool hasGoneToStage = false;
 
     void Start()
     {
@@ -99,24 +100,34 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoToLevelSelect()
     {
-        //transitionCamera.SetActive(true);
-        //Vector3 cameraPositionTarget = transitionCamera.transform.position;
-        //Vector3 cameraRotationTarget = transitionCamera.transform.eulerAngles;
-        //transitionCamera.transform.position = mainCamera.transform.position;
-        //transitionCamera.transform.rotation = mainCamera.transform.rotation;
-        //StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
-        StopCoroutine(cameraBegin);
-        StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2));
-        blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), 2));
-        StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 1));
-        StartCoroutine(FadeAfterSeconds(2.5f));
-        //Destroy(mainCamera);
+        if (hasGoneToLevelSel == false)
+        {
+            hasGoneToLevelSel = true;
+            //transitionCamera.SetActive(true);
+            //Vector3 cameraPositionTarget = transitionCamera.transform.position;
+            //Vector3 cameraRotationTarget = transitionCamera.transform.eulerAngles;
+            //transitionCamera.transform.position = mainCamera.transform.position;
+            //transitionCamera.transform.rotation = mainCamera.transform.rotation;
+            //StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
+            StopCoroutine(cameraBegin);
+            StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2));
+            StopCoroutine(blackoutImageCoroutine);
+            blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), 2));
+            StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 1));
+            StartCoroutine(FadeAfterSeconds(2.5f));
+            //Destroy(mainCamera);
+        }
     }
 
     public void EnterLevel(int levelID)
     {
-        PlayerPrefs.SetInt("LEVELID", levelID);
-        StartCoroutine(FadeToLevel(0.75f, levelID));
+        if (hasGoneToStage == false)
+        {
+            hasGoneToStage = true;
+            PlayerPrefs.SetInt("LEVELID", levelID);
+            StartCoroutine(FadeToLevel(0.75f, levelID));
+        }
+        
     }
 
     private IEnumerator SmoothStepToTarget(Transform objTransform, Vector3 targetPosition, float duration, Vector3 targetRotation = default)
