@@ -97,7 +97,9 @@ public class SessionManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         Debug.Log("App Quit");
+        timerStart = DateTime.Now;
 
+        timerEnd = timerStart.Add(rechargeTime);
         PlayerData newPlayerData = new PlayerData(currentLevel, currentStars, energyAmount, timerStart, timerEnd);
         saveManager.SaveGame(newPlayerData);
     }
@@ -162,8 +164,6 @@ public class SessionManager : MonoBehaviour
     {
         timerStart = DateTime.Now;
 
-
-        timerEnd = timerStart.Add(rechargeTime);
 
         Debug.Log(timerEnd);
         double timeLeft = rechargeTime.TotalSeconds;
