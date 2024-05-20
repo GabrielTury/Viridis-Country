@@ -289,7 +289,7 @@ PrefabInstance:
         type: 3}
       propertyPath: actionCounter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1525255115}
     - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: managerObject
@@ -2922,7 +2922,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2947,7 +2947,7 @@ Transform:
   m_GameObject: {fileID: 1119063863}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: -5.52, y: 10, z: -12.89}
+  m_LocalPosition: {x: -7.16, y: 10, z: -14.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3714,10 +3714,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dragObjectHeight: 0.5
   cameraMoveSpeed: 10
-  minXPos: 0
-  maxXPos: 0
-  minZPos: 0
-  maxZPos: 0
+  minXPos: -9
+  maxXPos: -2
+  minZPos: -17
+  maxZPos: -9
   canDrag: 0
   zoomSpeed: 0
 --- !u!4 &1363584984
@@ -4102,6 +4102,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 672627390}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1525255115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 852233407943257516, guid: 446021696dc2b5248a5203041dc942cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 189911358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1533730111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6861263140548045625, guid: b29958205e77de1418a20555cb5319df,
