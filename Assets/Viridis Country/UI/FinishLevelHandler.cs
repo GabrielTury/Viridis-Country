@@ -2,9 +2,11 @@ using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static AudioManager;
 
 public class FinishLevelHandler : MonoBehaviour
 {
@@ -28,6 +30,14 @@ public class FinishLevelHandler : MonoBehaviour
 
     [SerializeField]
     private Image foreground;
+
+    [SerializeField]
+    private AudioManager audioManager;
+
+    [SerializeField]
+    private AudioSource audioSource;
+
+    public Sound[] sounds;
 
     // Start is called before the first frame update
     void Start()
@@ -126,6 +136,8 @@ public class FinishLevelHandler : MonoBehaviour
     public void NextLevel()
     {
         StartCoroutine(FadeOut(0.4f, 0));
+        AudioManager.Instance.Play("Click");
+        //GameEvents.Click(AudioManager.SoundEffects.Click);
     }
 
     public void RestartLevel()

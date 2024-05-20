@@ -136,6 +136,7 @@ public class AudioManager : MonoBehaviour
         GameEvents.TwoStar += PlayWhenTwoStar;
         GameEvents.ThreeStar += PlayWhenThreeStar;
         GameEvents.Zoom_Planet += PlayWhenZoom;
+
     }
 
     private void OnDisable()

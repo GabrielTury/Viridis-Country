@@ -121,7 +121,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void EnterLevel(int levelID)
     {
-        if (hasGoneToStage == false)
+        if (hasGoneToStage == false && SessionManager.Instance.energyAmount > 0)
         {
             hasGoneToStage = true;
             PlayerPrefs.SetInt("LEVELID", levelID);
