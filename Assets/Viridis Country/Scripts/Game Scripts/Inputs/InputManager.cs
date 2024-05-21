@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     private float cameraMoveSpeed = 7;
 
     [SerializeField]
-    private float minXPos, maxXPos, minZPos, maxZPos;
+    public float minXPos, maxXPos, minZPos, maxZPos;
 
     #endregion
 
@@ -153,6 +153,7 @@ public class InputManager : MonoBehaviour
 
 
             MoveCameraOnBorder(currentTouchPosition);
+            Debug.Log("Input GG" + currentTouchPosition);
             yield return null;
         }
 

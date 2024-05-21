@@ -196,6 +196,12 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
         trashHelper.raycastTarget = false;
 
+        InputManager iManager = FindObjectOfType<InputManager>();
+        minXPos = iManager.minXPos;
+        maxXPos = iManager.maxXPos;
+        minZPos = iManager.minZPos;
+        maxZPos = iManager.maxZPos;
+
         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 1));
         blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 1f));
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
@@ -415,7 +421,9 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             {
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true || priorityTrash == true)
                 {
-                    MoveCameraOnBorder(eventData.pointerCurrentRaycast.screenPosition);
+                    MoveCameraOnBorder(Touchscreen.current.primaryTouch.position.ReadValue());
+                    Debug.Log("Input Ryann" + Touchscreen.current.primaryTouch.position.ReadValue());
+                    
 
                     if (constructionHeld)
                     {
