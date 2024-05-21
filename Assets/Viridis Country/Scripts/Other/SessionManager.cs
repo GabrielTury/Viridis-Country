@@ -99,7 +99,6 @@ public class SessionManager : MonoBehaviour
         Debug.Log("App Quit");
         timerStart = DateTime.Now;
 
-        timerEnd = timerStart.Add(rechargeTime);
         PlayerData newPlayerData = new PlayerData(currentLevel, currentStars, energyAmount, timerStart, timerEnd);
         saveManager.SaveGame(newPlayerData);
     }
@@ -127,15 +126,7 @@ public class SessionManager : MonoBehaviour
         AdEvents.Ad_Completed -= AdReward;
         AdEvents.Ads_Initialized -= AdSystemInitialized;
     }
-    /*[ContextMenu("TESTESAVE")]
-    public void Teste()
-    {
-        currentLevel = 2;
-        currentStars = 5;
 
-        PlayerData newPlayerData = new PlayerData(currentLevel, currentStars, energyAmount, timerStart, timerEnd);
-        saveManager.SaveGame(newPlayerData);
-    }*/
     private void LevelStarted()
     {
         if(energyAmount > 0)
@@ -164,7 +155,7 @@ public class SessionManager : MonoBehaviour
     {
         timerStart = DateTime.Now;
 
-
+        timerEnd = timerStart.Add(rechargeTime);
         Debug.Log(timerEnd);
         double timeLeft = rechargeTime.TotalSeconds;
 

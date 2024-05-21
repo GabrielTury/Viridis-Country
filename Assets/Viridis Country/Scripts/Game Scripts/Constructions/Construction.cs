@@ -32,6 +32,8 @@ public class Construction : MonoBehaviour
 
     private bool isDestroying = false;
 
+    private bool placedOnStart = false;
+
     private void OnEnable()
     {
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
@@ -61,6 +63,7 @@ public class Construction : MonoBehaviour
 
     private void PlacedOnStart()
     {
+        placedOnStart = true; //tem que estar antes do Set Dragging
         SetDragging(false);
     }
 
@@ -86,7 +89,7 @@ public class Construction : MonoBehaviour
 
             }
 
-            if(!isDestroying)
+            if(!isDestroying && !placedOnStart)
                 GameEvents.OnConstructionPlaced(cType);
 
             if(isBeingDragged)
@@ -143,7 +146,19 @@ public class Construction : MonoBehaviour
     public void SnapToGrid()
     {
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
-        if(Vector3.Distance(currentCell.transform.position, this.transform.position) > 2f && currentCell != null)
+
+        if(currentCell == null)
+        {
+            RemoveConstruction();
+            return;
+        }
+
+        if(currentCell.tileType != tileType)
+        {
+            RemoveConstruction();
+            return;
+        }
+        if(Vector3.Distance(currentCell.transform.position, this.transform.position) > 1f && currentCell != null)
         {
             RemoveConstruction();
             return;
@@ -224,10 +239,10 @@ public class Construction : MonoBehaviour
     {
         isDestroying = true;
 
-        for (int i = 0; i < currentCell.resource.Length; i++)
-            currentCell.SetResource(GameManager.GameResources.None, i);
+        for (int i = 0; i < currentCell?.resource.Length; i++)
+            currentCell?.SetResource(GameManager.GameResources.None, i);
 
-        currentCell.SetAvailability(true);
+        currentCell?.SetAvailability(true);
         if (cellCollected.Count > 0)
         {
             foreach (GridCell cell in cellCollected)
@@ -250,9 +265,9 @@ public class Construction : MonoBehaviour
             resourcesInRange[i] = 0;
         }
 
-        for (int i = 0; i < currentCell.resource.Length; i++)
+        for (int i = 0; i < currentCell?.resource.Length; i++)
         {
-            currentCell.SetResource(GameManager.GameResources.None, i);
+            currentCell?.SetResource(GameManager.GameResources.None, i);
         }
 
         GameEvents.OnConstructionRemoved(cType);

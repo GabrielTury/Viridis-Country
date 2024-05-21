@@ -15,8 +15,8 @@ public class InputManager : MonoBehaviour
 
     private bool isMovingCamera;
 
-    [SerializeField, Range(1f, 30f)]
-    private float cameraMoveSpeed;
+    //[SerializeField, Range(1f, 10f)]
+    private float cameraMoveSpeed = 7;
 
     [SerializeField]
     private float minXPos, maxXPos, minZPos, maxZPos;
@@ -151,31 +151,55 @@ public class InputManager : MonoBehaviour
             //Debug.Log("Camera height" + mainCamera.pixelHeight);
             //if(currentTouchPosition.x > mainCamera.Scree)
 
-            if(currentTouchPosition.x > mainCamera.pixelWidth - 50)
-            {
-                //Move Camera to the rights
-                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * -0.01f;
-            }
-            else if(currentTouchPosition.x < 50)
-            {
-                //Move Camera to the left
-                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * 0.01f;
-            }
-            else if (currentTouchPosition.y > mainCamera.pixelHeight - 50)
-            {
-                //Move Camera up
-                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * -0.01f;
-            }
-            else if(currentTouchPosition.y < 50)
-            {
-                //Move Camera Down
-                mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * 0.01f;
-            }
+
+            MoveCameraOnBorder(currentTouchPosition);
             yield return null;
         }
 
         if(canDrag)
             obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
+    }
+
+    private void MoveCameraOnBorder(Vector2 currentTouchPosition)
+    {
+        int direction = 0;
+        if (currentTouchPosition.x > Screen.width - 200)
+        {
+            //Move Camera to the rights
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * -0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+
+        }
+        else if (currentTouchPosition.x < 200)
+        {
+            //Move Camera to the left
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * 0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+        }
+        else if (currentTouchPosition.y > Screen.height - 200)
+        {
+            //Move Camera up
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * -0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+        }
+        else if (currentTouchPosition.y < 200)
+        {
+            //Move Camera Down
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * 0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+        }
     }
 
     private void ZoomStart()
