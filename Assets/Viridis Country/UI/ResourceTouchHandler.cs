@@ -106,7 +106,12 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     private Image trashHelper;
 
     private PointerEventData cachedPointer;
-    
+
+    private Camera mainCamera;
+
+    [SerializeField]
+    private float minXPos, maxXPos, minZPos, maxZPos;
+
 
     private void OnEnable()
     {
@@ -179,6 +184,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     {
         Instance = this;
 
+        mainCamera = Camera.main;
+
         gameManager = GameManager.Instance;
 
         actionCounter.text = gameManager.actionsMade.ToString();
@@ -241,7 +248,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             {
                 buildingBoxes[i].GetComponent<Image>().rectTransform.anchoredPosition = new Vector2((i % 2) * 420 - 210, -(i / 2) * 440 + 466);
             }
-            
+
 
             GetChildWithName(buildingBoxes[i], "BuildingIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].buildingIcon;
             GetChildWithName(buildingBoxes[i], "BuildingResourceIcon").GetComponent<Image>().sprite = resourceModel[boxResourceType].resourceIcon;
@@ -270,7 +277,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 cachedPointer = new PointerEventData(EventSystem.current);
             }
             EventSystem.current.RaycastAll(cachedPointer, results);
-            
+
             foreach (RaycastResult hit in results)
             {
                 if (hit.gameObject.CompareTag("Trash"))
@@ -356,8 +363,9 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     public void OnDrag(PointerEventData eventData)
     {
+        
         //Debug.Log("Dragging: " + eventData.pointerCurrentRaycast.gameObject.name);
-        if(eventData.pointerCurrentRaycast.gameObject == null)
+        if (eventData.pointerCurrentRaycast.gameObject == null)
         {
             return;
         }
@@ -383,7 +391,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                     {
                         plateImage.rectTransform.anchoredPosition = new Vector2(0, platePrevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1);
                     }
-                } else
+                }
+                else
                 {
                     if (plateImage.rectTransform.anchoredPosition.y >= -400)
                     {
@@ -401,10 +410,13 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                         plateImage.rectTransform.anchoredPosition = new Vector2(0, platePrevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1);
                     }
                 }
-            } else
+            }
+            else
             {
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true || priorityTrash == true)
                 {
+                    MoveCameraOnBorder(eventData.pointerCurrentRaycast.screenPosition);
+
                     if (constructionHeld)
                     {
                         constructionHeld.rectTransform.anchoredPosition = eventData.position;
@@ -413,7 +425,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                     {
                         trashHelper.rectTransform.anchoredPosition = eventData.position;
                     }
-                    
+
 
                     //Debug.Log("constructionPos.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", \nconstruction.y = " + constructionHeld.rectTransform.anchoredPosition.y);
 
@@ -447,7 +459,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             if (isFocused)
             {
 
-            } else
+            }
+            else
             {
                 /*StopCoroutine(movementCoroutine);
                 StopCoroutine(blackoutCoroutine);
@@ -497,7 +510,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 constructionPlaced.SetActive(true);
                 constructionPlaced.GetComponent<Construction>().SetDragging(false);
                 //constructionPlaced.GetComponent<Construction>().SetDragging(true);
-            } else
+            }
+            else
             {
                 if (buildingToTrash)
                 {
@@ -511,7 +525,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
             //constructionPlaced.GetComponent<Construction>().GetResourcesInRange
             Destroy(constructionHeld.gameObject);
-            
+
             isHoldingBuilding = false;
 
             //GameManager.Instance.actionsMade++;
@@ -647,5 +661,97 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         }
     }
 
+    private void MoveCameraOnBorder(Vector2 currentTouchPosition)
+    {
+        int direction = 0;
+        if (currentTouchPosition.x > Screen.width - 200)
+        {
+            //Move Camera to the rights
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * -0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
 
+        }
+        else if (currentTouchPosition.x < 200)
+        {
+            //Move Camera to the left
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.right.normalized * 0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+        }
+        else if (currentTouchPosition.y > Screen.height - 200)
+        {
+            //Move Camera up
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * -0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            }
+        }
+        else if (currentTouchPosition.y < 200)
+        {
+            //Move Camera Down
+            mainCamera.transform.position -= Quaternion.Euler(0, 45, 0) * Vector3.forward.normalized * 0.01f;
+            if (!CheckCameraBoundaries(out direction))
+            {
+                RepositionCamera(direction);
+            
+            }
+        }
+    }
+
+    private void RepositionCamera(int dir)
+    {
+        switch (dir)
+        {
+            case 0:
+                break;
+            case 1:
+                mainCamera.transform.position = new Vector3(maxXPos, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case 2:
+                mainCamera.transform.position = new Vector3(minXPos, mainCamera.transform.position.y, mainCamera.transform.position.z);
+                break;
+            case 3:
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, maxZPos);
+                break;
+            case 4:
+                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, minZPos);
+                break;
+
+        }
+    }
+
+    private bool CheckCameraBoundaries(out int direction)
+    {
+        direction = 0;
+        if (mainCamera.transform.position.x > maxXPos)//Check for X pos
+        {
+            direction = 1;
+            return false;
+        }
+        else if (mainCamera.transform.position.x < minXPos)
+        {
+            direction = 2;
+            return false;
+        }
+        else if (mainCamera.transform.position.z > maxZPos)//Check for Z pos
+        {
+            direction = 3;
+            return false;
+        }
+        else if (mainCamera.transform.position.z < minZPos)
+        {
+            direction = 4;
+            return false;
+        }
+        else//Return 
+        {
+            return true;
+        }
+    }
 }

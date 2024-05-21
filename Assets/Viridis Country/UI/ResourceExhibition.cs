@@ -271,6 +271,11 @@ public class ResourceExhibition : MonoBehaviour
 
     private void UpdateUIInfo(GameResources resource, int amount)
     {
+        if (GameResourcesToGather[RedirectResourceGatherList(resource)] <= 0)
+        {
+            return;
+        }
+
         var prevResource = resourceDict[resource];
 
         UpdateResourceDict();
