@@ -31,8 +31,6 @@ public class SessionManager : MonoBehaviour
     [SerializeField]
     private int maxEnergy;
     public int energyAmount { get; private set; }
-    public int currentLevel { get; private set; }
-    public int currentStars { get; private set; }
 
     [SerializeField]
     private TextMeshProUGUI energyCounterText;
@@ -47,6 +45,11 @@ public class SessionManager : MonoBehaviour
 
     private bool isAdsInitialized = false;
 
+    public Dictionary<string, int> playerLevels { get; private set; } 
+           = new Dictionary<string, int>();
+
+    [SerializeField]
+    private int playableLevels;
     private void Awake()
     {
         #region Singleton
@@ -74,9 +77,8 @@ public class SessionManager : MonoBehaviour
 
         if( playerLoadedData != null )
         {
-            currentLevel = playerLoadedData.currentLevel;
-            currentStars = playerLoadedData.currentStars;
             energyAmount = playerLoadedData.currentEnergy;
+            playerLevels = playerLoadedData.levels;
             timerStart = DateTime.Parse(playerLoadedData.timerStart);
 
             OffScreenRecharge();
@@ -86,7 +88,13 @@ public class SessionManager : MonoBehaviour
         {
             Debug.Log("Used Default save Values");
             energyAmount = maxEnergy;
-            PlayerData newPlayerData = new PlayerData(0, 0, energyAmount, timerStart, timerEnd); //default data
+
+            for(int i = 0; i < playableLevels; i++)
+            {
+                playerLevels.Add("level " + i, 0);
+            }
+
+            PlayerData newPlayerData = new PlayerData(energyAmount, timerStart, timerEnd, playerLevels); //default data
             saveManager.SaveGame(newPlayerData);
         }
 
@@ -99,7 +107,7 @@ public class SessionManager : MonoBehaviour
         Debug.Log("App Quit");
         timerStart = DateTime.Now;
 
-        PlayerData newPlayerData = new PlayerData(currentLevel, currentStars, energyAmount, timerStart, timerEnd);
+        PlayerData newPlayerData = new PlayerData(energyAmount, timerStart, timerEnd, playerLevels);
         saveManager.SaveGame(newPlayerData);
     }
 
@@ -137,7 +145,7 @@ public class SessionManager : MonoBehaviour
     }
     private void LevelEndSession()
     {            
-        PlayerData newPlayerData = new PlayerData(currentLevel, currentStars, energyAmount, timerStart, timerEnd);
+        PlayerData newPlayerData = new PlayerData(energyAmount, timerStart, timerEnd, playerLevels);
         saveManager.SaveGame(newPlayerData);
 
         
@@ -253,5 +261,10 @@ public class SessionManager : MonoBehaviour
     {
         if (energyCounterText != null)
             energyCounterText.text = energyAmount.ToString() + "/" + maxEnergy.ToString();
+    }
+
+    public void SetStarsAmount(string key, int newAmount)
+    {
+        playerLevels[key] = newAmount;
     }
 }

@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] //Temp
     public LevelObject levelVariables;
 
+    [SerializeField, Tooltip("Nome do nivel no save manager, o nome e composto de 'level' + um numero")]
+    private string levelSaveName;
+
     /*[SerializeField]
     private ScriptableObject[] levelMaps; // mapas vao aqui*/
 
@@ -354,15 +357,18 @@ public class GameManager : MonoBehaviour
         if(actionsMade <= levelVariables.threeStarsAmount)
         {
             //Debug.Log("***");
+            SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
             GameEvents.OnThreeStar(AudioManager.SoundEffects.ThreeStar);
         }
         else if( actionsMade <= levelVariables.twoStarsAmount)
         {
+            SessionManager.Instance.SetStarsAmount(levelSaveName, 2);
             GameEvents.OnTwoStar(AudioManager.SoundEffects.TwoStar);
             //Debug.Log("**");
         }
         else if(actionsMade >= levelVariables.oneStarAmount)
         {
+            SessionManager.Instance.SetStarsAmount(levelSaveName, 1);
             GameEvents.OnOneStar(AudioManager.SoundEffects.OneStar);
             //Debug.Log("*");
         }
