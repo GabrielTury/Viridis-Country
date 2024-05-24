@@ -110,11 +110,11 @@ public class MainMenuManager : MonoBehaviour
             //transitionCamera.transform.rotation = mainCamera.transform.rotation;
             //StartCoroutine(SmoothStepToTarget(transitionCamera.transform, cameraPositionTarget, 2, cameraRotationTarget));
             StopCoroutine(cameraBegin);
-            StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2));
+            StartCoroutine(SmoothStepToTarget(mainCamera.transform, new Vector3(0, 0.525f, -1.277f), 2-0.75f));
             StopCoroutine(blackoutImageCoroutine);
-            blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), 2));
+            blackoutImageCoroutine = StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 255), 2-0.75f));
             StartCoroutine(FadeColor(tooltipImage, new Color(255, 255, 255, 0), 1));
-            StartCoroutine(FadeAfterSeconds(2.5f));
+            StartCoroutine(FadeAfterSeconds(2.5f-0.75f));
             //Destroy(mainCamera);
         }
     }

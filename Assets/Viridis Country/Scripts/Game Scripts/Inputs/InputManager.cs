@@ -153,7 +153,7 @@ public class InputManager : MonoBehaviour
 
 
             MoveCameraOnBorder(currentTouchPosition);
-            Debug.Log("Input GG" + currentTouchPosition);
+            //Debug.Log("Input GG" + currentTouchPosition);
             yield return null;
         }
 

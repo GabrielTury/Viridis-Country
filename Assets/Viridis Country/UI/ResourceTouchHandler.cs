@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Services.Analytics.Internal;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 using UnityEngine.XR;
 using static GameManager;
 
-public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
+public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler
 {
     private GameManager gameManager;
 
@@ -302,7 +303,33 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         cachedPointer = eventData;
-        Debug.Log("cached");
+        if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon") && isFocused)
+        {
+            GameObject boxObj = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
+            if (boxObj.name.Contains("Box"))
+            {
+                lastBuildingBox = boxObj;
+                lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (lastBuildingBox.name.Contains("Box"))
+        {
+            lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("DOWNNN");
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log("UPP");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -336,7 +363,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
                 lastBuildingBox = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
-                lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
+                //lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
 
                 constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
                 constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
@@ -422,7 +449,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Preview") || isHoldingBuilding == true || priorityTrash == true)
                 {
                     MoveCameraOnBorder(Touchscreen.current.primaryTouch.position.ReadValue());
-                    Debug.Log("Input Ryann" + Touchscreen.current.primaryTouch.position.ReadValue());
+                    //Debug.Log("Input Ryann" + Touchscreen.current.primaryTouch.position.ReadValue());
                     
 
                     if (constructionHeld)
@@ -552,6 +579,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         if (lastBuildingBox != null)
         {
             lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+            //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABB");
         }
     }
 
@@ -621,6 +649,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     private IEnumerator SmoothReturn(Image objTransform, Vector2 targetPosition, float duration)
     {
+        if (lastBuildingBox != null)
+        {
+            if (lastBuildingBox.name.Contains("Box"))
+            {
+                lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
+            }
+        }
+        
+        
         smoothReturnEnded = false;
         Vector3 startPosition = objTransform.rectTransform.anchoredPosition;
         float lerp = 0;
