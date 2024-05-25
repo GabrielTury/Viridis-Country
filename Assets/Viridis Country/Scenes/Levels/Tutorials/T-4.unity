@@ -2192,6 +2192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelVariables: {fileID: 11400000, guid: 3072311391e9b13488787feef07b08d5, type: 2}
+  levelSaveName: level 4
   actionsMade: 0
   zeroAmount: 0
   woodAmount: 0
@@ -2237,7 +2238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragObjectHeight: 0.5
-  cameraMoveSpeed: 10
   minXPos: -8
   maxXPos: -4
   minZPos: -16
