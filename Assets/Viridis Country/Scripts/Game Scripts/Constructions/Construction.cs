@@ -80,6 +80,11 @@ public class Construction : MonoBehaviour
                 RemoveConstruction();
             }
 
+            if (!isDestroying && !placedOnStart)
+                GameEvents.OnConstructionPlaced(cType);
+            else if (placedOnStart)
+                placedOnStart = false;
+
             SnapToGrid();
 
             for(int i = 0; i < resourceToGather.Length; i++)
@@ -88,9 +93,6 @@ public class Construction : MonoBehaviour
                 //Debug.Log("Chamou com: " + resourceToGather[i]);
 
             }
-
-            if(!isDestroying && !placedOnStart)
-                GameEvents.OnConstructionPlaced(cType);
 
             if(isBeingDragged)
                 SetDragging(false);

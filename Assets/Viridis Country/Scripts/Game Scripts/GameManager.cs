@@ -240,6 +240,8 @@ public class GameManager : MonoBehaviour
 
         if(objectivesMet)
         {
+            //actionsMade++;//gambiarra temporaria ate consertar a ordem de quando se chama o actions made e o check de objetivos
+            LevelEnd();
             GameEvents.OnLevelEnd();
         }
     }
@@ -356,7 +358,7 @@ public class GameManager : MonoBehaviour
     {
         if(actionsMade <= levelVariables.threeStarsAmount)
         {
-            //Debug.Log("***");
+            Debug.Log("***");
             SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
             GameEvents.OnThreeStar(AudioManager.SoundEffects.ThreeStar);
         }
@@ -364,13 +366,13 @@ public class GameManager : MonoBehaviour
         {
             SessionManager.Instance.SetStarsAmount(levelSaveName, 2);
             GameEvents.OnTwoStar(AudioManager.SoundEffects.TwoStar);
-            //Debug.Log("**");
+            Debug.Log("**");
         }
         else if(actionsMade >= levelVariables.oneStarAmount)
         {
             SessionManager.Instance.SetStarsAmount(levelSaveName, 1);
             GameEvents.OnOneStar(AudioManager.SoundEffects.OneStar);
-            //Debug.Log("*");
+            Debug.Log("*");
         }
         Debug.Log("Terminou o Level com: " + actionsMade + " acoes");
 
@@ -388,13 +390,13 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.Construction_Placed += ActionCounter;
         GameEvents.Resource_Gathered += GetGatheredResources;
-        GameEvents.Level_End += LevelEnd;
+
     }
 
     private void OnDisable()
     {
         GameEvents.Resource_Gathered -= GetGatheredResources;
-        GameEvents.Level_End -= LevelEnd;
+
         GameEvents.Construction_Placed -= ActionCounter;
     }
 

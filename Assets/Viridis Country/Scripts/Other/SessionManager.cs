@@ -265,7 +265,9 @@ public class SessionManager : MonoBehaviour
 
     public void SetStarsAmount(string key, int newAmount)
     {
+        Debug.Log("Set Stars Amount Called with: " + newAmount);
         playerLevels[key] = newAmount;
+        Debug.Log("value for that key: " + playerLevels[key]);
     }
 
     [ContextMenu("OverWriteLevelsDictionary")]
