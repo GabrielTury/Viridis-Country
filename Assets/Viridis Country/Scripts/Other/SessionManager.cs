@@ -46,7 +46,7 @@ public class SessionManager : MonoBehaviour
     private bool isAdsInitialized = false;
 
     public Dictionary<string, int> playerLevels { get; private set; } 
-           = new Dictionary<string, int>();
+           
 
     [SerializeField]
     private int playableLevels;
@@ -88,7 +88,7 @@ public class SessionManager : MonoBehaviour
         {
             Debug.Log("Used Default save Values");
             energyAmount = maxEnergy;
-
+            playerLevels = new Dictionary<string, int>();
             for(int i = 0; i < playableLevels; i++)
             {
                 playerLevels.Add("level " + i, 0);
@@ -266,5 +266,15 @@ public class SessionManager : MonoBehaviour
     public void SetStarsAmount(string key, int newAmount)
     {
         playerLevels[key] = newAmount;
+    }
+
+    [ContextMenu("OverWriteLevelsDictionary")]
+    public void OverWriteDictionary()
+    {
+        playerLevels = new Dictionary<string, int>();
+        for (int i = 0; i < playableLevels; i++)
+        {
+            playerLevels.Add("level " + (i+1), 0);
+        }
     }
 }
