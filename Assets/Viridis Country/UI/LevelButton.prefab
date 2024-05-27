@@ -513,3 +513,6 @@ MonoBehaviour:
   star1: {fileID: 7816000076376397549}
   star2: {fileID: 3261361474709330626}
   star3: {fileID: 7035136525423114038}
+  starSprites:
+  - {fileID: 21300000, guid: 09f8ee835780ad54aa95675b00a34447, type: 3}
+  - {fileID: 21300000, guid: 0013e67b7c16c1f49b5f1b07615ccacc, type: 3}

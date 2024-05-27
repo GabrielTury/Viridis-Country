@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18133385, g: 0.22694878, b: 0.30736873, a: 1}
+  m_IndirectSpecularColor: {r: 0.1813342, g: 0.22694923, b: 0.30736917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1970,17 +1970,17 @@ MonoBehaviour:
     data like level completions and time spent on levels, we can improve the experience
     for everyone. No personal information will be collected.
 
-    
 
-    We collect
-    this data to identify and fix challenging or problematic areas in the game, to
-    enhance game balance and design in order to provide better updates and new features.
+
+    We collect this
+    data to identify and fix challenging or problematic areas in the game, to enhance
+    game balance and design in order to provide better updates and new features.
     This data is only submitted when you are online.'
   - 'Adorariamos sua ajuda para tornar nosso jogo melhor. Ao nos permitir coletar
     dados de jogo, como conclusao de niveis e tempo gasto nos niveis, podemos melhorar
     a experiencia para todos. Nenhuma informacao pessoal sera coletada.
 
-    
+
 
     Coletamos
     esses dados para identificar e corrigir areas desafiadoras ou problematicas no
@@ -2008,7 +2008,14 @@ MonoBehaviour:
   - ARABIC
   - ITALIAN
   - FINNISH
-  - FRENCH
+  - "Nous serions ravis de votre aide pour am\xE9liorer notre jeu. En nous permettant
+    de collecter des donn\xE9es de jeu telles que les niveaux termin\xE9s et le temps
+    pass\xE9 sur les niveaux, nous pouvons am\xE9liorer l'exp\xE9rience de chacun.
+    Aucune information personnelle ne sera collect\xE9e ou partag\xE9e.\r\n\r\nNous
+    collectons ces donn\xE9es pour identifier et corriger les zones difficiles ou
+    probl\xE9matiques du jeu, pour am\xE9liorer l'\xE9quilibre et la conception du
+    jeu afin de fournir de meilleures mises \xE0 jour et de nouvelles fonctionnalit\xE9s.
+    Ces donn\xE9es ne sont soumises que lorsque vous \xEAtes en ligne."
   - HEBREW
   - "Szeretn\xE9nk seg\xEDts\xE9g\xE9t k\xE9rni j\xE1t\xE9kunk jobb\xE1 t\xE9tel\xE9hez.
     Ha lehet\u0151v\xE9 teszi sz\xE1munkra, hogy j\xE1t\xE9kmeneti adatokat gy\u0171jts\xFCnk,
@@ -4412,7 +4419,7 @@ MonoBehaviour:
     gameplay data like level completions and time spent on levels, we can improve
     the experience for everyone. No personal information will be collected.
 
-    
+
 
     We
     collect this data to identify and fix challenging or problematic areas in the
@@ -4445,7 +4452,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.75
+  m_fontSize: 57.1
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1

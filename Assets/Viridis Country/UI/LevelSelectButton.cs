@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(1)]
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField]
@@ -21,18 +22,32 @@ public class LevelSelectButton : MonoBehaviour
 
     private Color32 selfColor;
 
+    [SerializeField]
+    private Sprite[] starSprites;
+
     // Start is called before the first frame update
     void Start()
     {
-        selfImage = GetComponent<Image>();
+        selfImage = GetComponent<Image>();        
 
         selfColor = selfImage.color;
 
-        /* 
-        if (<previous stage is not completed>) {
-            selfImage.color = new Color32(selfImage.color.r - 50, selfImage.color.g - 50, selfImage.color.b - 50, 155);
+        bool isntAvailable;
+
+        if (levelID > 1)
+        {
+            isntAvailable = SessionManager.Instance.playerLevels["level " + (levelID - 1)] == 0 && levelID > 1;
+        } else
+        {
+            isntAvailable = false;
         }
-        */
+        
+
+        if (isntAvailable) {
+            selfImage.color = new Color32((byte)(selfImage.color.r - 50), (byte)(selfImage.color.g - 50), (byte)(selfImage.color.b - 50), 125);
+        }
+
+        
 
         star1.rectTransform.anchoredPosition = new Vector2(0, 0);
         star2.rectTransform.anchoredPosition = new Vector2(0, 0);
@@ -48,11 +63,49 @@ public class LevelSelectButton : MonoBehaviour
         StartCoroutine(SmoothMoveToWithDelay(star2, new Vector2(0, 200), 0.2f, levelID * 0.05f));
         StartCoroutine(SmoothMoveToWithDelay(star3, new Vector2(125, 175), 0.2f, levelID * 0.05f));
 
-        StartCoroutine(FadeColorWithDelay(star1, new Color32(255, 255, 255, 255), 0.2f, levelID * 0.05f));
-        StartCoroutine(FadeColorWithDelay(star2, new Color32(255, 255, 255, 255), 0.2f, levelID * 0.05f));
-        StartCoroutine(FadeColorWithDelay(star3, new Color32(255, 255, 255, 255), 0.2f, levelID * 0.05f));
+        StartCoroutine(FadeColorWithDelay(star1, new Color32(255, 255, 255, (byte)(isntAvailable == true ? 155 : 255)), 0.2f, levelID * 0.05f));
+        StartCoroutine(FadeColorWithDelay(star2, new Color32(255, 255, 255, (byte)(isntAvailable == true ? 155 : 255)), 0.2f, levelID * 0.05f));
+        StartCoroutine(FadeColorWithDelay(star3, new Color32(255, 255, 255, (byte)(isntAvailable == true ? 155 : 255)), 0.2f, levelID * 0.05f));
 
         StartCoroutine(SmoothScaleWithDelay(selfImage, new Vector2(1,1), 0.2f, levelID * 0.05f));
+
+        
+        switch (SessionManager.Instance.playerLevels["level " + levelID])
+        {
+            case 0:
+
+                star1.sprite = starSprites[1];
+                star2.sprite = starSprites[1];
+                star3.sprite = starSprites[1];
+                break;
+
+            case 1:
+
+                star1.sprite = starSprites[0];
+                star2.sprite = starSprites[1];
+                star3.sprite = starSprites[1];
+                break;
+
+            case 2:
+
+                star1.sprite = starSprites[0];
+                star2.sprite = starSprites[0];
+                star3.sprite = starSprites[1];
+                break;
+
+            case 3:
+
+                star1.sprite = starSprites[0];
+                star2.sprite = starSprites[0];
+                star3.sprite = starSprites[0];
+                break;
+
+            default:
+                star1.sprite = starSprites[1];
+                star2.sprite = starSprites[1];
+                star3.sprite = starSprites[1];
+                break;
+        }
 
     }
 

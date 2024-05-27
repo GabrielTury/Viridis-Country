@@ -123,9 +123,20 @@ public class MainMenuManager : MonoBehaviour
     {
         if (hasGoneToStage == false && SessionManager.Instance.energyAmount > 0)
         {
-            hasGoneToStage = true;
-            PlayerPrefs.SetInt("LEVELID", levelID);
-            StartCoroutine(FadeToLevel(0.75f, levelID));
+            if (levelID > 1)
+            {
+                if (SessionManager.Instance.playerLevels["level " + (levelID - 1)] != 0)
+                {
+                    hasGoneToStage = true;
+                    PlayerPrefs.SetInt("LEVELID", levelID);
+                    StartCoroutine(FadeToLevel(0.75f, levelID));
+                }
+            } else
+            {
+                hasGoneToStage = true;
+                PlayerPrefs.SetInt("LEVELID", levelID);
+                StartCoroutine(FadeToLevel(0.75f, levelID));
+            }
         }
         
     }

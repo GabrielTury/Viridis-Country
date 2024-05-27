@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Newtonsoft.Json;
 using UnityEditor;
-
+[DefaultExecutionOrder(-1)]
 public class SaveManager : MonoBehaviour
 {
     private string savePath;
