@@ -25,6 +25,10 @@ public class InputManager : MonoBehaviour
 
     private Inputs inputs;
 
+    private Coroutine dragCoroutine;
+
+    private float dragCooldown;
+
     private bool isDragging;
 
     public bool canDrag = true;
@@ -47,12 +51,10 @@ public class InputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 é a layer das construções
+            if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 ï¿½ a layer das construï¿½ï¿½es
             {
                 Debug.Log(hit.collider.gameObject.name);
-                StartCoroutine(Drag(hit.collider.gameObject));
-                if(canDrag)
-                    hit.collider.gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
+                dragCoroutine = StartCoroutine(Drag(hit.collider.gameObject));
             }
             else
             {
@@ -69,6 +71,8 @@ public class InputManager : MonoBehaviour
     {
         isDragging = false;
         isMovingCamera = false;
+        if (dragCooldown < 0.5f)
+            StopCoroutine(dragCoroutine);
     }
     #endregion
     private IEnumerator MoveCamera(Vector2 startTouchPosition)
@@ -130,12 +134,24 @@ public class InputManager : MonoBehaviour
     private IEnumerator Drag(GameObject obj)
     {
         float dist = Vector3.Distance(obj.transform.position, mainCamera.transform.position);
-
+        Construction construction = obj.GetComponent<Construction>();
+        Coroutine check = null;
         //Debug.Log("Drag");
         isDragging = true;
         //Vector3 offset = transform.position - worldPos;
+        dragCooldown = 0;
+        while(dragCooldown < 0.5f)
+        {
+            dragCooldown += Time.deltaTime;
+            if(dragCooldown > 0.5f)
+            {
+                if (canDrag)
+                    obj.GetComponent<Collider>().gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
+            }
+            yield return new WaitForEndOfFrame();
+        }
 
-        while(isDragging && canDrag)
+        while(isDragging && canDrag && dragCooldown > 0.5f)
         {
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             //Debug.Log("Touch Pos:" + currentTouchPosition);
@@ -144,7 +160,7 @@ public class InputManager : MonoBehaviour
             Vector3 position = new Vector3(currentTouchPosition.x, currentTouchPosition.y, mainCamera.WorldToScreenPoint(obj.transform.position).z); //transforma o z do objeto em um ponto na tela
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(position); //transforma os pontos na tela em coordenadas                                                                        
 
-            worldPosition.y = dragObjectHeight; //sobrescreve altura do objeto que está sen arrastado
+            worldPosition.y = dragObjectHeight; //sobrescreve altura do objeto que estï¿½ sen arrastado
 
             obj.transform.position = worldPosition;
             //Debug.Log("Camera width" + mainCamera.pixelWidth);
@@ -153,12 +169,22 @@ public class InputManager : MonoBehaviour
 
 
             MoveCameraOnBorder(currentTouchPosition);
+            if(check == null)
+                check = StartCoroutine(construction.CheckFuturePosition());
+
             //Debug.Log("Input GG" + currentTouchPosition);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
 
-        if(canDrag)
-            obj.SendMessage("SetDragging", false); //avisa o objeto que ele não está sendo mais carregado
+        if (canDrag && dragCooldown > 0.5f)
+        {
+            Debug.Log("Cooldown: "+dragCooldown);
+            
+            if(check != null)
+                StopCoroutine(check);
+
+            obj.SendMessage("SetDragging", false); //avisa o objeto que ele nï¿½o estï¿½ sendo mais carregado
+        }
     }
 
     private void MoveCameraOnBorder(Vector2 currentTouchPosition)
@@ -309,7 +335,7 @@ public class InputManager : MonoBehaviour
        inputs.Enable();
         inputs.TouchInputs.Touch.performed += Touch_performed; //se inscreve para o evento performed
         inputs.TouchInputs.Touch.canceled += Touch_canceled;  //se inscreve para o evento canceled
-        inputs.TouchInputs.SecondaryTouchContact.started += _ => ZoomStart(); //o _ indica que não precisa de receber o argumento que o evento passa (o contexto no caso)
+        inputs.TouchInputs.SecondaryTouchContact.started += _ => ZoomStart(); //o _ indica que nï¿½o precisa de receber o argumento que o evento passa (o contexto no caso)
         inputs.TouchInputs.SecondaryTouchContact.canceled += _ => ZoomEnd();
     }
     private void OnDisable()

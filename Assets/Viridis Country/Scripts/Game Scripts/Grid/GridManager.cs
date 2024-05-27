@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GridCell;
 
 [DefaultExecutionOrder(-1)]
 public class GridManager : MonoBehaviour
@@ -65,6 +66,29 @@ public class GridManager : MonoBehaviour
             
         }
 
+        return nearestCellPosition;
+    }
+
+    public Vector3 CheckNearestCell(Vector3 currentPosition, GridCell.TileType tileType)
+    {
+        Vector3 nearestCellPosition = new Vector3();
+        float distance = 0;
+
+        foreach (GridCell cell in gridCells)
+        {
+            float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
+
+            if (distance == 0 && cell.isAvailable)
+            {
+                nearestCellPosition = cell.transform.position;
+                distance = cellDistance;
+            }
+            else if (cellDistance < distance && cell.isAvailable && cell.tileType == tileType)
+            {
+                nearestCellPosition = cell.transform.position;
+                distance = cellDistance;
+            }
+        }
         return nearestCellPosition;
     }
 
