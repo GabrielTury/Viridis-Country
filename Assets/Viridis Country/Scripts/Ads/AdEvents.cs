@@ -14,5 +14,8 @@ public static class AdEvents
 
     public static event UnityAction Ads_Initialized;
     public static void OnAdsInitialized() => Ads_Initialized?.Invoke();
+
+    public static event UnityAction Player_Initialized;
+    public static void OnPlayerInitialized() => Player_Initialized?.Invoke();
     
 }

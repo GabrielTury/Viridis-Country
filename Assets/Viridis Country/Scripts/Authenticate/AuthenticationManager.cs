@@ -33,7 +33,7 @@ public class AuthenticationManager : MonoBehaviour
 
             const string successMessage = "Sign in anonymously succeeded!";
             Debug.Log(successMessage);
-
+            AdEvents.OnPlayerInitialized();
         };
     }
 
