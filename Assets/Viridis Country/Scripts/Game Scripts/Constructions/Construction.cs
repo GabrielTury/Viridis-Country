@@ -9,6 +9,8 @@ public class Construction : MonoBehaviour
 {
     private ResourceTouchHandler touchHandler;
 
+    private MeshRenderer meshRenderer;
+
     private bool isBeingDragged;
 
     public ConstructionTemplate construcion;
@@ -36,8 +38,9 @@ public class Construction : MonoBehaviour
 
     private void OnEnable()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
-        GetComponent<MeshRenderer>().material = construcion.material;   
+        meshRenderer.material = construcion.material;   
         gatherRadius = construcion.gatherRadius;
         resourceToGather = construcion.resourceToGather;
         tileType = construcion.tileType;
@@ -59,6 +62,24 @@ public class Construction : MonoBehaviour
     {
         //SetDragging(false);
         touchHandler = ResourceTouchHandler.Instance;
+    }
+
+    public IEnumerator CheckFuturePosition()
+    {
+        while(isBeingDragged)
+        {
+            if(Vector3.Distance(GridManager.Instance.CheckNearestCell(this.transform.position, tileType), transform.position) > 0.8f)
+            {
+                if (meshRenderer.material.color != Color.red)
+                    meshRenderer.material.color = Color.red;                                    
+            }
+            else if(Vector3.Distance(GridManager.Instance.CheckNearestCell(this.transform.position, tileType), transform.position) < 0.8f)
+            {
+                if(meshRenderer.material.color != Color.white)
+                    meshRenderer.material.color = Color.white;  
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     private void PlacedOnStart()
@@ -100,7 +121,7 @@ public class Construction : MonoBehaviour
         else if (currentCell != null && isBeingDragged && !currentCell.isAvailable) //chamado quando ele tem um celula porém é retirado dessa célula
         {
             currentCell.SetAvailability(true);
-            Debug.Log("Levantou");
+            //Debug.Log("Levantou");
 
             if (touchHandler)
             {
@@ -160,7 +181,7 @@ public class Construction : MonoBehaviour
             RemoveConstruction();
             return;
         }
-        if(Vector3.Distance(currentCell.transform.position, this.transform.position) > 1f && currentCell != null)
+        if(Vector3.Distance(currentCell.transform.position, this.transform.position) > 0.8f && currentCell != null)
         {
             RemoveConstruction();
             return;

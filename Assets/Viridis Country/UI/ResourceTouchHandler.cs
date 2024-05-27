@@ -544,7 +544,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 constructionPlaced.GetComponent<Construction>().construcion = constructionHeldScriptableObject;
                 constructionPlaced.SetActive(true);
                 constructionPlaced.GetComponent<Construction>().SetDragging(false);
-                //constructionPlaced.GetComponent<Construction>().SetDragging(true);
+                
             }
             else
             {
