@@ -88,12 +88,28 @@ public class AchievemntsManager : MonoBehaviour
         });
     }
 
+    void ReportAchievement(string achievementID, double progress = 100.0)
+    {
+        Social.ReportProgress(achievementID, progress, success => {
+            if (success)
+            {
+                Debug.Log("Conquista reportada com sucesso.");
+            }
+            else
+            {
+                Debug.Log("Falha ao reportar conquista.");
+            }
+        });
+    }
+
     private void OnEnable()
     {
         AdEvents.Player_Initialized += CreateAchievements;
+        AdEvents.Achievement_Completed += ReportAchievement;
     }
     private void OnDisable()
     {
         AdEvents.Player_Initialized -= CreateAchievements;
+        AdEvents.Achievement_Completed -= ReportAchievement;
     }
 }

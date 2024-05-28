@@ -17,5 +17,8 @@ public static class AdEvents
 
     public static event UnityAction Player_Initialized;
     public static void OnPlayerInitialized() => Player_Initialized?.Invoke();
+
+    public static event UnityAction<string, double> Achievement_Completed;
+    public static void OnAchievementCompleted(string id, double progress) => Achievement_Completed?.Invoke(id, progress);
     
 }

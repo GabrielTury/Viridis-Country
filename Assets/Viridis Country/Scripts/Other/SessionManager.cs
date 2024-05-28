@@ -149,6 +149,19 @@ public class SessionManager : MonoBehaviour
         PlayerData newPlayerData = new PlayerData(energyAmount, timerStart, timerEnd, playerLevels);
         saveManager.SaveGame(newPlayerData);
 
+        int totalStars = 0;
+        foreach(var a in playerLevels)
+        {
+            totalStars += a.Value;
+        }
+        if(totalStars >= 30)
+        {
+            AdEvents.OnAchievementCompleted("Achievement05", 100);
+        }
+        else if(totalStars >= 10)
+        {
+            AdEvents.OnAchievementCompleted("Achievement04", 100);
+        }
         
     }
 
