@@ -12,6 +12,8 @@ public class GridCell : MonoBehaviour
 
     public float simplePosZ { get; private set; }
 
+    
+    private ParticleSystem collectedEffect;
     public GameManager.GameResources[] resource
     {
         get;
@@ -43,6 +45,7 @@ public class GridCell : MonoBehaviour
     {
         isAvailable = true;
         isColectible = true;
+        collectedEffect = GetComponentInChildren<ParticleSystem>();
 
         simplePosX = transform.position.x;
         simplePosZ = transform.position.z;
@@ -67,6 +70,15 @@ public class GridCell : MonoBehaviour
     public void SetColectability(bool newValue)
     {
         isColectible = newValue;
+
+        if(!isColectible) //caso esteja sendo coletado
+        {            
+            collectedEffect.Play();
+        }
+        else
+        {
+            collectedEffect.Stop();
+        }
     }
 
 
