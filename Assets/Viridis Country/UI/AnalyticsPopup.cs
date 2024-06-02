@@ -134,6 +134,12 @@ public class AnalyticsPopup : MonoBehaviour
             case SystemLanguage.Swedish:
                 index = 28;
                 break;
+            case SystemLanguage.SerboCroatian:
+                index = 29;
+                break;
+            case SystemLanguage.Dutch:
+                index = 30;
+                break;
             default:
                 index = 0;
                 break;

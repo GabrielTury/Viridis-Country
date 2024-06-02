@@ -64,6 +64,12 @@ public class MainMenuManager : MonoBehaviour
     private bool hasGoneToLevelSel = false;
     private bool hasGoneToStage = false;
 
+    [SerializeField]
+    private Image energyHandler;
+
+    [SerializeField]
+    private GameObject buyEnergyMenuPrefab;
+
     void Start()
     {
         planetTransform = planet.transform;
@@ -141,6 +147,11 @@ public class MainMenuManager : MonoBehaviour
         
     }
 
+    public void BuyEnergyPopup()
+    {
+        Instantiate(buyEnergyMenuPrefab, sceneCanvas.transform);
+    }
+
     private IEnumerator SmoothStepToTarget(Transform objTransform, Vector3 targetPosition, float duration, Vector3 targetRotation = default)
     {
         Vector3 startPosition = objTransform.localPosition;
@@ -188,6 +199,8 @@ public class MainMenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
 
+        StartCoroutine(SmoothMove(energyHandler, new Vector2(0, 985), 0.5F));
+
         StopCoroutine(blackoutImageCoroutine);
         StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 0), 1));
         levelSelectBGImage.gameObject.SetActive(true);
@@ -200,5 +213,22 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
 
         SceneManager.LoadScene(levelID);
+    }
+
+    private IEnumerator SmoothMove(Image objTransform, Vector2 targetPosition, float duration)
+    {
+        Vector3 startPosition = objTransform.rectTransform.anchoredPosition;
+        float lerp = 0;
+        float smoothLerp = 0;
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            objTransform.rectTransform.anchoredPosition = Vector3.Lerp(startPosition, targetPosition, smoothLerp);
+            yield return null;
+        }
+
+        objTransform.rectTransform.anchoredPosition = targetPosition;
     }
 }

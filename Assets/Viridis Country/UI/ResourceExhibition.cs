@@ -73,10 +73,15 @@ public class ResourceExhibition : MonoBehaviour
     [SerializeField]
     private Image pauseIcon;
 
+    [SerializeField]
+    private Image blackout;
+
     // Start is called before the first frame update
     void Start()
     {
         resourceBackground.rectTransform.anchoredPosition = new Vector2(0, 500);
+
+        StartCoroutine(FadeColor(blackout, new Color32(0, 0, 0, 0), 0.3f));
 
         StartCoroutine(SmoothMove(resourceBackground, new Vector2(0, 0), 0.4f));
 
@@ -442,6 +447,20 @@ public class ResourceExhibition : MonoBehaviour
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / time);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
             text.color = Color.Lerp(prevColor, new Color32(255, 255, 255, 0), smoothLerp);
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeColor(Image img, Color32 targetColor, float time)
+    {
+        float lerp = 0;
+        float smoothLerp = 0;
+        Color32 prevColor = img.color;
+        while (lerp < 1 && time > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / time);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            img.color = Color.Lerp(prevColor, targetColor, smoothLerp);
             yield return null;
         }
     }

@@ -36,7 +36,13 @@ public class LevelSelectButton : MonoBehaviour
 
         if (levelID > 1)
         {
-            isntAvailable = SessionManager.Instance.playerLevels["level " + (levelID - 1)] == 0 && levelID > 1;
+            if (SessionManager.Instance.playerLevels["level " + (levelID - 1)] == 0)
+            {
+                isntAvailable = true;
+            } else
+            {
+                isntAvailable = false;
+            }
         } else
         {
             isntAvailable = false;
