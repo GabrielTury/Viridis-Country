@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour
     {
         isDragging = false;
         isMovingCamera = false;
-        if (dragCooldown < 0.5f)
+        if (dragCooldown < 0.5f && dragCoroutine != null)
             StopCoroutine(dragCoroutine);
     }
     #endregion
