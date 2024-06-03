@@ -119,3 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   construcion: {fileID: 11400000, guid: 62b76af5bbb4cc443a400f0307f33cd5, type: 2}
+  renderImage: {fileID: 6236049130745409330, guid: 356ad986f6462c8489d52773cd89cdea,
+    type: 3}

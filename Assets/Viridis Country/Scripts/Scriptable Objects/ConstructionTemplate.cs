@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "new Construction", menuName = "Construction")]
 public class ConstructionTemplate : ScriptableObject
@@ -21,4 +22,6 @@ public class ConstructionTemplate : ScriptableObject
     public GridCell.TileType tileType;
 
     public AudioManager.ConstructionAudioTypes constructionType;
+
+    public Sprite renderSprite;
 }

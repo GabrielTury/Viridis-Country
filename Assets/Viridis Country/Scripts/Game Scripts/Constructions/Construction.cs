@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Construction : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Construction : MonoBehaviour
 
     private GridCell currentCell;
 
+    private GridCell previousCell;
+
     private GridCell.TileType tileType;
 
     private AudioManager.ConstructionAudioTypes cType;
@@ -36,8 +39,17 @@ public class Construction : MonoBehaviour
 
     private bool placedOnStart = false;
 
+    private GameObject canvas;
+
+    [SerializeField]
+    private Image renderImage;
+
+    private Image renderClone;
+
     private void OnEnable()
     {
+        canvas = FindFirstObjectByType<Canvas>().gameObject;
+
         meshRenderer = GetComponent<MeshRenderer>();
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
         meshRenderer.material = construcion.material;   
@@ -71,12 +83,28 @@ public class Construction : MonoBehaviour
             if(Vector3.Distance(GridManager.Instance.CheckNearestCell(this.transform.position, tileType), transform.position) > 0.8f)
             {
                 if (meshRenderer.material.color != Color.red)
-                    meshRenderer.material.color = Color.red;                                    
+                    meshRenderer.material.color = Color.red;
+                
+                if(renderClone != null)
+                {
+                    renderClone.gameObject.SetActive(false);
+                }
             }
             else if(Vector3.Distance(GridManager.Instance.CheckNearestCell(this.transform.position, tileType), transform.position) < 0.8f)
             {
                 if(meshRenderer.material.color != Color.white)
-                    meshRenderer.material.color = Color.white;  
+                    meshRenderer.material.color = Color.white;
+                if(renderClone == null)
+                {
+                    renderClone = Instantiate(renderImage, canvas.transform);
+                    renderClone.sprite = construcion.renderSprite;
+                }
+                else if (!renderClone.gameObject.activeInHierarchy)
+                {
+                    renderClone.gameObject.SetActive(true);
+                }
+                Vector3 a = GridManager.Instance.CheckNearestCell(this.transform.position, tileType) + new Vector3(0.5f, 0, 0.5f);
+                    renderClone.rectTransform.position = Camera.main.WorldToScreenPoint(a);
             }
             yield return new WaitForEndOfFrame();
         }
@@ -114,6 +142,8 @@ public class Construction : MonoBehaviour
                 //Debug.Log("Chamou com: " + resourceToGather[i]);
 
             }
+
+            Destroy(renderClone);
 
             if(isBeingDragged)
                 SetDragging(false);
@@ -168,6 +198,9 @@ public class Construction : MonoBehaviour
     /// </summary>
     public void SnapToGrid()
     {
+        if(currentCell != null)
+            previousCell = currentCell;
+
         Vector3 cellPos = GridManager.Instance.NearestCellPosition(transform.position, out currentCell, tileType);
 
         if(currentCell == null)
