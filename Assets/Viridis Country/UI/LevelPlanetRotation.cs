@@ -14,8 +14,8 @@ public class LevelPlanetRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var newRot = prevRotation + LevelSelectDrag.Instance.dragOffset;
+        var newRot = prevRotation + (LevelSelectDrag.Instance.dragOffset * 0.03f);
 
-        transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+        transform.rotation = Quaternion.Euler(newRot.y, 0, 0);
     }
 }
