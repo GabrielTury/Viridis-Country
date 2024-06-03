@@ -458,6 +458,8 @@ MonoBehaviour:
   maxZPos: 2.2
   canDrag: 0
   zoomSpeed: 20
+  grabTimerImage: {fileID: 2880980572876704560, guid: d73dceec4c1420c41bdf1d4769fae4ee,
+    type: 3}
 --- !u!4 &23078333
 Transform:
   m_ObjectHideFlags: 0
@@ -8613,6 +8615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResourceExhibitionCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889193816710799733, guid: 443c0887f05bd3f429ea2d5ba13ed722,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28901,6 +28908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425829563580178605, guid: 446021696dc2b5248a5203041dc942cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9215794895238870395, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}

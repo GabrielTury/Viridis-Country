@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.Windows;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -33,22 +35,32 @@ public class InputManager : MonoBehaviour
 
     public bool canDrag = true;
 
+    private RaycastHit hitTracker; 
+
     private Coroutine zoomCoroutine;
     [SerializeField]
     private float zoomSpeed;
 
+    [SerializeField]
+    private Image grabTimerImage;
+
+    private Image cloneTimerImage;
+
+    private GameObject canvas;
 
     private void Awake()
     {
         inputs = new Inputs();
         mainCamera = Camera.main;      
+
+        canvas = FindFirstObjectByType<Canvas>().gameObject;
     }
 
     #region Input Delegates
     private void Touch_performed(InputAction.CallbackContext obj)
     {
         Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
-        RaycastHit hit;
+        RaycastHit hit;        
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 � a layer das constru��es
@@ -73,6 +85,12 @@ public class InputManager : MonoBehaviour
         isMovingCamera = false;
         if (dragCooldown < 0.5f && dragCoroutine != null)
             StopCoroutine(dragCoroutine);
+
+        if(cloneTimerImage != null)
+        {
+            Destroy(cloneTimerImage.gameObject);
+            cloneTimerImage = null;
+        }
     }
     #endregion
     private IEnumerator MoveCamera(Vector2 startTouchPosition)
@@ -140,19 +158,39 @@ public class InputManager : MonoBehaviour
         isDragging = true;
         //Vector3 offset = transform.position - worldPos;
         dragCooldown = 0;
-        while(dragCooldown < 0.5f)
+        
+        cloneTimerImage = Instantiate(grabTimerImage, canvas.transform);
+        cloneTimerImage.rectTransform.position = Touchscreen.current.primaryTouch.position.ReadValue();
+        Color myColor = Color.white;
+        myColor.a = 0.5f;
+        cloneTimerImage.color = myColor;
+
+        while (dragCooldown < 0.5f)
         {
             dragCooldown += Time.deltaTime;
-            if(dragCooldown > 0.5f)
-            {
-                if (canDrag)
-                    obj.GetComponent<Collider>().gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
-            }
+            cloneTimerImage.fillAmount = dragCooldown * 2;
             yield return new WaitForEndOfFrame();
         }
 
-        while(isDragging && canDrag && dragCooldown > 0.5f)
+        Destroy(cloneTimerImage.gameObject);
+        cloneTimerImage = null;
+
+        Ray rayB = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
+        RaycastHit hit;
+        if (Physics.Raycast(rayB, out hit))
         {
+            if (hit.collider == null || hit.collider.gameObject.layer != 6) // 6 eh a layer das construcoes
+            {
+                StopCoroutine(dragCoroutine);
+                //Destroy(clone.gameObject);
+                yield break;
+            }
+        }
+
+        while (isDragging && canDrag && dragCooldown > 0.5f)
+        {
+            obj.GetComponent<Collider>().gameObject.SendMessage("SetDragging", true); //Avisa o objeto que esta sendo carregado
+
             Vector2 currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             //Debug.Log("Touch Pos:" + currentTouchPosition);
             Ray ray = mainCamera.ScreenPointToRay(currentTouchPosition);
@@ -178,7 +216,7 @@ public class InputManager : MonoBehaviour
 
         if (canDrag && dragCooldown > 0.5f)
         {
-            Debug.Log("Cooldown: "+dragCooldown);
+            Debug.Log("Cooldown: "+ dragCooldown);
             
             if(check != null)
                 StopCoroutine(check);
