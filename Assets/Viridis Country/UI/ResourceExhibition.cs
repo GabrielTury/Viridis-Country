@@ -451,7 +451,7 @@ public class ResourceExhibition : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeColor(Image img, Color32 targetColor, float time)
+    private IEnumerator FadeColor(Image img, Color32 targetColor, float time, bool destroyAfter = false)
     {
         float lerp = 0;
         float smoothLerp = 0;
@@ -463,6 +463,7 @@ public class ResourceExhibition : MonoBehaviour
             img.color = Color.Lerp(prevColor, targetColor, smoothLerp);
             yield return null;
         }
+        Destroy(img.gameObject);
     }
 
     private IEnumerator SmoothMove(Image objTransform, Vector2 targetPosition, float duration)

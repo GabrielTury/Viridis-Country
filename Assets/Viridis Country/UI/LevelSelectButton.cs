@@ -25,10 +25,17 @@ public class LevelSelectButton : MonoBehaviour
     [SerializeField]
     private Sprite[] starSprites;
 
+    [SerializeField]
+    private Image mapBorder;
+
+    private Vector3 ogPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        selfImage = GetComponent<Image>();        
+        selfImage = GetComponent<Image>();
+
+        ogPos = selfImage.rectTransform.anchoredPosition;
 
         selfColor = selfImage.color;
 
@@ -118,7 +125,18 @@ public class LevelSelectButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (LevelSelectDrag.Instance.isDragging)
+        {
+            //selfImage.rectTransform.position = ogPos + LevelSelectDrag.Instance.dragOffset;
+            var newPos = selfImage.rectTransform.anchoredPosition;
+            newPos.y = ogPos.y + LevelSelectDrag.Instance.dragOffset.y;
+            selfImage.rectTransform.anchoredPosition = newPos;
+        }
+        /*if (selfImage.rectTransform.position.y >= mapBorder.rectTransform.anchoredPosition.y)
+        {
+            selfImage.rectTransform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp((selfImage.rectTransform.anchoredPosition.y - mapBorder.rectTransform.anchoredPosition.y) * 0.004f, 0, 1));
+        }*/
+        selfImage.rectTransform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp(((selfImage.rectTransform.anchoredPosition.y) - (mapBorder.rectTransform.anchoredPosition.y - 350)) * 0.004f, 0, 1));
     }
 
     private IEnumerator SmoothMoveToWithDelay(Image obj, Vector2 targetPosition, float duration, float delay = 0f)

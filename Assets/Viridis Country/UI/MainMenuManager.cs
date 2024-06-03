@@ -70,6 +70,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject buyEnergyMenuPrefab;
 
+    [SerializeField]
+    private GameObject levelEarth;
+
     void Start()
     {
         planetTransform = planet.transform;
@@ -199,10 +202,11 @@ public class MainMenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
 
-        StartCoroutine(SmoothMove(energyHandler, new Vector2(0, 985), 0.5F));
+        StartCoroutine(SmoothMove(energyHandler, new Vector2(0, -170), 0.5F));
 
         StopCoroutine(blackoutImageCoroutine);
         StartCoroutine(FadeColor(blackoutImage, new Color32(0, 0, 0, 0), 1));
+        levelEarth.SetActive(true);
         levelSelectBGImage.gameObject.SetActive(true);
     }
 
