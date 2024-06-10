@@ -129,10 +129,10 @@ public class Construction : MonoBehaviour
                 RemoveConstruction();
             }
 
-            if (!isDestroying && !placedOnStart)
+/*            if (!isDestroying && !placedOnStart)
                 GameEvents.OnConstructionPlaced(cType);
             else if (placedOnStart)
-                placedOnStart = false;
+                placedOnStart = false;*/
 
             SnapToGrid();
 
@@ -219,6 +219,11 @@ public class Construction : MonoBehaviour
             RemoveConstruction();
             return;
         }
+
+        if (!isDestroying && !placedOnStart)
+            GameEvents.OnConstructionPlaced(cType);
+        else if (placedOnStart)
+            placedOnStart = false;
 
         currentCell.SetAvailability(false);
         for (int i = 0; i < currentCell.resource.Length; i++)

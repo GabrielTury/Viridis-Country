@@ -49,7 +49,7 @@ public class GridManager : MonoBehaviour
         {
             float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
 
-            if (distance == 0 && cell.isAvailable)
+            if (distance == 0 && cell.isAvailable && cell.tileType == tileType)
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;
@@ -78,7 +78,7 @@ public class GridManager : MonoBehaviour
         {
             float cellDistance = Vector3.Distance(cell.transform.position, currentPosition);
 
-            if (distance == 0 && cell.isAvailable)
+            if (distance == 0 && cell.isAvailable && cell.tileType == tileType)
             {
                 nearestCellPosition = cell.transform.position;
                 distance = cellDistance;

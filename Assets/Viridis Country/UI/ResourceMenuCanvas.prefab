@@ -304,6 +304,11 @@ MonoBehaviour:
     type: 3}
   trash: {fileID: 8525859589028192116}
   trashHelper: {fileID: 5280602189561292530}
+  minXPos: 0
+  maxXPos: 0
+  minZPos: 0
+  maxZPos: 0
+  emptyGo: {fileID: 6855577283684714512, guid: bdc089abfae0a0a4b854bf258436e5d9, type: 3}
 --- !u!1 &4575584931516558532
 GameObject:
   m_ObjectHideFlags: 0

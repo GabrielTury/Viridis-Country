@@ -60,22 +60,25 @@ public class InputManager : MonoBehaviour
     private void Touch_performed(InputAction.CallbackContext obj)
     {
         Ray ray = mainCamera.ScreenPointToRay(Touchscreen.current.primaryTouch.position.ReadValue());
-        RaycastHit hit;        
-        if (Physics.Raycast(ray, out hit))
+        RaycastHit hit;
+        if (canDrag)
         {
-            if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 � a layer das constru��es
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.gameObject.name);
-                dragCoroutine = StartCoroutine(Drag(hit.collider.gameObject));
+                if (hit.collider != null && hit.collider.gameObject.layer == 6) // 6 � a layer das constru��es
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                    dragCoroutine = StartCoroutine(Drag(hit.collider.gameObject));
+                }
+                else
+                {
+                    StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
+                }
             }
             else
             {
                 StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
             }
-        }
-        else
-        {
-            StartCoroutine(MoveCamera(Touchscreen.current.primaryTouch.position.ReadValue()));
         }
     }
 

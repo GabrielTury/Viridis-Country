@@ -2,6 +2,7 @@ using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Services.Analytics.Internal;
 using Unity.VisualScripting;
@@ -11,8 +12,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using static GameManager;
+using static GridCell;
 
-public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler
+public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
     private GameManager gameManager;
 
@@ -113,7 +115,19 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     [SerializeField]
     private float minXPos, maxXPos, minZPos, maxZPos;
 
+    [Header("GG"), Space(2)]
+    [SerializeField]
+    private GameObject emptyGo;
 
+    private Coroutine checkFuture;
+
+    private Vector3 buildPositionToCheck;
+
+    GameObject positionCheckObj;
+
+    Image renderClone;
+
+    #region Enalbe/Disable
     private void OnEnable()
     {
         GameEvents.Construction_Placed += UpdateActionText;
@@ -129,7 +143,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         GameEvents.Level_End -= ClearLevel;
         GameEvents.Select_Construction -= UpdateHandAnimGrow;
     }
-
+    #endregion
     private void ClearLevel()
     {
         Instantiate(clearLevelTemplate);
@@ -151,7 +165,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         StopCoroutine(handCoroutine);
         handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(1.2f, 1.2f), new Color32(255, 255, 255, 255), 0.3f));
     }
-
+    #region Trash Handlers
     public void RaiseTrash(GameObject refObj)
     {
         StopCoroutine(movementCoroutine);
@@ -174,7 +188,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
         movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
     }
-
+    #endregion
 
     private void Awake()
     {
@@ -321,17 +335,6 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
         }
     }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("DOWNNN");
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Debug.Log("UPP");
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         //cachedPointer = eventData;
@@ -451,7 +454,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                     MoveCameraOnBorder(Touchscreen.current.primaryTouch.position.ReadValue());
                     //Debug.Log("Input Ryann" + Touchscreen.current.primaryTouch.position.ReadValue());
                     
-
+                    
                     if (constructionHeld)
                     {
                         constructionHeld.rectTransform.anchoredPosition = eventData.position;
@@ -461,6 +464,20 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                         trashHelper.rectTransform.anchoredPosition = eventData.position;
                     }
 
+                    if(checkFuture == null)
+                    {
+                        checkFuture = StartCoroutine(CheckFuturePositionUI());
+                    }
+                    Vector3 buildPosition = Camera.main.ScreenToWorldPoint(new Vector3(eventData.pointerCurrentRaycast.screenPosition.x, 
+                                                                           eventData.pointerCurrentRaycast.screenPosition.y, Camera.main.nearClipPlane));
+
+                    Transform transformCam = Camera.main.transform;
+
+                    for (float i = 0; buildPosition.y > 0.5f; i = i + 0.1f)
+                    {
+                        buildPosition += transformCam.forward * Time.deltaTime * i;
+                    }
+                    buildPositionToCheck = buildPosition;
 
                     //Debug.Log("constructionPos.x = " + constructionHeld.rectTransform.anchoredPosition.x + ", \nconstruction.y = " + constructionHeld.rectTransform.anchoredPosition.y);
 
@@ -561,8 +578,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             //constructionPlaced.GetComponent<Construction>().GetResourcesInRange
             Destroy(constructionHeld.gameObject);
 
+
             isHoldingBuilding = false;
 
+            StopCoroutine(checkFuture);
+            Destroy(positionCheckObj);
+            positionCheckObj = null;
+            Destroy(renderClone);
+            renderClone = null;
+            checkFuture = null;
             //GameManager.Instance.actionsMade++;
             actionCounter.text = GameManager.Instance.actionsMade.ToString();
 
@@ -705,7 +729,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             return null;
         }
     }
-
+    #region Camera controllers
     private void MoveCameraOnBorder(Vector2 currentTouchPosition)
     {
         int direction = 0;
@@ -798,5 +822,47 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         {
             return true;
         }
+    }
+    #endregion
+    private IEnumerator CheckFuturePositionUI()
+    {
+        if(positionCheckObj == null)
+            positionCheckObj = Instantiate(emptyGo);
+
+        while (isHoldingBuilding)
+        {
+            positionCheckObj.transform.position = buildPositionToCheck;
+
+            if (Vector3.Distance(GridManager.Instance.CheckNearestCell(positionCheckObj.transform.position, constructionHeldScriptableObject.tileType), positionCheckObj.transform.position) > 0.8f)
+            {
+                if (constructionHeld.color != Color.red)
+                        constructionHeld.color = Color.red;
+
+                if (renderClone != null)
+                {
+                    renderClone.gameObject.SetActive(false);
+                }
+            }
+            else if (Vector3.Distance(GridManager.Instance.CheckNearestCell(positionCheckObj.transform.position, constructionHeldScriptableObject.tileType), positionCheckObj.transform.position) < 0.8f)
+            {
+                if (constructionHeld.color != Color.white)
+                        constructionHeld.color = Color.white;
+                if (renderClone == null)
+                {
+                    renderClone = Instantiate(constructionHeld, resourcePanelCanvas.transform);
+                    renderClone.rectTransform.localScale = Vector3.one * 1.7f;
+                    Color colorA = new Color(1, 1, 1, 0.5f);
+                    renderClone.color = colorA;
+                }
+                else if (!renderClone.gameObject.activeInHierarchy)
+                {
+                    renderClone.gameObject.SetActive(true);
+                }
+                Vector3 a = GridManager.Instance.CheckNearestCell(positionCheckObj.transform.position, constructionHeldScriptableObject.tileType) + new Vector3(0.5f, 0, 0.5f);
+                renderClone.rectTransform.position = Camera.main.WorldToScreenPoint(a);
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(positionCheckObj);
     }
 }
