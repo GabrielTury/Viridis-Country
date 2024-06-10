@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
         Wood,
         Stone,
         Metal,
-        Demolish
+        Construction_Removed
     }
     public enum SoundEffects
     {
@@ -58,73 +58,80 @@ public class AudioManager : MonoBehaviour
 
     private void PlayWhenConstructionRemoved(ConstructionAudioTypes cType)
     {
-        Sound demolish = null;
+        Sound Construction_Removed = null;
         foreach (Sound s in sounds)
         {
-            if(s.name == "Demolish") 
-                demolish = s;
+            if(s.name == "Construction_Removed")
+                Construction_Removed = s;
         }
+        Construction_Removed.source.Play();
     }
 
 
-    private void PlayWhenZoom(SoundEffects cType)
+    private void PlayWhenZoom(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound Planet_Zoom = null;
         foreach (Sound s in sounds)
         {
-            if (s.name == "Zoom")
-                demolish = s;
+            if (s.name == "Planet_Zoom")
+                Planet_Zoom = s;
         }
+        Planet_Zoom.source.Play();
     }
 
-    private void PlayWhenClick(SoundEffects cType)
+    private void PlayWhenClick(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound Click = null;
         foreach (Sound s in sounds)
         {
             if (s.name == "Click")
-                demolish = s;
+                Click = s;
         }
+        Click.source.Play();
     }
 
-    private void PlayWhenSelect(SoundEffects cType)
+    private void PlayWhenSelect(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound Select = null;
         foreach (Sound s in sounds)
         {
             if (s.name == "Select")
-                demolish = s;
+                Select = s;
         }
+        Select.source.Play();
     }
 
-    private void PlayWhenOneStar(SoundEffects cType)
+    private void PlayWhenOneStar(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound OneStar = null;
         foreach (Sound s in sounds)
         {
             if (s.name == "OneStar")
-                demolish = s;
+                OneStar = s;
         }
+        OneStar.source.Play(); 
     }
 
-    private void PlayWhenTwoStar(SoundEffects cType)
+    private void PlayWhenTwoStar(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound TwoStar = null;
         foreach (Sound s in sounds)
         {
             if (s.name == "TwoStar")
-                demolish = s;
+                TwoStar = s;
         }
+        TwoStar.source.Play();
     }
 
-    private void PlayWhenThreeStar(SoundEffects cType)
+    private void PlayWhenThreeStar(SoundEffects sfx)
     {
-        Sound demolish = null;
+        Sound ThreeStar = null;
         foreach (Sound s in sounds)
         {
             if (s.name == "ThreeStar")
-                demolish = s;
+                ThreeStar = s;
         }
+        ThreeStar.source.Play();
     }
 
     private void OnEnable()
@@ -135,7 +142,7 @@ public class AudioManager : MonoBehaviour
         GameEvents.OneStar += PlayWhenOneStar;
         GameEvents.TwoStar += PlayWhenTwoStar;
         GameEvents.ThreeStar += PlayWhenThreeStar;
-        GameEvents.Zoom_Planet += PlayWhenZoom;
+        GameEvents.Planet_Zoom += PlayWhenZoom;
 
     }
 
@@ -147,7 +154,7 @@ public class AudioManager : MonoBehaviour
         GameEvents.OneStar -= PlayWhenOneStar;
         GameEvents.TwoStar -= PlayWhenTwoStar;
         GameEvents.ThreeStar -= PlayWhenThreeStar;
-        GameEvents.Zoom_Planet -= PlayWhenZoom;
+        GameEvents.Planet_Zoom -= PlayWhenZoom;
     }
 
 }
