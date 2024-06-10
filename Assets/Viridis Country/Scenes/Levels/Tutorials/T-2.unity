@@ -1743,7 +1743,7 @@ MonoBehaviour:
   minZPos: -16
   maxZPos: -12
   canDrag: 0
-  zoomSpeed: 0
+  zoomSpeed: 20
   grabTimerImage: {fileID: 2880980572876704560, guid: d73dceec4c1420c41bdf1d4769fae4ee,
     type: 3}
 --- !u!4 &1363584984
