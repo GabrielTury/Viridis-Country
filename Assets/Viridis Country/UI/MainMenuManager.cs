@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -66,6 +67,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField]
     private Image energyHandler;
+    private Coroutine energyShakeCoroutine;
 
     [SerializeField]
     private GameObject buyEnergyMenuPrefab;
@@ -73,10 +75,13 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject levelEarth;
 
+    [SerializeField]
+    private AudioMixer audioMixer;
+
     void Start()
     {
         planetTransform = planet.transform;
-        cameraHolderTransform = cameraHolder.transform; 
+        cameraHolderTransform = cameraHolder.transform;
         galaxyTransform = galaxy.transform;
         gameLogoRTransform = gameLogoImage.rectTransform;
         mainCameraTransform = mainCamera.transform;
@@ -90,6 +95,8 @@ public class MainMenuManager : MonoBehaviour
         levelSelectBGImage.gameObject.SetActive(false);
 
         tooltipImage.color = new Color(255, 255, 255, 0);
+
+        energyShakeCoroutine = StartCoroutine(EmptyCoroutine());
     }
 
     void Update()
@@ -146,8 +153,52 @@ public class MainMenuManager : MonoBehaviour
                 PlayerPrefs.SetInt("LEVELID", levelID);
                 StartCoroutine(FadeToLevel(0.75f, levelID));
             }
+        } else
+        {
+            StopCoroutine(energyShakeCoroutine);
+            energyShakeCoroutine = StartCoroutine(ShakeEnergy(energyHandler));
         }
         
+    }
+
+    private IEnumerator EmptyCoroutine()
+    {
+        yield return null;
+    }
+
+    private IEnumerator ShakeEnergy(Image obj)
+    {
+        Vector2 startScale = new Vector2(1, 1);
+        float lerp = 0;
+        float smoothLerp = 0;
+        float duration = 0.2f;
+        Vector2 scale = new Vector2(2f, 2f);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            yield return null;
+        }
+
+        obj.rectTransform.localScale = scale;
+
+        startScale = obj.rectTransform.localScale;
+        lerp = 0;
+        smoothLerp = 0;
+        duration = 0.2f;
+        scale = new Vector2(1f, 1f);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            yield return null;
+        }
+
+        yield return null;
     }
 
     public void BuyEnergyPopup()

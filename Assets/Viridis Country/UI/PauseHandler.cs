@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -42,6 +43,12 @@ public class PauseHandler : MonoBehaviour
         managerObject = GameManager.Instance.gameObject;
 
         managerObject.GetComponent<InputManager>().canDrag = false;
+
+        //AudioMixer.GetFloat("SEVOLUME", out float volume1);
+        soundIcon.sprite = soundIconImages[(int)PlayerPrefs.GetFloat("SOUNDVOLUME", 1)];
+
+        //AudioMixer.GetFloat("BGMVOLUME", out float volume2);
+        musicIcon.sprite = musicIconImages[(int)PlayerPrefs.GetFloat("MUSICVOLUME", 1)];
     }
 
     // Update is called once per frame
@@ -55,7 +62,7 @@ public class PauseHandler : MonoBehaviour
         AudioMixer.GetFloat("SEVOLUME", out float volume);
         AudioMixer.SetFloat("SEVOLUME", volume == 1 ? 0 : 1);
         PlayerPrefs.SetFloat("SOUNDVOLUME", volume == 1 ? 0 : 1);
-        soundIcon.sprite = soundIconImages[(int)volume];
+        soundIcon.sprite = soundIconImages[(int)volume == 1 ? 0 : 1];
     }
 
     public void SwitchMusic()
@@ -63,7 +70,7 @@ public class PauseHandler : MonoBehaviour
         AudioMixer.GetFloat("BGMVOLUME", out float volume);
         AudioMixer.SetFloat("BGMVOLUME", volume == 1 ? 0 : 1);
         PlayerPrefs.SetFloat("MUSICVOLUME", volume == 1 ? 0 : 1);
-        musicIcon.sprite = musicIconImages[(int)volume];
+        musicIcon.sprite = musicIconImages[(int)volume == 1 ? 0 : 1];
     }
 
     public void ResumeLevel()

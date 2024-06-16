@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
+    [SerializeField]
+    private AudioMixer audioMixer;
+
     private AudioSource audiosource;
     public AudioClip [] songs;
     public float volume;
@@ -27,7 +31,9 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audiosource.volume = volume;
+        audioMixer.SetFloat("BGMVOLUME", PlayerPrefs.GetFloat("MUSICVOLUME", 1));
+        audioMixer.GetFloat("BGMVOLUME", out float vol);
+        audiosource.volume = vol;
 
         if (audiosource.isPlaying)
         {

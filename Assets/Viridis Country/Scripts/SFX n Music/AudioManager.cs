@@ -9,6 +9,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    [SerializeField]
+    private AudioMixerGroup audioGroup;
+
     public Sound[] sounds;
 
     public enum ConstructionAudioTypes
@@ -40,10 +43,11 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds){
 
-            s.source = gameObject .AddComponent<AudioSource>();
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.outputAudioMixerGroup = audioGroup;
             s.source.clip = s.clip;
 
-            s.source.volume = s.volume;
+            s.source.volume = PlayerPrefs.GetFloat("SOUNDVOLUME", 1);
             s.source.pitch = s.pitch;
 
         }

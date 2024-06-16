@@ -32,16 +32,28 @@ public class FinishLevelHandler : MonoBehaviour
     private Image foreground;
 
     [SerializeField]
+    private Image energyHandler;
+    private Coroutine energyShakeCoroutine;
+
+    [SerializeField]
     private AudioManager audioManager;
 
     [SerializeField]
     private AudioSource audioSource;
+
+    [SerializeField]
+    private GameObject buyEnergyMenuPrefab;
+
+    [SerializeField]
+    private Canvas trophyCanvas;
 
     public Sound[] sounds;
 
     // Start is called before the first frame update
     void Start()
     {
+        energyShakeCoroutine = StartCoroutine(EmptyCoroutine());
+
         GameManager.Instance.GetComponent<InputManager>().canDrag = false;
 
         // Set amount of stars
@@ -66,9 +78,13 @@ public class FinishLevelHandler : MonoBehaviour
 
         // Positioning
 
+        energyHandler.rectTransform.anchoredPosition = new Vector2(0, 100);
+
         stars[0].rectTransform.anchoredPosition = new Vector2(-100, 1100);
         stars[1].rectTransform.anchoredPosition = new Vector2(0, 1100);
         stars[2].rectTransform.anchoredPosition = new Vector2(100, 1100);
+
+        StartCoroutine(SmoothMoveTo(energyHandler, new Vector2(0, -130), 0.8f));
 
         StartCoroutine(SmoothMoveTo(stars[0], new Vector2(-180, 358), 0.8f));
         StartCoroutine(SmoothMoveTo(stars[1], new Vector2(0, 402), 1f));
@@ -135,12 +151,20 @@ public class FinishLevelHandler : MonoBehaviour
 
     public void NextLevel()
     {
-        foreground.color = new Color32(0, 0, 0, 0);
-        foreground.gameObject.SetActive(true);
-        StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
-        StartCoroutine(FadeOut(0.4f, 0));
-        //AudioManager.Instance.Play("Click");
-        //GameEvents.Click(AudioManager.SoundEffects.Click);
+        if (SessionManager.Instance.energyAmount > 0)
+        {
+            foreground.color = new Color32(0, 0, 0, 0);
+            foreground.gameObject.SetActive(true);
+            StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
+            StartCoroutine(FadeOut(0.4f, 0));
+            //AudioManager.Instance.Play("Click");
+            //GameEvents.Click(AudioManager.SoundEffects.Click);
+        } else
+        {
+            StopCoroutine(energyShakeCoroutine);
+            energyShakeCoroutine = StartCoroutine(ShakeEnergy(energyHandler));
+        }
+
     }
 
     public void RestartLevel()
@@ -157,6 +181,51 @@ public class FinishLevelHandler : MonoBehaviour
         foreground.gameObject.SetActive(true);
         StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
         StartCoroutine(FadeOut(0.4f, 2));
+    }
+
+    public void BuyEnergyPopup()
+    {
+        Instantiate(buyEnergyMenuPrefab, trophyCanvas.transform);
+    }
+
+    private IEnumerator EmptyCoroutine()
+    {
+        yield return null;
+    }
+
+    private IEnumerator ShakeEnergy(Image obj)
+    {
+        Vector2 startScale = new Vector2(1, 1);
+        float lerp = 0;
+        float smoothLerp = 0;
+        float duration = 0.2f;
+        Vector2 scale = new Vector2(2f, 2f);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            yield return null;
+        }
+
+        obj.rectTransform.localScale = scale;
+
+        startScale = obj.rectTransform.localScale;
+        lerp = 0;
+        smoothLerp = 0;
+        duration = 0.2f;
+        scale = new Vector2(1f, 1f);
+
+        while (lerp < 1 && duration > 0)
+        {
+            lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
+            smoothLerp = Mathf.SmoothStep(0, 1, lerp);
+            obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
+            yield return null;
+        }
+
+        yield return null;
     }
 
     private IEnumerator SmoothMoveTo(Image obj, Vector2 targetPosition, float duration)
