@@ -38,7 +38,7 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (isDragging)
         {
-            dragOffset = new Vector3(0, prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, 0);
+            dragOffset = new Vector3(0, Mathf.Clamp(prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, -99999999, 0), 0);
         }
     }
 

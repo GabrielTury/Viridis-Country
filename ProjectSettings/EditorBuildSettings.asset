@@ -65,6 +65,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Viridis Country/Scenes/Levels/1-15.unity
     guid: 53a6971a5623bbc46b7e38b9b763b1f0
+  - enabled: 1
+    path: Assets/Viridis Country/Scenes/Intermediary.unity
+    guid: c9c354459cd95c840a9b4c180f817a94
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ad2cd6d5cb95be24b9a206f64c76cdac,
       type: 2}

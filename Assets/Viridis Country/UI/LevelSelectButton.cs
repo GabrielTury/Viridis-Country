@@ -30,6 +30,8 @@ public class LevelSelectButton : MonoBehaviour
 
     private Vector3 ogPos;
 
+    private bool finishedGrowing = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -136,7 +138,10 @@ public class LevelSelectButton : MonoBehaviour
         {
             selfImage.rectTransform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp((selfImage.rectTransform.anchoredPosition.y - mapBorder.rectTransform.anchoredPosition.y) * 0.004f, 0, 1));
         }*/
-        selfImage.rectTransform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp(((selfImage.rectTransform.anchoredPosition.y) - (mapBorder.rectTransform.anchoredPosition.y - 350)) * 0.004f, 0, 1));
+        if (finishedGrowing)
+        {
+            selfImage.rectTransform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp(((selfImage.rectTransform.anchoredPosition.y) - (mapBorder.rectTransform.anchoredPosition.y - 350)) * 0.004f, 0, 1));
+        }
     }
 
     private IEnumerator SmoothMoveToWithDelay(Image obj, Vector2 targetPosition, float duration, float delay = 0f)
@@ -205,6 +210,6 @@ public class LevelSelectButton : MonoBehaviour
 
             yield return null;
         }
-
+        finishedGrowing = true;
     }
 }
