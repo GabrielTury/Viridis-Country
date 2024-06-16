@@ -194,7 +194,15 @@ public class LevelSelectButton : MonoBehaviour
         {
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
-            obj.rectTransform.localScale = Vector2.Lerp(startScale, targetScale, smoothLerp);
+            if (selfImage.rectTransform.anchoredPosition.y < (mapBorder.rectTransform.anchoredPosition.y - 350))
+            {
+                obj.rectTransform.localScale = Vector2.Lerp(startScale, targetScale, smoothLerp);
+            }
+
+            //obj.rectTransform.localScale = Vector2.Lerp(startScale, targetScale, smoothLerp);
+
+            //Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0, 0, 0), Mathf.Clamp(((selfImage.rectTransform.anchoredPosition.y) - (mapBorder.rectTransform.anchoredPosition.y - 350)) * 0.004f, 0, 1))
+
             yield return null;
         }
 

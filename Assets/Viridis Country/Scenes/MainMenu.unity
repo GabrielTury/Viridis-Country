@@ -2196,15 +2196,13 @@ MonoBehaviour:
     data to identify and fix challenging or problematic areas in the game, to enhance
     game balance and design in order to provide better updates and new features.
     This data is only submitted when you are online.'
-  - 'Adorariamos sua ajuda para tornar nosso jogo melhor. Ao nos permitir coletar
-    dados de jogo, como conclusao de niveis e tempo gasto nos niveis, podemos melhorar
-    a experiencia para todos. Nenhuma informacao pessoal sera coletada.
-
-
-    Coletamos
-    esses dados para identificar e corrigir areas desafiadoras ou problematicas no
-    jogo, para melhorar o equilibrio e o design do jogo, a fim de fornecer melhores
-    atualizacoes e novos recursos. Esses dados so sao enviados quando voce esta online.'
+  - "Adorariamos sua ajuda para tornar nosso jogo melhor. Ao nos permitir coletar
+    dados de jogo, como conclus\xE3o de n\xEDveis e tempo gasto nos n\xEDveis, podemos
+    melhorar a experi\xEAncia para todos. Nenhuma informa\xE7\xE3o pessoal ser\xE1
+    coletada.\n\nColetamos esses dados para identificar e corrigir \xE1reas desafiadoras
+    ou problematicas no jogo, para melhorar o equilibrio e o design do jogo, a fim
+    de fornecer melhores atualiza\xE7\xF5es e novos recursos. Esses dados s\xF3 s\xE3o
+    enviados quando voc\xEA est\xE1 online."
   - "Nos encantar\xEDa recibir tu ayuda para mejorar nuestro juego. Al permitirnos
     recopilar datos del juego, como niveles completados y tiempo invertido en los
     niveles, podemos mejorar la experiencia para todos. No se recopilar\xE1 ni compartir\xE1
@@ -2829,7 +2827,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cf0b90c7663729b44ae5f0956077a928,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1600794764}
   m_SourcePrefab: {fileID: 100100000, guid: cf0b90c7663729b44ae5f0956077a928, type: 3}
 --- !u!1 &709004539
 GameObject:
@@ -4916,6 +4918,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 377.00006}
   m_SizeDelta: {x: 978.92505, y: -1508.8667}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1600794761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cf0b90c7663729b44ae5f0956077a928,
+    type: 3}
+  m_PrefabInstance: {fileID: 679103403}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1600794764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600794761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50fa0aa527639042b5f3b55ab07cbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1619360866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5166,19 +5186,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'We''d love your help to make our game better. By allowing us to collect
-    gameplay data like level completions and time spent on levels, we can improve
-    the experience for everyone. No personal information will be collected.
-
-
-
-    We
-    collect this data to identify and fix challenging or problematic areas in the
-    game, to enhance game balance and design in order to provide better updates and
-    new features. This data is only submitted when you are online.'
+  m_text: "Adorariamos sua ajuda para tornar nosso jogo melhor. Ao nos permitir coletar
+    dados de jogo, como conclus\xE3o de n\xEDveis e tempo gasto nos n\xEDveis, podemos
+    melhorar a experi\xEAncia para todos. Nenhuma informa\xE7\xE3o pessoal ser\xE1
+    coletada.\n\nColetamos esses dados para identificar e corrigir \xE1reas desafiadoras
+    ou problematicas no jogo, para melhorar o equilibrio e o design do jogo, a fim
+    de fornecer melhores atualiza\xE7\xF5es e novos recursos. Esses dados s\xF3 s\xE3o
+    enviados quando voc\xEA est\xE1 online."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d7cda35a85e3d3246b8ad826e32fe9f6, type: 2}
-  m_sharedMaterial: {fileID: -263775177992007294, guid: d7cda35a85e3d3246b8ad826e32fe9f6,
+  m_fontAsset: {fileID: 11400000, guid: 099651dc95ab9ff48b2f95306de448e9, type: 2}
+  m_sharedMaterial: {fileID: 590301847995606193, guid: 099651dc95ab9ff48b2f95306de448e9,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5203,7 +5220,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.1
+  m_fontSize: 50.3
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5211,7 +5228,7 @@ MonoBehaviour:
   m_fontSizeMax: 60
   m_fontStyle: 0
   m_HorizontalAlignment: 8
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

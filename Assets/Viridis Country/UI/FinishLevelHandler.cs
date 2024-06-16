@@ -135,18 +135,27 @@ public class FinishLevelHandler : MonoBehaviour
 
     public void NextLevel()
     {
+        foreground.color = new Color32(0, 0, 0, 0);
+        foreground.gameObject.SetActive(true);
+        StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
         StartCoroutine(FadeOut(0.4f, 0));
-        AudioManager.Instance.Play("Click");
+        //AudioManager.Instance.Play("Click");
         //GameEvents.Click(AudioManager.SoundEffects.Click);
     }
 
     public void RestartLevel()
     {
+        foreground.color = new Color32(0, 0, 0, 0);
+        foreground.gameObject.SetActive(true);
+        StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
         StartCoroutine(FadeOut(0.4f, 1));
     }
 
     public void ReturnHome()
     {
+        foreground.color = new Color32(0, 0, 0, 0);
+        foreground.gameObject.SetActive(true);
+        StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
         StartCoroutine(FadeOut(0.4f, 2));
     }
 
@@ -200,10 +209,7 @@ public class FinishLevelHandler : MonoBehaviour
 
     private IEnumerator FadeOut(float duration, int type)
     {
-        foreground.gameObject.SetActive(true);
-
         Color startColor = shadow.color;
-        Color startColor2 = foreground.color;
         float lerp = 0;
         float smoothLerp = 0;
         Vector2 startPosition = background.rectTransform.anchoredPosition;
@@ -215,10 +221,6 @@ public class FinishLevelHandler : MonoBehaviour
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
             shadow.color = Color.Lerp(startColor, new Color(0, 0, 0, 0), smoothLerp);
             background.rectTransform.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, smoothLerp);
-            if (type == 1 || type == 2)
-            {
-                foreground.color = Color.Lerp(startColor, new Color(0, 0, 0, 255), smoothLerp);
-            }
             yield return null;
         }
 
@@ -237,6 +239,6 @@ public class FinishLevelHandler : MonoBehaviour
                 break;
         }
         shadow.color = new Color(0, 0, 0, 0);
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 }
