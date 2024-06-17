@@ -341,19 +341,20 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         Debug.Log("Drag Begin");
         touchPos = eventData.pointerCurrentRaycast.screenPosition;
         platePrevPos = plateImage.rectTransform.anchoredPosition;
-        if (eventData.pointerCurrentRaycast.gameObject != null || priorityTrash)
+        var ghostObj = eventData.pointerCurrentRaycast.gameObject;
+        if (ghostObj.name != null || priorityTrash)
         {
             if (priorityTrash)
             {
                 return;
             }
-            if (eventData.pointerCurrentRaycast.gameObject.name == "ResourcePlate")
+            if (ghostObj.name == "ResourcePlate")
             {
                 managerObject.GetComponent<InputManager>().canDrag = false;
                 StopCoroutine(movementCoroutine);
                 lastSelected = eventData.pointerCurrentRaycast.gameObject;
             }
-            if (eventData.pointerCurrentRaycast.gameObject.name.Contains("Box") || eventData.pointerCurrentRaycast.gameObject.name.Contains("Icon") && isFocused)
+            if (ghostObj.name.Contains("Box") || ghostObj.name.Contains("Icon") && isFocused)
             {
                 managerObject.GetComponent<InputManager>().canDrag = false;
                 StopCoroutine(movementCoroutine);
@@ -363,13 +364,13 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
                 trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -600), 0.1f));
 
-                constructionHeldScriptableObject = resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
+                constructionHeldScriptableObject = resourceModel[GetResourceIndex(ghostObj.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
-                lastBuildingBox = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
+                lastBuildingBox = ghostObj.transform.parent.gameObject;
                 //lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
 
                 constructionHeld = Instantiate(constructionPreview, resourcePanelCanvas.transform).GetComponent<Image>();
-                constructionHeld.sprite = eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite;
+                constructionHeld.sprite = ghostObj.GetComponent<Image>().sprite;
                 constructionHeld.color = new Color32(255, 255, 255, 0);
                 StartCoroutine(ConstructionPreviewAnim(constructionHeld));
 
@@ -378,7 +379,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 StopCoroutine(handCoroutine);
                 handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(1.2f, 1.2f), new Color32(255, 255, 255, 255), 0.3f));
                 StopCoroutine(plateColorCoroutine);
-                plateColorCoroutine = StartCoroutine(FadeColor(plateImage, resourceModel[GetResourceIndex(eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceColor, 1f));
+                plateColorCoroutine = StartCoroutine(FadeColor(plateImage, resourceModel[GetResourceIndex(ghostObj.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceColor, 1f));
             }
         }
     }
@@ -619,12 +620,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
         while (lerp < 1 && duration > 0)
         {
+            if (obj != null) {  break ; }
             lerp = Mathf.MoveTowards(lerp, 1, Time.deltaTime / duration);
             smoothLerp = Mathf.SmoothStep(0, 1, lerp);
             obj.rectTransform.localScale = Vector2.Lerp(startScale, scale, smoothLerp);
             obj.color = Color.Lerp(startColor, color, smoothLerp);
             yield return null;
         }
+
+        if (obj != null) { yield break; }
 
         obj.rectTransform.localScale = scale;
         obj.color = color;

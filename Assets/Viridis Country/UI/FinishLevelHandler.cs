@@ -47,6 +47,9 @@ public class FinishLevelHandler : MonoBehaviour
     [SerializeField]
     private Canvas trophyCanvas;
 
+    [SerializeField]
+    private TextMeshProUGUI energyCounter;
+
     public Sound[] sounds;
 
     // Start is called before the first frame update
@@ -140,7 +143,10 @@ public class FinishLevelHandler : MonoBehaviour
 
         StartCoroutine(ScaleObject(trophy, new Vector2(1, 1), 1));
 
-        
+        if (SessionManager.Instance)
+        {
+            energyCounter.text = SessionManager.Instance.energyAmount + "/10";
+        }
     }
 
     // Update is called once per frame

@@ -491,6 +491,7 @@ MonoBehaviour:
   buyEnergyMenuPrefab: {fileID: 1012893780688820931, guid: 6b242222c3650264fa4a3c7961b6ce7c,
     type: 3}
   trophyCanvas: {fileID: 8082044889536873448}
+  energyCounter: {fileID: 1384626877524068325}
   sounds: []
 --- !u!1 &3793766508968830187
 GameObject:

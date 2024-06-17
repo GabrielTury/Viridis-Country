@@ -65,7 +65,7 @@ public class AudioManager : MonoBehaviour
         Sound Construction_Removed = null;
         foreach (Sound s in sounds)
         {
-            if(s.name == "Construction_Removed")
+            if(s.name == "Demolish")
                 Construction_Removed = s;
         }
         Construction_Removed.source.Play();

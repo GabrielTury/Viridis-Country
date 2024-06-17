@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: e475e1be14dc3994eb678a07424e1bc9
   m_currentHash:
     serializedVersion: 2
-    Hash: ab53d4c2eab03ac25bcdf3b88e69f32e
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -47,6 +47,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 543e993f318e0a045822b60fc5bf59f8, type: 2}
   - {fileID: 11400000, guid: 2c06845fd1d5baa4fb91cee629ee2f9b, type: 2}
   - {fileID: 11400000, guid: 30ab9b7875ff8214bbc31655a562178e, type: 2}
+  - {fileID: 11400000, guid: f5d90b9d8e298ba4995197cdd4dc796b, type: 2}
+  - {fileID: 11400000, guid: ccfbc4ee486e8ec4bae38fe72b81efbc, type: 2}
+  - {fileID: 11400000, guid: 8d36a9339f7ac5c479d55b622319d430, type: 2}
+  - {fileID: 11400000, guid: 80ce30b5c6b658a478acf9b3654143b4, type: 2}
+  - {fileID: 11400000, guid: 4b4db26159ed5f740bb25a16ed90d71d, type: 2}
+  - {fileID: 11400000, guid: 64f86fd103ab1a7488443e26dd666de0, type: 2}
+  - {fileID: 11400000, guid: 2ad5fc0d4b57d1744ad0af831d3cb15e, type: 2}
+  - {fileID: 11400000, guid: 480aef4d7f06cea4ab215c6204cb391d, type: 2}
+  - {fileID: 11400000, guid: b224610deaa05fe44aae0af4505a3a91, type: 2}
+  - {fileID: 11400000, guid: 488d3b151234c3f43ad5e47b0a9bafda, type: 2}
+  - {fileID: 11400000, guid: c550616c7d09ac24494f89ae832890a2, type: 2}
+  - {fileID: 11400000, guid: 2932c39b91070654aa1c420bb98c1360, type: 2}
+  - {fileID: 11400000, guid: 67c15c90f2f26f74893192ace00cd9d2, type: 2}
+  - {fileID: 11400000, guid: 26b74c49260ceab4e94edec5d8c15530, type: 2}
+  - {fileID: 11400000, guid: 6fe12dca135a3a34c82fd7fc9ef33d3c, type: 2}
+  - {fileID: 11400000, guid: d6d2966a52bebc74394cb0a6bb411c17, type: 2}
+  - {fileID: 11400000, guid: 058de7d80406df74aa431ef2c25dff96, type: 2}
+  - {fileID: 11400000, guid: a0078e6d097cafb42a22dea9f89d35a1, type: 2}
+  - {fileID: 11400000, guid: 667c4467af7b99548bce5db41771a1da, type: 2}
+  - {fileID: 11400000, guid: 653c8bfa89e06d440a888f0b7f875d0b, type: 2}
+  - {fileID: 11400000, guid: 4baa0f757e4fc314f97990c5a4998243, type: 2}
+  - {fileID: 11400000, guid: d9ee5d7f9e2c89346ba748d9abe09b50, type: 2}
+  - {fileID: 11400000, guid: 372dfe490ce9d244db9789ca5f15967d, type: 2}
+  - {fileID: 11400000, guid: eabef2a03faac8b4fabe485958065e17, type: 2}
+  - {fileID: 11400000, guid: 4d9b24b14f11d3442bc9b3a3a2db0e51, type: 2}
+  - {fileID: 11400000, guid: d6a6e8bd81868ce4bb14d31f09628958, type: 2}
+  - {fileID: 11400000, guid: 0c21f06aad9fe1f46aba9fd79a1b8f00, type: 2}
+  - {fileID: 11400000, guid: f736282e764ad464089597c45d3f8cc8, type: 2}
+  - {fileID: 11400000, guid: f34db70bc3226fb4ab4d80054f99ca8c, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -89,6 +118,34 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - Locale
+    - Locale-ar
+    - Locale-ca
+    - Locale-zh-CN
+    - Locale-zh-hans
+    - Locale-zh-hant
+    - Locale-da
+    - Locale-nl
+    - Locale-en
+    - Locale-fi
+    - Locale-fr
+    - Locale-de
+    - Locale-el
+    - Locale-he
+    - Locale-hu
+    - Locale-id
+    - Locale-it
+    - Locale-ja
+    - Locale-ko
+    - Locale-pl
+    - Locale-pt
+    - Locale-ru
+    - Locale-sk
+    - Locale-sl
+    - Locale-es
+    - Locale-sv
+    - Locale-th
+    - Locale-tr
+    - Locale-uk
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b2ee3d38cc056484fa68323c71a64244, type: 2}
