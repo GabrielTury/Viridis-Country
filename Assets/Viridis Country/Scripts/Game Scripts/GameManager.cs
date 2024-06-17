@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private ScriptableObject[] levelMaps; // mapas vao aqui*/
 
     public int actionsMade;
+    public RewardedAdsButton adsButton;
 
     #region Resource Amounts
     [Header("Altere esses valores no level scriptable object!! \nEstao aqui somente para visualizacao")]
@@ -359,8 +360,8 @@ public class GameManager : MonoBehaviour
         if(actionsMade <= levelVariables.threeStarsAmount)
         {
             Debug.Log("***");
-            SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
             GameEvents.OnThreeStar(AudioManager.SoundEffects.ThreeStar);
+            SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
         }
         else if( actionsMade <= levelVariables.twoStarsAmount)
         {
@@ -368,21 +369,40 @@ public class GameManager : MonoBehaviour
             GameEvents.OnTwoStar(AudioManager.SoundEffects.TwoStar);
             Debug.Log("**");
         }
-        else if(actionsMade >= levelVariables.oneStarAmount)
+        else if(actionsMade <= levelVariables.oneStarAmount)
         {
             SessionManager.Instance.SetStarsAmount(levelSaveName, 1);
             GameEvents.OnOneStar(AudioManager.SoundEffects.OneStar);
             Debug.Log("*");
         }
+        else if(actionsMade >= levelVariables.maxTries)
+        {
+            SessionManager.Instance.SetStarsAmount(levelSaveName, 0);
+            Debug.Log("No Stars");
+        }
         Debug.Log("Terminou o Level com: " + actionsMade + " acoes");
 
-       
+        StartCoroutine(DelayToEnd());
+    }
+    IEnumerator DelayToEnd()
+    {
+        yield return new WaitForSeconds(.2f);
+
+        Debug.Log(adsButton.name);
+        adsButton.LoadAd();
+        adsButton.gameObject.SetActive(true);
     }
 
     private void ActionCounter(AudioManager.ConstructionAudioTypes a)
     {
         //aumenta as ações em 1
         actionsMade++;
+
+        if(actionsMade >= levelVariables.maxTries)
+        {
+            LevelEnd();
+            GameEvents.OnLevelEnd();
+        }
         //Debug.Log("Acoes: " + actionsMade);
     }
 

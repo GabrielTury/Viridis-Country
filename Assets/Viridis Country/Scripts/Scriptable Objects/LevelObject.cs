@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Level", menuName = "Level")]
 public class LevelObject : ScriptableObject
 {
-
+    [Space(2), Header("Objetivos")]
     public int goalWoodAmount;
     public int goalPlankAmount;
     public int goalStoneAmount;
@@ -25,8 +25,12 @@ public class LevelObject : ScriptableObject
     public int goalBreadAmount;
     public int goalGoldAmount;
 
+    [Space(2), Header("Estrelas")]
     public int threeStarsAmount;
     public int twoStarsAmount;
     public int oneStarAmount;
+
+    [Space(2), Header("Tentativas")]
+    public int maxTries;
 
 }

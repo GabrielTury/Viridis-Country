@@ -20,3 +20,4 @@ MonoBehaviour:
   secondaryResource: 080000000d0000000b000000
   tileType: 0
   constructionType: 0
+  renderSprite: {fileID: 21300000, guid: cac6a4f54c19bc2489ce2b267776f256, type: 3}

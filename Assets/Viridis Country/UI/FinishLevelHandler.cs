@@ -69,10 +69,16 @@ public class FinishLevelHandler : MonoBehaviour
         {
             stars[2].sprite = starSprites[1];
         }
-        else if (GameManager.Instance.actionsMade >= GameManager.Instance.levelVariables.oneStarAmount)
+        else if (GameManager.Instance.actionsMade <= GameManager.Instance.levelVariables.oneStarAmount)
         {
             stars[2].sprite = starSprites[1];
             stars[1].sprite = starSprites[1];
+        }
+        else if (GameManager.Instance.actionsMade >= GameManager.Instance.levelVariables.maxTries)
+        {
+            stars[0].sprite = starSprites[1];
+            stars[1].sprite = starSprites[1];
+            stars[2].sprite = starSprites[1];
         }
 
         //

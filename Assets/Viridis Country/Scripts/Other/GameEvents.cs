@@ -28,6 +28,9 @@ namespace GameEventSystem
         public static event UnityAction<AudioManager.SoundEffects> Select_Construction;
         public static void OnSelectConstruction(AudioManager.SoundEffects sfx) => Select_Construction?.Invoke(sfx);
 
+        public static event UnityAction<AudioManager.SoundEffects> FailedLevels;
+        public static void OnLevelFailed(AudioManager.SoundEffects sfx) => FailedLevels?.Invoke(sfx);
+
         public static event UnityAction<AudioManager.SoundEffects> OneStar;
         public static void OnOneStar(AudioManager.SoundEffects sfx) => OneStar?.Invoke(sfx);
 

@@ -146,7 +146,8 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     #endregion
     private void ClearLevel()
     {
-        Instantiate(clearLevelTemplate);
+        GameObject clearLevel = Instantiate(clearLevelTemplate);
+        GameManager.Instance.adsButton = clearLevel.GetComponentInChildren<RewardedAdsButton>();
     }
 
     private void UpdateActionText(AudioManager.ConstructionAudioTypes a)

@@ -33,3 +33,4 @@ MonoBehaviour:
   threeStarsAmount: 5
   twoStarsAmount: 6
   oneStarAmount: 7
+  maxTries: 8
