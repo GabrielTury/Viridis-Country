@@ -361,23 +361,25 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("***");
             GameEvents.OnThreeStar(AudioManager.SoundEffects.ThreeStar);
-            SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
+            if(SessionManager.Instance.GetStarsAmount(levelSaveName) < 3)
+                SessionManager.Instance.SetStarsAmount(levelSaveName, 3);
         }
         else if( actionsMade <= levelVariables.twoStarsAmount)
         {
-            SessionManager.Instance.SetStarsAmount(levelSaveName, 2);
+            if (SessionManager.Instance.GetStarsAmount(levelSaveName) < 2)
+                SessionManager.Instance.SetStarsAmount(levelSaveName, 2);
             GameEvents.OnTwoStar(AudioManager.SoundEffects.TwoStar);
             Debug.Log("**");
         }
         else if(actionsMade <= levelVariables.oneStarAmount)
         {
-            SessionManager.Instance.SetStarsAmount(levelSaveName, 1);
+            if (SessionManager.Instance.GetStarsAmount(levelSaveName) < 1)
+                SessionManager.Instance.SetStarsAmount(levelSaveName, 1);
             GameEvents.OnOneStar(AudioManager.SoundEffects.OneStar);
             Debug.Log("*");
         }
         else if(actionsMade >= levelVariables.maxTries)
         {
-            SessionManager.Instance.SetStarsAmount(levelSaveName, 0);
             Debug.Log("No Stars");
         }
         Debug.Log("Terminou o Level com: " + actionsMade + " acoes");

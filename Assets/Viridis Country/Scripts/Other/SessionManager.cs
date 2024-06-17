@@ -284,6 +284,11 @@ public class SessionManager : MonoBehaviour
         Debug.Log("value for that key: " + playerLevels[key]);
     }
 
+    public int GetStarsAmount(string levelName)
+    {
+        return playerLevels[levelName];
+    }
+
     [ContextMenu("OverWriteLevelsDictionary")]
     public void OverWriteDictionary()
     {
