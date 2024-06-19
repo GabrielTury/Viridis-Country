@@ -186,7 +186,15 @@ public class FinishLevelHandler : MonoBehaviour
                 foreground.color = new Color32(0, 0, 0, 0);
                 foreground.gameObject.SetActive(true);
                 StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
-                StartCoroutine(FadeOut(0.4f, 0));
+
+                if (SceneManager.GetActiveScene().buildIndex < 14)
+                {
+                    StartCoroutine(FadeOut(0.4f, 0));
+                } else
+                {
+                    StartCoroutine(FadeOut(0.4f, 2));
+                }
+                
                 //AudioManager.Instance.Play("Click");
                 //GameEvents.Click(AudioManager.SoundEffects.Click);
             }
