@@ -52,6 +52,15 @@ public class FinishLevelHandler : MonoBehaviour
 
     public Sound[] sounds;
 
+    [SerializeField]
+    private Sprite deadTrophy;
+
+    [SerializeField]
+    private Sprite deadBoard;
+
+    [SerializeField]
+    private Sprite deadNext;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -115,6 +124,13 @@ public class FinishLevelHandler : MonoBehaviour
 
         // Coloring
 
+        if (GameManager.Instance.actionsMade >= GameManager.Instance.levelVariables.maxTries)
+        {
+            trophy.sprite = deadTrophy;
+            background.sprite = deadBoard;
+            buttonImages[1].sprite = deadNext;
+        }
+
         stars[0].color = new Color32(150, 150, 150, 0);
         stars[1].color = new Color32(150, 150, 150, 0);
         stars[2].color = new Color32(150, 150, 150, 0);
@@ -165,12 +181,15 @@ public class FinishLevelHandler : MonoBehaviour
     {
         if (SessionManager.Instance.energyAmount > 0)
         {
-            foreground.color = new Color32(0, 0, 0, 0);
-            foreground.gameObject.SetActive(true);
-            StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
-            StartCoroutine(FadeOut(0.4f, 0));
-            //AudioManager.Instance.Play("Click");
-            //GameEvents.Click(AudioManager.SoundEffects.Click);
+            if (GameManager.Instance.actionsMade < GameManager.Instance.levelVariables.maxTries)
+            {
+                foreground.color = new Color32(0, 0, 0, 0);
+                foreground.gameObject.SetActive(true);
+                StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
+                StartCoroutine(FadeOut(0.4f, 0));
+                //AudioManager.Instance.Play("Click");
+                //GameEvents.Click(AudioManager.SoundEffects.Click);
+            }
         } else
         {
             StopCoroutine(energyShakeCoroutine);

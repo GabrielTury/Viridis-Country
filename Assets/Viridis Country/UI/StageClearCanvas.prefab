@@ -493,6 +493,9 @@ MonoBehaviour:
   trophyCanvas: {fileID: 8082044889536873448}
   energyCounter: {fileID: 1384626877524068325}
   sounds: []
+  deadTrophy: {fileID: 21300000, guid: 91512cf9a7ef6c647bff61a59123fd67, type: 3}
+  deadBoard: {fileID: 21300000, guid: 1b2ec66407fe0dd49b02cb4d16731394, type: 3}
+  deadNext: {fileID: 21300000, guid: fd2e37da265df6846a5a068abd59fca7, type: 3}
 --- !u!1 &3793766508968830187
 GameObject:
   m_ObjectHideFlags: 0

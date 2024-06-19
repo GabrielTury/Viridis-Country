@@ -152,7 +152,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     private void UpdateActionText(AudioManager.ConstructionAudioTypes a)
     {
-        actionCounter.text = GameManager.Instance.actionsMade.ToString();
+        actionCounter.text = GameManager.Instance.actionsMade.ToString() + "/" +  GameManager.Instance.actionsMax.ToString();
     }
 
     private void UpdateHandAnim(AudioManager.ConstructionAudioTypes a)
@@ -183,11 +183,15 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     public void LowerTrash()
     {
-        priorityTrash = false;
-        trashHelper.raycastTarget = false;
-        trashHelper.gameObject.SetActive(false);
-        trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
-        movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
+        if (Time.timeSinceLevelLoad > 0.2f)
+        {
+            //Debug.Log("LOWER TRASH ииииииииииииииииииии" + Time.timeSinceLevelLoad);
+            priorityTrash = false;
+            trashHelper.raycastTarget = false;
+            trashHelper.gameObject.SetActive(false);
+            trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -1300), 0.1f));
+            movementCoroutine = StartCoroutine(SmoothReturn(plateImage, new Vector2(0, -610), 0.3f));
+        }
     }
     #endregion
 
@@ -204,7 +208,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
         gameManager = GameManager.Instance;
 
-        actionCounter.text = gameManager.actionsMade.ToString();
+        actionCounter.text = gameManager.actionsMade.ToString() + "/" + gameManager.actionsMax.ToString();
 
         managerObject.GetComponent<InputManager>().canDrag = true;
 
@@ -325,16 +329,19 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             {
                 lastBuildingBox = boxObj;
                 lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
+                //Debug.Log("********************************** pointer enter");
             }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (lastBuildingBox.name.Contains("Box"))
-        {
-            lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
-        }
+        
+        //if (lastBuildingBox.name.Contains("Box"))
+        //{
+        //    lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+        //    //Debug.Log("-------------------------------------- POINTER EXIT");
+        //}
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -365,6 +372,11 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
                 blackoutCoroutine = StartCoroutine(FadeColor(bgFader, new Color32(0, 0, 0, 0), 0.6f));
                 trashCoroutine = StartCoroutine(SmoothReturn(trash, new Vector2(0, -600), 0.1f));
 
+                if (ghostObj.GetComponent<Image>().sprite.name.Contains("Model"))
+                {
+                    ghostObj = ghostObj.transform.Find("BuildingIcon").gameObject;
+                }
+                
                 constructionHeldScriptableObject = resourceModel[GetResourceIndex(ghostObj.GetComponent<Image>().sprite.name.Remove(0, 16))].resourceScriptableObject;
 
                 lastBuildingBox = ghostObj.transform.parent.gameObject;
@@ -590,7 +602,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
             renderClone = null;
             checkFuture = null;
             //GameManager.Instance.actionsMade++;
-            actionCounter.text = GameManager.Instance.actionsMade.ToString();
+            actionCounter.text = GameManager.Instance.actionsMade.ToString() + "/" + GameManager.Instance.actionsMax.ToString();
 
             StopCoroutine(handCoroutine);
             handCoroutine = StartCoroutine(HandInflate(handObj, new Vector2(0.8f, 0.8f), new Color32(255, 255, 255, 150), 0.3f));
@@ -605,6 +617,7 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         if (lastBuildingBox != null)
         {
             lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[0];
+            //Debug.Log("@@@@@@@@@@@@@@@@@@@@@@@ BUILDING BOX");
             //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABB");
         }
     }
@@ -678,13 +691,14 @@ public class ResourceTouchHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     private IEnumerator SmoothReturn(Image objTransform, Vector2 targetPosition, float duration)
     {
-        if (lastBuildingBox != null)
+        /*if (lastBuildingBox != null)
         {
             if (lastBuildingBox.name.Contains("Box"))
             {
+                Debug.Log("&&&&&&&&&&&&&&&&&&&&&&& SMOOTH RETURN");
                 lastBuildingBox.GetComponent<Image>().sprite = buildingBoxSprites[1];
             }
-        }
+        }*/
         
         
         smoothReturnEnded = false;

@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private ScriptableObject[] levelMaps; // mapas vao aqui*/
 
     public int actionsMade;
+    public int actionsMax;
     public RewardedAdsButton adsButton;
 
     #region Resource Amounts
@@ -132,6 +133,8 @@ public class GameManager : MonoBehaviour
             objectiveArray[i] = GetObjectiveOnInt(i);
             amountArray[i] = GetAmountOnInt(i);
         }
+
+        actionsMax = levelVariables.maxTries;
 
         // Crie o mapa usando o level scriptable object com
         // PlayerPrefs.GetInt("LEVELID");

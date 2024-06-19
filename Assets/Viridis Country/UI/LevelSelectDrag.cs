@@ -13,6 +13,9 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private RawImage selfImage;
     private Vector3 touchPos;
 
+    [SerializeField]
+    private RawImage desertLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,13 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Update is called once per frame
     void Update()
     {
-        
+        if (dragOffset.y < -1800)
+        {
+            desertLevel.color = Color.Lerp(desertLevel.color, new Color32(255, 255, 255, 255), 0.05f);
+        } else
+        {
+            desertLevel.color = Color.Lerp(desertLevel.color, new Color32(255, 255, 255, 0), 0.05f);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -38,7 +47,7 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (isDragging)
         {
-            dragOffset = new Vector3(0, Mathf.Clamp(prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, -1800, 0), 0);
+            dragOffset = new Vector3(0, Mathf.Clamp(prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, -2600, 0), 0);
         }
     }
 

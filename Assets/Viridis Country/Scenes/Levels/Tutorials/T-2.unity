@@ -825,6 +825,7 @@ GameObject:
   - component: {fileID: 861388332}
   - component: {fileID: 861388334}
   - component: {fileID: 861388333}
+  - component: {fileID: 861388335}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -890,6 +891,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861388331}
   m_CullTransparentMesh: 1
+--- !u!114 &861388335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861388331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a63e1df1dfa2854484eae46b224ef3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &911175219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1955,6 +1968,8 @@ MonoBehaviour:
   levelVariables: {fileID: 11400000, guid: 59be1446c5aa49340bbfdb8714699154, type: 2}
   levelSaveName: level 2
   actionsMade: 0
+  actionsMax: 0
+  adsButton: {fileID: 0}
   zeroAmount: 0
   woodAmount: 0
   plankAmount: 0

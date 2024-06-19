@@ -139,7 +139,7 @@ public class MainMenuManager : MonoBehaviour
     {
         if (hasGoneToStage == false && SessionManager.Instance.energyAmount > 0)
         {
-            if (levelID > 1)
+            if (levelID > 1 && levelID <= 14)
             {
                 if (SessionManager.Instance.playerLevels["level " + (levelID - 1)] != 0)
                 {
@@ -149,6 +149,11 @@ public class MainMenuManager : MonoBehaviour
                 }
             } else
             {
+                if (levelID > 14)
+                {
+                    Application.OpenURL("http://unity3d.com/");
+                    return;
+                }
                 hasGoneToStage = true;
                 PlayerPrefs.SetInt("LEVELID", levelID);
                 StartCoroutine(FadeToLevel(0.75f, levelID));

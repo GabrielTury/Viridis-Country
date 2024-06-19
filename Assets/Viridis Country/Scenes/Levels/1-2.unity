@@ -287,82 +287,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
-      propertyPath: actionCounter
-      value: 
-      objectReference: {fileID: 1525255115}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
       propertyPath: managerObject
       value: 
       objectReference: {fileID: 1363584979}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: constructionPrefab
-      value: 
-      objectReference: {fileID: 4625999577303596951, guid: 2b850c22593b3b14183827966cdf6564,
-        type: 3}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: constructionPreview
-      value: 
-      objectReference: {fileID: 7335869988587274709, guid: 5ba7511c5d3d57d49b73e97a626305c3,
-        type: 3}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourcePanelCanvas
-      value: 
-      objectReference: {fileID: 189911359}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[1].resourceMesh
-      value: 
-      objectReference: {fileID: 8467973019869391972, guid: 7c50b912ec1bbda47b70dd380b30d9aa,
-        type: 3}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[1].resourcePrefab
-      value: 
-      objectReference: {fileID: 926741322556494006, guid: 49215c0bae2ceb84991274e7cf36974a,
-        type: 3}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[3].resourcePrefab
-      value: 
-      objectReference: {fileID: 3519212606350903974, guid: 306d6adbaadc5aa489f4630fefef31b3,
-        type: 3}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[1].resourceScriptableObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 62b76af5bbb4cc443a400f0307f33cd5,
-        type: 2}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[3].resourceScriptableObject
-      value: 
-      objectReference: {fileID: 11400000, guid: c0a05273c5cf78749858e53fa70ef5e3,
-        type: 2}
-    - target: {fileID: 1133794617676808976, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: resourceModel.Array.data[6].resourceScriptableObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 7ac627ff45dff96459c797648e76eaf0,
-        type: 2}
-    - target: {fileID: 1225749107992227698, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0021972656
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556963065659828109, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2995955920892753718, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4037284476425610564, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: m_Pivot.x
@@ -463,33 +390,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8425829563580178605, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8425829563580178605, guid: 446021696dc2b5248a5203041dc942cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9215794895238870395, guid: 446021696dc2b5248a5203041dc942cc,
         type: 3}
       propertyPath: m_Name
       value: ResourceMenuCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5654219182805740490, guid: 446021696dc2b5248a5203041dc942cc, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446021696dc2b5248a5203041dc942cc, type: 3}
---- !u!223 &189911359 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 1556963065659828109, guid: 446021696dc2b5248a5203041dc942cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 189911358}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &207358610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3912,6 +3822,8 @@ MonoBehaviour:
   levelVariables: {fileID: 11400000, guid: 5eade6ebf58789349ba0d0daa9f8c2cc, type: 2}
   levelSaveName: level 6
   actionsMade: 0
+  actionsMax: 0
+  adsButton: {fileID: 0}
   zeroAmount: 0
   woodAmount: 0
   plankAmount: 0
@@ -4346,18 +4258,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 672627390}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1525255115 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 852233407943257516, guid: 446021696dc2b5248a5203041dc942cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 189911358}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1533730111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6861263140548045625, guid: b29958205e77de1418a20555cb5319df,
