@@ -502,6 +502,8 @@ MonoBehaviour:
   levelVariables: {fileID: 11400000, guid: dbacbe84d2609f34f990c88d9fe0f35c, type: 2}
   levelSaveName: 
   actionsMade: 0
+  actionsMax: 0
+  adsButton: {fileID: 0}
   zeroAmount: 0
   woodAmount: 0
   plankAmount: 0
@@ -7862,6 +7864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b174de124d7fa448fd34595517a9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 20532947e93129b47b97020e47a2f687, type: 2}
   songs:
   - {fileID: 8300000, guid: 603e4dc7b5e8e33418a05bcb3f84a986, type: 3}
   - {fileID: 8300000, guid: 639d80045573fb946a29610c23f41a5d, type: 3}
@@ -9899,6 +9902,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 853231524}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &853586047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4625999577303596951, guid: 2b850c22593b3b14183827966cdf6564,
+    type: 3}
+  m_PrefabInstance: {fileID: 2076912740}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &853586054
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853586047}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 518f255f99fb97748a1740a5ac5560de, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 0}
+  m_Bones: []
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 0}
+  m_AABB:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_DirtyAABB: 0
 --- !u!1001 &862177750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17848,6 +17910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa054ece505edd438fe9ccd03a0d2c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioGroup: {fileID: 0}
   sounds:
   - name: Zoom
     clip: {fileID: 8300000, guid: 3c788a3fe9dffcc4e84f1f4b53545531, type: 3}
@@ -27181,10 +27244,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6571357047674510914, guid: 2b850c22593b3b14183827966cdf6564, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4625999577303596951, guid: 2b850c22593b3b14183827966cdf6564,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 853586054}
   m_SourcePrefab: {fileID: 100100000, guid: 2b850c22593b3b14183827966cdf6564, type: 3}
 --- !u!1001 &2084898256
 PrefabInstance:

@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Lumber
   m_EditorClassIdentifier: 
   gatherRadius: 1
-  constructionMesh: {fileID: -7387706064836869012, guid: 974c1056b7a22bc42af20bf727dd45ed,
+  constructionMesh: {fileID: -1924290777700833130, guid: a44159aebbf74634c940e3ff8126113c,
     type: 3}
-  material: {fileID: 2100000, guid: bebaddec11ef9e1478f82f877731e70f, type: 2}
+  material: {fileID: 2100000, guid: c227d55c44ab4084585d3c6db5cc4128, type: 2}
+  animClip: {fileID: -623603649343465320, guid: a44159aebbf74634c940e3ff8126113c,
+    type: 3}
   resourceToGather: 01000000
   secondaryResource: 02000000
   tileType: 0

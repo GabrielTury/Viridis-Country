@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6571357047674510914}
   - component: {fileID: 3002121583681139370}
   - component: {fileID: 8610527652912770766}
+  - component: {fileID: 2733245315352990270}
   m_Layer: 6
   m_Name: Construction
   m_TagString: Untagged
@@ -121,3 +122,24 @@ MonoBehaviour:
   construcion: {fileID: 11400000, guid: 62b76af5bbb4cc443a400f0307f33cd5, type: 2}
   renderImage: {fileID: 6236049130745409330, guid: 356ad986f6462c8489d52773cd89cdea,
     type: 3}
+--- !u!95 &2733245315352990270
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4625999577303596951}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

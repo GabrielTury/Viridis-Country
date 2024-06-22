@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class Construction : MonoBehaviour
@@ -46,13 +48,18 @@ public class Construction : MonoBehaviour
 
     private Image renderClone;
 
+    private Animator anim;
+
+    private PlayableGraph playableGraph;
+
+
     private void OnEnable()
     {
         canvas = FindFirstObjectByType<Canvas>().gameObject;
 
         meshRenderer = GetComponent<MeshRenderer>();
         GetComponent<MeshFilter>().mesh = construcion.constructionMesh;
-        meshRenderer.material = construcion.material;   
+        meshRenderer.material = construcion.material;
         gatherRadius = construcion.gatherRadius;
         resourceToGather = construcion.resourceToGather;
         tileType = construcion.tileType;
@@ -68,6 +75,11 @@ public class Construction : MonoBehaviour
     {
         GameEvents.Select_Construction -= ReCheckResources;
         GameEvents.Level_Start -= PlacedOnStart;
+    }
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -272,7 +284,9 @@ public class Construction : MonoBehaviour
         if(diff != 0)
         {
             //Debug.Log("Diff: "+ diff);
-            GameEvents.OnResourceGathered(resourceToCheck, diff);          
+            GameEvents.OnResourceGathered(resourceToCheck, diff);
+            PlayClip(anim, construcion.animClip);
+            Debug.Log("Should Play animation");
         }
 
        
@@ -334,5 +348,33 @@ public class Construction : MonoBehaviour
         GameEvents.OnConstructionRemoved(cType);
 
         Destroy(gameObject);
+    }
+
+    private void PlayClip(Animator animator, AnimationClip clip)
+    {
+
+        playableGraph = PlayableGraph.Create();
+
+        AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(playableGraph, "Animation", anim);
+        var mixerPlayable = AnimationMixerPlayable.Create(playableGraph, 2);
+        playableOutput.SetSourcePlayable(mixerPlayable);
+
+        AnimatorControllerPlayable controllerPlayable = AnimatorControllerPlayable.Create(playableGraph, anim.runtimeAnimatorController);
+        mixerPlayable.ConnectInput(0, controllerPlayable, 0);
+        mixerPlayable.SetInputWeight(1, 1);
+
+
+        AnimationClipPlayable playableClip = AnimationClipPlayable.Create(playableGraph, clip);
+        mixerPlayable.ConnectInput(1, playableClip, 0);
+
+
+        playableGraph.Play();
+        Debug.Log(clip.name);
+    }
+
+    private void OnDestroy()
+    {
+        if(playableGraph.IsValid())
+            playableGraph.Destroy();
     }
 }

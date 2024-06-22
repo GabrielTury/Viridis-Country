@@ -13,6 +13,8 @@ public class ConstructionTemplate : ScriptableObject
     public Mesh constructionMesh;
 
     public Material material;
+
+    public AnimationClip animClip;
     
     public GameManager.GameResources[] resourceToGather;
     
