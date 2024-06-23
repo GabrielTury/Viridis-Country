@@ -16,9 +16,7 @@ public class AudioManager : MonoBehaviour
 
     public enum ConstructionAudioTypes
     {
-        Wood,
-        Stone,
-        Metal,
+        Construction_Placed,
         Construction_Removed
     }
     public enum SoundEffects
@@ -69,6 +67,17 @@ public class AudioManager : MonoBehaviour
                 Construction_Removed = s;
         }
         Construction_Removed.source.Play();
+    }
+
+    private void PlayWhenConstructionPlaced(ConstructionAudioTypes cType)
+    {
+        Sound Construction_Placed = null;
+        foreach (Sound s in sounds)
+        {
+            if (s.name == "Stone_Construction")
+                Construction_Placed = s;
+        }
+        Construction_Placed.source.Play();
     }
 
 
@@ -141,6 +150,9 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.Construction_Removed += PlayWhenConstructionRemoved;
+
+        GameEvents.Construction_Placed += PlayWhenConstructionPlaced;
+
         GameEvents.Click += PlayWhenClick;
         GameEvents.Select_Construction += PlayWhenSelect;
         GameEvents.OneStar += PlayWhenOneStar;
@@ -153,6 +165,9 @@ public class AudioManager : MonoBehaviour
     private void OnDisable()
     {
         GameEvents.Construction_Removed -= PlayWhenConstructionRemoved;
+
+        GameEvents.Construction_Placed -= PlayWhenConstructionPlaced;
+
         GameEvents.Click -= PlayWhenClick;
         GameEvents.Select_Construction -= PlayWhenSelect;
         GameEvents.OneStar -= PlayWhenOneStar;

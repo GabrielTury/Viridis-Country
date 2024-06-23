@@ -414,15 +414,16 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.Construction_Placed += ActionCounter;
+
         GameEvents.Resource_Gathered += GetGatheredResources;
 
     }
 
     private void OnDisable()
     {
-        GameEvents.Resource_Gathered -= GetGatheredResources;
-
         GameEvents.Construction_Placed -= ActionCounter;
+
+        GameEvents.Resource_Gathered -= GetGatheredResources;
     }
 
 

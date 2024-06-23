@@ -82,3 +82,18 @@ MonoBehaviour:
     volume: 0
     pitch: 1
     source: {fileID: 0}
+  - name: Wood_Construction
+    clip: {fileID: 8300000, guid: 97f64f4305377ed4680053c5449f7001, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: Stone_Construction
+    clip: {fileID: 8300000, guid: d45fe4a9a8101724baa30f6141413eba, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: Metal_Construction
+    clip: {fileID: 8300000, guid: ffca1ce70c30a694f856819a9d3fe8dc, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
