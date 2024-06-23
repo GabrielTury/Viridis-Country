@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47037cdc0466d804385ed4b80beac321, type: 3}
   m_Name: 1-13
   m_EditorClassIdentifier: 
-  goalWoodAmount: 0
-  goalPlankAmount: 0
-  goalStoneAmount: 0
+  goalWoodAmount: 6
+  goalPlankAmount: 2
+  goalStoneAmount: 5
   goalProcessedStoneAmount: 0
   goalConstructionMaterialsAmount: 0
   goalWaterAmount: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   goalFlourAmount: 0
   goalBreadAmount: 0
   goalGoldAmount: 0
-  threeStarsAmount: 0
-  twoStarsAmount: 0
-  oneStarAmount: 0
+  threeStarsAmount: 6
+  twoStarsAmount: 7
+  oneStarAmount: 8
+  maxTries: 9

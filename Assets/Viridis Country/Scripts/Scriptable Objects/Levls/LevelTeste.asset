@@ -26,9 +26,9 @@ MonoBehaviour:
   goalWoolAmount: 0
   goalClothAmount: 0
   goalClothesAmount: 0
-  goalWheatAmount: 0
-  goalFlourAmount: 0
-  goalBreadAmount: 0
+  goalWheatAmount: 4
+  goalFlourAmount: 2
+  goalBreadAmount: 4
   goalGoldAmount: 0
   threeStarsAmount: 1
   twoStarsAmount: 2

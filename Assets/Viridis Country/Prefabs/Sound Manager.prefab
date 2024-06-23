@@ -50,35 +50,35 @@ MonoBehaviour:
   - name: Zoom
     clip: {fileID: 8300000, guid: 3c788a3fe9dffcc4e84f1f4b53545531, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: Click
     clip: {fileID: 8300000, guid: ceb514873325caa458937ec537e1d48f, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: Select
     clip: {fileID: 8300000, guid: 0ee41b258f1c05340aab7a7f5d62d3a4, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: Demolish
     clip: {fileID: 8300000, guid: 1cfe7c7da9045bf4e826c3b42b1b930f, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: OneStar
     clip: {fileID: 8300000, guid: b4c142dfc0a0667429627dff2231a749, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: TwoStar
     clip: {fileID: 8300000, guid: bb551f2c0d2d62e458d9823bb3132717, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
   - name: ThreeStar
     clip: {fileID: 8300000, guid: be7e4d1f889b0ed449c18e42dd8b5d6d, type: 3}
     volume: 0
-    pitch: 0.1
+    pitch: 1
     source: {fileID: 0}
