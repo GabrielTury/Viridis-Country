@@ -18,7 +18,7 @@ MonoBehaviour:
   goalProcessedStoneAmount: 0
   goalConstructionMaterialsAmount: 0
   goalWaterAmount: 6
-  goalMilkAmount: 0
+  goalMilkAmount: 3
   goalFermentedMilkAmount: 0
   goalCheeseAmount: 0
   goalSkinAmount: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   goalWoolAmount: 0
   goalClothAmount: 0
   goalClothesAmount: 0
-  goalWheatAmount: 3
+  goalWheatAmount: 0
   goalFlourAmount: 0
   goalBreadAmount: 0
   goalGoldAmount: 0

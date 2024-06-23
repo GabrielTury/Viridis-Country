@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 617435860}
   - component: {fileID: 617435859}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -823,7 +823,6 @@ Transform:
   - {fileID: 162741889}
   - {fileID: 314327752}
   - {fileID: 1452050600}
-  - {fileID: 1054155352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &765221485
@@ -921,22 +920,22 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 725002759}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4804959363774607445, guid: cd1aadbce26f47749b6fd1aec0568202,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4804959363774607445, guid: cd1aadbce26f47749b6fd1aec0568202,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.015273303
+      value: 0.4847267
       objectReference: {fileID: 0}
     - target: {fileID: 4804959363774607445, guid: cd1aadbce26f47749b6fd1aec0568202,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.55
+      value: -8.05
       objectReference: {fileID: 0}
     - target: {fileID: 4804959363774607445, guid: cd1aadbce26f47749b6fd1aec0568202,
         type: 3}
@@ -1077,12 +1076,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1054155352 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4804959363774607445, guid: cd1aadbce26f47749b6fd1aec0568202,
-    type: 3}
-  m_PrefabInstance: {fileID: 799941607}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1109814959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1990,6 +1983,7 @@ SceneRoots:
   - {fileID: 189911358}
   - {fileID: 1109814959}
   - {fileID: 1286385625}
-  - {fileID: 617435862}
-  - {fileID: 695242379}
   - {fileID: 1119986157}
+  - {fileID: 695242379}
+  - {fileID: 617435862}
+  - {fileID: 799941607}

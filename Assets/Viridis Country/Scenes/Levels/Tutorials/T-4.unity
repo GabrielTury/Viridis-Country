@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 300151995}
   - component: {fileID: 300151994}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2214,7 +2214,7 @@ PrefabInstance:
     - target: {fileID: 5324791576147831535, guid: cd1aadbce26f47749b6fd1aec0568202,
         type: 3}
       propertyPath: m_Name
-      value: Arvores (6)
+      value: Arvores (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3320,19 +3320,19 @@ SceneRoots:
   - {fileID: 189911358}
   - {fileID: 1109814959}
   - {fileID: 1286385625}
+  - {fileID: 754462436}
+  - {fileID: 626313851}
+  - {fileID: 300151997}
   - {fileID: 459988055}
   - {fileID: 1388624212}
   - {fileID: 561500082}
-  - {fileID: 1451255448}
-  - {fileID: 115789976}
   - {fileID: 1694590836}
-  - {fileID: 2008346700}
-  - {fileID: 440350563}
   - {fileID: 1663013127}
   - {fileID: 1257562714}
+  - {fileID: 1451255448}
+  - {fileID: 115789976}
+  - {fileID: 2008346700}
+  - {fileID: 440350563}
   - {fileID: 300920687}
   - {fileID: 1803256283}
   - {fileID: 351349784}
-  - {fileID: 300151997}
-  - {fileID: 626313851}
-  - {fileID: 754462436}
