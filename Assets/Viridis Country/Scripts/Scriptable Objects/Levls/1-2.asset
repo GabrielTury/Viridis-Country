@@ -31,6 +31,6 @@ MonoBehaviour:
   goalBreadAmount: 0
   goalGoldAmount: 0
   threeStarsAmount: 4
-  twoStarsAmount: 6
-  oneStarAmount: 7
-  maxTries: 8
+  twoStarsAmount: 5
+  oneStarAmount: 6
+  maxTries: 7

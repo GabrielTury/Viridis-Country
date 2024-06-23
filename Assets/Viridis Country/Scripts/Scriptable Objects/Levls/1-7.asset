@@ -30,7 +30,7 @@ MonoBehaviour:
   goalFlourAmount: 0
   goalBreadAmount: 0
   goalGoldAmount: 0
-  threeStarsAmount: 0
-  twoStarsAmount: 0
-  oneStarAmount: 0
-  maxTries: 10
+  threeStarsAmount: 6
+  twoStarsAmount: 7
+  oneStarAmount: 8
+  maxTries: 9

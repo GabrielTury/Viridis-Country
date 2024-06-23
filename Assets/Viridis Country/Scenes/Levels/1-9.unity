@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -298,6 +298,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trigo (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
         type: 3}
@@ -2132,6 +2147,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trigo (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
         type: 3}
@@ -5168,9 +5198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ea3f64c7805914cbb6c9a3fb2833fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelVariables: {fileID: 11400000, guid: 08d55a1236313a24f881cd9013661c7c, type: 2}
+  levelVariables: {fileID: 11400000, guid: e9ffc1dab6cf21b4eb9858af42fc9284, type: 2}
   levelSaveName: level 13
   actionsMade: 0
+  actionsMax: 0
+  adsButton: {fileID: 0}
   zeroAmount: 0
   woodAmount: 0
   plankAmount: 0
@@ -5860,6 +5892,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.026577
       objectReference: {fileID: 0}
@@ -6535,6 +6582,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Trigo (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
         type: 3}
@@ -7222,6 +7284,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432522041615100686, guid: b052bfb754717da43996e34364328306,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0646873
       objectReference: {fileID: 0}
@@ -7677,31 +7754,31 @@ SceneRoots:
   - {fileID: 1109814959}
   - {fileID: 1286385625}
   - {fileID: 1056180494}
-  - {fileID: 1663777571}
   - {fileID: 883076999}
-  - {fileID: 1662367825}
-  - {fileID: 294310789}
   - {fileID: 507063548}
   - {fileID: 66749263}
   - {fileID: 646618353}
   - {fileID: 1992241278}
-  - {fileID: 555190573}
-  - {fileID: 65328689}
-  - {fileID: 1025359647}
   - {fileID: 556718643}
   - {fileID: 354877166}
+  - {fileID: 940619743}
+  - {fileID: 752411746}
+  - {fileID: 1828756431}
+  - {fileID: 294310789}
+  - {fileID: 1025359647}
   - {fileID: 1250855204}
   - {fileID: 2006808135}
+  - {fileID: 1663777571}
+  - {fileID: 1662367825}
+  - {fileID: 555190573}
+  - {fileID: 65328689}
+  - {fileID: 1795074518}
+  - {fileID: 1973844171}
   - {fileID: 1278149219}
   - {fileID: 658446610}
-  - {fileID: 940619743}
-  - {fileID: 1173347541}
-  - {fileID: 752411746}
-  - {fileID: 1795074518}
   - {fileID: 520896966}
-  - {fileID: 1828756431}
-  - {fileID: 1973844171}
   - {fileID: 1235719181}
+  - {fileID: 1173347541}
   - {fileID: 2032230723}
   - {fileID: 1322839377}
   - {fileID: 1743373912}
