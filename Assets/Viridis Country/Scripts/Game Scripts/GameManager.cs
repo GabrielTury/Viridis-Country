@@ -383,6 +383,7 @@ public class GameManager : MonoBehaviour
         }
         else if(actionsMade >= levelVariables.maxTries)
         {
+            GameEvents.OnLevelFailed(AudioManager.SoundEffects.ZeroStar);
             Debug.Log("No Stars");
         }
         Debug.Log("Terminou o Level com: " + actionsMade + " acoes");

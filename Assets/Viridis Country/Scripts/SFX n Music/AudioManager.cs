@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     {
         Click,
         Select,
+        ZeroStar,
         OneStar,
         TwoStar,
         ThreeStar
@@ -114,6 +115,18 @@ public class AudioManager : MonoBehaviour
         Select.source.Play();
     }
 
+
+    private void PlayWhenZeroStar(SoundEffects sfx)
+    {
+        Sound ZeroStar = null;
+        foreach (Sound s in sounds)
+        {
+            if (s.name == "ZeroStar")
+                ZeroStar = s;
+        }
+        ZeroStar.source.Play();
+    }
+
     private void PlayWhenOneStar(SoundEffects sfx)
     {
         Sound OneStar = null;
@@ -150,30 +163,33 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.Construction_Removed += PlayWhenConstructionRemoved;
-
         GameEvents.Construction_Placed += PlayWhenConstructionPlaced;
 
         GameEvents.Click += PlayWhenClick;
         GameEvents.Select_Construction += PlayWhenSelect;
+        GameEvents.Planet_Zoom += PlayWhenZoom;
+
+        GameEvents.FailedLevels += PlayWhenZeroStar;
         GameEvents.OneStar += PlayWhenOneStar;
         GameEvents.TwoStar += PlayWhenTwoStar;
         GameEvents.ThreeStar += PlayWhenThreeStar;
-        GameEvents.Planet_Zoom += PlayWhenZoom;
 
     }
 
     private void OnDisable()
     {
         GameEvents.Construction_Removed -= PlayWhenConstructionRemoved;
-
         GameEvents.Construction_Placed -= PlayWhenConstructionPlaced;
 
         GameEvents.Click -= PlayWhenClick;
         GameEvents.Select_Construction -= PlayWhenSelect;
+        GameEvents.Planet_Zoom -= PlayWhenZoom;
+
+        GameEvents.FailedLevels -= PlayWhenZeroStar;
         GameEvents.OneStar -= PlayWhenOneStar;
         GameEvents.TwoStar -= PlayWhenTwoStar;
         GameEvents.ThreeStar -= PlayWhenThreeStar;
-        GameEvents.Planet_Zoom -= PlayWhenZoom;
+        
     }
 
 }

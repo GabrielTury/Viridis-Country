@@ -67,21 +67,6 @@ MonoBehaviour:
     volume: 0
     pitch: 1
     source: {fileID: 0}
-  - name: OneStar
-    clip: {fileID: 8300000, guid: b4c142dfc0a0667429627dff2231a749, type: 3}
-    volume: 0
-    pitch: 1
-    source: {fileID: 0}
-  - name: TwoStar
-    clip: {fileID: 8300000, guid: bb551f2c0d2d62e458d9823bb3132717, type: 3}
-    volume: 0
-    pitch: 1
-    source: {fileID: 0}
-  - name: ThreeStar
-    clip: {fileID: 8300000, guid: be7e4d1f889b0ed449c18e42dd8b5d6d, type: 3}
-    volume: 0
-    pitch: 1
-    source: {fileID: 0}
   - name: Wood_Construction
     clip: {fileID: 8300000, guid: 97f64f4305377ed4680053c5449f7001, type: 3}
     volume: 0
@@ -94,6 +79,26 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Metal_Construction
     clip: {fileID: 8300000, guid: ffca1ce70c30a694f856819a9d3fe8dc, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: ZeroStar
+    clip: {fileID: 8300000, guid: c56354c062cbd5841a18e53b76157c41, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: OneStar
+    clip: {fileID: 8300000, guid: b4c142dfc0a0667429627dff2231a749, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: TwoStar
+    clip: {fileID: 8300000, guid: bb551f2c0d2d62e458d9823bb3132717, type: 3}
+    volume: 0
+    pitch: 1
+    source: {fileID: 0}
+  - name: ThreeStar
+    clip: {fileID: 8300000, guid: be7e4d1f889b0ed449c18e42dd8b5d6d, type: 3}
     volume: 0
     pitch: 1
     source: {fileID: 0}
