@@ -187,7 +187,7 @@ public class FinishLevelHandler : MonoBehaviour
                 foreground.gameObject.SetActive(true);
                 StartCoroutine(FadeColor(foreground, new Color32(0, 0, 0, 255), 0.4f));
 
-                if (SceneManager.GetActiveScene().buildIndex < 14)
+                if (SceneManager.GetActiveScene().buildIndex < 19)
                 {
                     StartCoroutine(FadeOut(0.4f, 0));
                 } else

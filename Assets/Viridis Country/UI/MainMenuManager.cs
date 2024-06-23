@@ -139,7 +139,7 @@ public class MainMenuManager : MonoBehaviour
     {
         if (hasGoneToStage == false && SessionManager.Instance.energyAmount > 0)
         {
-            if (levelID > 1 && levelID <= 14)
+            if (levelID > 1 && levelID <= 19)
             {
                 if (SessionManager.Instance.playerLevels["level " + (levelID - 1)] != 0)
                 {
@@ -149,9 +149,9 @@ public class MainMenuManager : MonoBehaviour
                 }
             } else
             {
-                if (levelID > 14)
+                if (levelID > 19)
                 {
-                    Application.OpenURL("http://unity3d.com/");
+                    Application.OpenURL("https://gabriel-tury.itch.io/viridis-country");
                     return;
                 }
                 hasGoneToStage = true;
