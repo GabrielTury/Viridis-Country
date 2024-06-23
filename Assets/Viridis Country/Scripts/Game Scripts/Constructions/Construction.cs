@@ -48,9 +48,9 @@ public class Construction : MonoBehaviour
 
     private Image renderClone;
 
-    private Animator anim;
+    //private Animator anim;
 
-    private PlayableGraph playableGraph;
+    //private PlayableGraph playableGraph;
 
 
     private void OnEnable()
@@ -79,7 +79,7 @@ public class Construction : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -285,7 +285,7 @@ public class Construction : MonoBehaviour
         {
             //Debug.Log("Diff: "+ diff);
             GameEvents.OnResourceGathered(resourceToCheck, diff);
-            PlayClip(anim, construcion.animClip);
+            //PlayClip(anim, construcion.animClip);
             Debug.Log("Should Play animation");
         }
 
@@ -350,7 +350,7 @@ public class Construction : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void PlayClip(Animator animator, AnimationClip clip)
+    /*private void PlayClip(Animator animator, AnimationClip clip)
     {
 
         playableGraph = PlayableGraph.Create();
@@ -376,5 +376,5 @@ public class Construction : MonoBehaviour
     {
         if(playableGraph.IsValid())
             playableGraph.Destroy();
-    }
+    }*/
 }
