@@ -27,7 +27,7 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Update is called once per frame
     void Update()
     {
-        if (dragOffset.y < -1800)
+        if (dragOffset.y < -2800)
         {
             desertLevel.color = Color.Lerp(desertLevel.color, new Color32(255, 255, 255, 255), 0.05f);
         } else
@@ -47,7 +47,7 @@ public class LevelSelectDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (isDragging)
         {
-            dragOffset = new Vector3(0, Mathf.Clamp(prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, -2600, 0), 0);
+            dragOffset = new Vector3(0, Mathf.Clamp(prevPos.y + (touchPos.y - eventData.pointerCurrentRaycast.screenPosition.y) * -1, -3400, 0), 0);
         }
     }
 
