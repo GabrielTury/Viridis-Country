@@ -26,4 +26,6 @@ public class ConstructionTemplate : ScriptableObject
     public AudioManager.ConstructionAudioTypes constructionType;
 
     public Sprite renderSprite;
+
+    public GameObject boneTransform;
 }

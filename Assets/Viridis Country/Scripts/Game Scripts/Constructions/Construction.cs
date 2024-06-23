@@ -48,9 +48,11 @@ public class Construction : MonoBehaviour
 
     private Image renderClone;
 
-    //private Animator anim;
+   /* private Animator anim;
 
-    //private PlayableGraph playableGraph;
+    private PlayableGraph playableGraph;
+
+    private Transform boneTransform;*/
 
 
     private void OnEnable()
